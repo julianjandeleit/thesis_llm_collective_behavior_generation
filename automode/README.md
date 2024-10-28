@@ -15,7 +15,7 @@ docker build -t automode .
 
 test automode with:
 ```
-docker run --rm -it --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" automode AutoMoDe/bin/automode_main_bt -c aac.argos --bt-config --nroot 3 --nchildroot 1 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.26 --n01 5 --a01 0 --rwm01 5 --p01 0
+docker run --rm -it --env="DISPLAY" --env="QT_X11_NO_MITSHM=1" --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" --privileged automode AutoMoDe/bin/automode_main_bt -c aac.argos --bt-config --nroot 3 --nchildroot 1 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.26 --n01 5 --a01 0 --rwm01 5 --p01 0
 ```
 
 mount a custom .argos file to `/root/aac.argos` to overwrite mission.
