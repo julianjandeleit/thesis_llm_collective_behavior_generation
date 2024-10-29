@@ -31,6 +31,40 @@ Template::Template(const Template& orig) {
 
 void Template::Init(TConfigurationNode& t_tree) {
     // Parsing all floor circles
+    TConfigurationNodeIterator it_obj("objective");
+    TConfigurationNode objectiveParameters;
+    try{
+      // Finding all floor circle
+      for ( it_obj = it_obj.begin( &t_tree ); it_obj != it_obj.end(); it_obj++ )
+      {
+            objectiveParameters = *it_obj;
+            Objective obj;
+
+            // Get the type attribute from the objective
+            GetNodeAttribute(objectiveParameters, "type", obj.type);
+
+            // Now, find the objective-params nested within the objective
+            TConfigurationNodeIterator it_params("objective-params");
+            TConfigurationNode objectiveParamsParameters;
+
+            for (it_params = it_params.begin(&objectiveParameters); it_params != it_params.end(); it_params++) {
+                objectiveParamsParameters = *it_params; // Get the current objective-params node
+
+                // Extract attributes from objective-params
+                GetNodeAttribute(objectiveParamsParameters, "target-color", obj.target_color);
+                GetNodeAttribute(objectiveParamsParameters, "radius", obj.radius);
+            }
+
+            // Store the objective
+            objective = obj;
+      }
+      LOG << "found objective: '" << objective.type << "' color: '" << objective.target_color << "' radius: '" << objective.radius << "'" << std::endl;
+
+    } catch(std::exception e) {
+      LOGERR << "Problem while searching objectives" << e.what() << std::endl;
+    }
+
+    // Parsing all floor circles
     TConfigurationNodeIterator it_circle("circle");
     TConfigurationNode circleParameters;
     try{

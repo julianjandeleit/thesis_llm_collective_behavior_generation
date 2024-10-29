@@ -57,6 +57,27 @@ class Template: public CoreLoopFunctions {
       std::string color;
     };
 
+    struct Objective {
+      std::string type;
+
+      // aggregation
+      std::string target_color;
+      Real radius;
+
+      // connection
+      std::string conn_start;
+      std::string conn_end;
+      Real connection_range;
+
+      // distribution (dispresion)
+      std::string area; // x,y as string
+      // also reuses connection_range
+
+      // foraging
+      std::string source;
+      std::string sink;
+    };
+
     struct Rectangle {
       CVector2 center;
       Real width;
@@ -64,6 +85,8 @@ class Template: public CoreLoopFunctions {
       Real angle;
       std::string color;
     };
+
+    Objective objective;
 
     std::list<Circle> lCircles;
     std::list<Rectangle> lRectangles;
