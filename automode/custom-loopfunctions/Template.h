@@ -57,6 +57,7 @@ class Template: public CoreLoopFunctions {
       std::string color;
     };
 
+    // ----- CUSTOM DATASTRUCTURES ------
     struct Objective {
       std::string type;
 
@@ -78,6 +79,26 @@ class Template: public CoreLoopFunctions {
       std::string sink;
     };
 
+    struct Arena {
+        CVector3 center; // Center of the arena
+        CVector3 size;   // Size of the arena
+    };
+
+    struct Light {
+        std::string id;
+        CVector3 position; // Position of the light
+        CVector3 orientation; // Orientation of the light
+        std::string color; // Color of the light
+        Real intensity;    // Intensity of the light
+        std::string medium; // Medium of the light
+    };
+
+
+    std::list<Light> lLights; // List to store lights
+    Objective objective;
+
+    // ----- END CUSTOM DATASTRUCTURES ------
+
     struct Rectangle {
       CVector2 center;
       Real width;
@@ -85,8 +106,6 @@ class Template: public CoreLoopFunctions {
       Real angle;
       std::string color;
     };
-
-    Objective objective;
 
     std::list<Circle> lCircles;
     std::list<Rectangle> lRectangles;

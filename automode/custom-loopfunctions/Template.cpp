@@ -9,6 +9,8 @@
 #include "Template.h"
 #include <iostream>
 #include <fstream>
+#include <argos3/core/simulator/simulator.h>
+#include <argos3/core/utility/math/vector3.h>
 using namespace std;
 
 /****************************************/
@@ -29,7 +31,50 @@ Template::Template(const Template& orig) {
 /****************************************/
 /****************************************/
 
+CVector3 ParseVector3(const std::string& str) {
+    std::istringstream iss(str);
+    float x, y, z;
+    char comma; // To consume the commas in the string
+
+    if (!(iss >> x >> comma >> y >> comma >> z) || comma != ',') {
+        throw std::invalid_argument("Invalid vector format");
+    }
+
+    return argos::CVector3(x, y, z);
+}
+
 void Template::Init(TConfigurationNode& t_tree) {
+
+   // Access the global configuration root node
+        TConfigurationNode& tRootNode = argos::CSimulator::GetInstance().GetConfigurationRoot();
+
+        // Access the arena node from the root node
+        TConfigurationNode& tArenaNode = GetNode(tRootNode, "arena");
+        // Parse attributes from the arena tag
+        //std::string arenaType;
+        //GetNodeAttribute(tArenaNode, "type", arenaType);
+
+        // Example: Print the arena type
+        //std::cout << "Arena Type: " << arenaType << std::endl;
+
+        std::string sizeStr;
+        GetNodeAttribute(tArenaNode, "size", sizeStr);
+
+        std::string centerStr;
+        GetNodeAttribute(tArenaNode, "center", centerStr);
+
+        Arena arena;
+        // Parse size
+        arena.size = ParseVector3(sizeStr);
+        
+        // Parse center
+        arena.center = ParseVector3(centerStr);
+
+        // Print arena details
+        LOG << "Arena Center: [" << arena.center.GetX() << ", " << arena.center.GetY() << ", " << arena.center.GetZ() << "]" << std::endl;
+        LOG << "Arena Size: [" << arena.size.GetX() << ", " << arena.size.GetY() << ", " << arena.size.GetZ() << "]" << std::endl;
+
+
     // Parsing all floor circles
     TConfigurationNodeIterator it_obj("objective");
     TConfigurationNode objectiveParameters;
@@ -62,6 +107,45 @@ void Template::Init(TConfigurationNode& t_tree) {
 
     } catch(std::exception e) {
       LOGERR << "Problem while searching objectives" << e.what() << std::endl;
+    }
+
+    TConfigurationNodeIterator it_light("light");
+    TConfigurationNode lightParameters;
+
+    try {
+        // Finding all light nodes
+        for (it_light = it_light.begin(&tArenaNode); it_light != it_light.end(); it_light++) {
+            lightParameters = *it_light;
+            Light light;
+
+            // Parse attributes
+            std::string positionStr, orientationStr, colorStr, mediumStr, idStr;
+            Real intensityValue;
+
+            GetNodeAttribute(lightParameters, "id", idStr);
+            GetNodeAttribute(lightParameters, "position", positionStr);
+            GetNodeAttribute(lightParameters, "orientation", orientationStr);
+            GetNodeAttribute(lightParameters, "color", colorStr);
+            GetNodeAttribute(lightParameters, "intensity", intensityValue);
+            GetNodeAttribute(lightParameters, "medium", mediumStr);
+
+            // Parse position and orientation
+            light.id = idStr;
+            light.position = ParseVector3(positionStr);
+            light.orientation = ParseVector3(orientationStr);
+            light.color = colorStr;
+            light.intensity = intensityValue;
+            light.medium = mediumStr;
+
+            LOG << light.id << " " << light.position << " " << light.orientation << " " << light.color << " " << light.intensity << " " << light.medium << " "<< std::endl;
+
+            // Add the light to the list
+            lLights.push_back(light);
+        }
+
+        LOG << "Number of lights: " << lLights.size() << std::endl;
+    } catch (std::exception& e) {
+        LOGERR << "Problem while searching for lights: " << e.what() << std::endl;
     }
 
     // Parsing all floor circles
