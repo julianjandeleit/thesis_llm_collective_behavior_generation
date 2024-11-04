@@ -96,14 +96,24 @@ void Template::Init(TConfigurationNode& t_tree) {
                 objectiveParamsParameters = *it_params; // Get the current objective-params node
 
                 // Extract attributes from objective-params
-                GetNodeAttribute(objectiveParamsParameters, "target-color", obj.target_color);
-                GetNodeAttribute(objectiveParamsParameters, "radius", obj.radius);
+                if (obj.type == "aggregation") {
+                  GetNodeAttribute(objectiveParamsParameters, "target-color", obj.target_color);
+                  GetNodeAttribute(objectiveParamsParameters, "radius", obj.radius);
+                } else if (obj.type == "connection") {
+                  GetNodeAttribute(objectiveParamsParameters, "conn_start", obj.conn_start);
+                  GetNodeAttribute(objectiveParamsParameters, "conn_end", obj.conn_end);
+                  GetNodeAttribute(objectiveParamsParameters, "connection_range", obj.connection_range);
+                } else if (obj.type == "foraging") {
+                  GetNodeAttribute(objectiveParamsParameters, "source", obj.source);
+                  GetNodeAttribute(objectiveParamsParameters, "sink", obj.sink);
+                  
+                }
             }
 
             // Store the objective
             objective = obj;
       }
-      LOG << "found objective: '" << objective.type << "' color: '" << objective.target_color << "' radius: '" << objective.radius << "'" << std::endl;
+      LOG << "found objective: '" << objective.type << "' color: '" << objective.target_color << "' radius: '" << objective.radius << "'"  << "' conn_start: '" << objective.conn_start << "'"    << "' connrange: '" << objective.connection_range << "'"  << std::endl;
 
     } catch(std::exception e) {
       LOGERR << "Problem while searching objectives" << e.what() << std::endl;
@@ -336,35 +346,175 @@ void Template::Reset() {
 /****************************************/
 
 void Template::PostStep() {
-  UInt32 score_temp = m_fObjectiveFunction;
 
-  CSpace::TMapPerType& tEpuckMap = GetSpace().GetEntitiesByType("epuck");
-  CVector2 cEpuckPosition(0,0);
-  for (CSpace::TMapPerType::iterator it = tEpuckMap.begin(); it != tEpuckMap.end(); ++it) {
-    CEPuckEntity* pcEpuck = any_cast<CEPuckEntity*>(it->second);
+  if (objective.type == "foraging") {
+    UInt32 score_temp = m_fObjectiveFunction;
 
-    std::string strRobotId = pcEpuck->GetId();
-    cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
-                       pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
+    CSpace::TMapPerType& tEpuckMap = GetSpace().GetEntitiesByType("epuck");
+    CVector2 cEpuckPosition(0,0);
+    for (CSpace::TMapPerType::iterator it = tEpuckMap.begin(); it != tEpuckMap.end(); ++it) {
+      CEPuckEntity* pcEpuck = any_cast<CEPuckEntity*>(it->second);
+
+      std::string strRobotId = pcEpuck->GetId();
+      cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
+                        pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
 
 
-    Real fDistanceSpot1 = (m_cCoordSpot1 - cEpuckPosition).Length();
-    Real fDistanceSpot2 = (m_cCoordSpot2 - cEpuckPosition).Length();
-    if (fDistanceSpot1 <= m_fRadius) {
-      m_mapFoodData[strRobotId] = 1;
-    } else if (fDistanceSpot2 <= m_fRadius){
-      m_mapFoodData[strRobotId] = 1;
-    } else if (cEpuckPosition.GetY() <= m_fNestLimit) {
-      std::map<std::string, UInt32>::iterator itFood = m_mapFoodData.find(strRobotId);
-      if (itFood != m_mapFoodData.end()) {
-        m_fObjectiveFunction += itFood->second;
+      Real fDistanceSpot1 = (m_cCoordSpot1 - cEpuckPosition).Length();
+      Real fDistanceSpot2 = (m_cCoordSpot2 - cEpuckPosition).Length();
+      if (fDistanceSpot1 <= m_fRadius) {
+        m_mapFoodData[strRobotId] = 1;
+      } else if (fDistanceSpot2 <= m_fRadius){
+        m_mapFoodData[strRobotId] = 1;
+      } else if (cEpuckPosition.GetY() <= m_fNestLimit) {
+        std::map<std::string, UInt32>::iterator itFood = m_mapFoodData.find(strRobotId);
+        if (itFood != m_mapFoodData.end()) {
+          m_fObjectiveFunction += itFood->second;
+        }
+        m_mapFoodData[strRobotId] = 0;
+        // LOG << "Obj " << m_fObjectiveFunction << std::endl;
       }
-      m_mapFoodData[strRobotId] = 0;
-      // LOG << "Obj " << m_fObjectiveFunction << std::endl;
+    }
+    if (score_temp != m_fObjectiveFunction) {
+      //LOGERR << "Obj " << m_fObjectiveFunction << std::endl;
     }
   }
-  if (score_temp != m_fObjectiveFunction) {
-     //LOGERR << "Obj " << m_fObjectiveFunction << std::endl;
+  else if (objective.type == "aggregation") {
+    //  -------- compute number of robots in circle by total robots ----------
+    //LOG <<" computing fitness for aggregation" << std::endl;
+
+ Circle* whiteCircle = nullptr; // actually target circle
+
+        for (const auto& circle : lCircles) {
+            if (circle.color == objective.target_color) {
+                whiteCircle = const_cast<Circle*>(&circle); // If you need to modify it later
+                break; // Exit the loop once we find the white circle
+            }
+        }
+
+        if (whiteCircle) {
+            LOG << "Found a white circle with radius: " << whiteCircle->radius << std::endl;
+        } else {
+            LOGERR << "No white circle found." << std::endl;
+        }
+
+// Initialize counters
+UInt32 totalRobots = 0;
+UInt32 robotsInWhiteCircle = 0;
+
+CSpace::TMapPerType& tEpuckMap = GetSpace().GetEntitiesByType("epuck");
+CVector2 cEpuckPosition(0, 0);
+if (whiteCircle) {
+    Real whiteCircleRadius = whiteCircle->radius; // Assuming radius is of type Real
+    CVector2 whiteCircleCenter = whiteCircle->center; // Assuming center is of type CVector2
+
+    for (CSpace::TMapPerType::iterator it = tEpuckMap.begin(); it != tEpuckMap.end(); ++it) {
+        CEPuckEntity* pcEpuck = any_cast<CEPuckEntity*>(it->second);
+        
+        // Increment total robots count
+        totalRobots++;
+
+        // Get the position of the epuck
+        cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
+                           pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
+
+        // Check if the epuck is inside the white circle
+        Real distanceToWhiteCircle = (whiteCircleCenter - cEpuckPosition).Length();
+        if (distanceToWhiteCircle <= whiteCircleRadius) {
+            robotsInWhiteCircle++;
+        }
+    }
+
+    // Calculate fitness as the ratio of robots in the white circle to total robots
+    Real fitness = (totalRobots > 0) ? static_cast<Real>(robotsInWhiteCircle) / totalRobots : 0.0f;
+
+    // Optionally, you can store or print the fitness value
+    m_fObjectiveFunction = fitness; // just use most recent result
+    std::cout << "Fitness (robots in white circle / total robots): " << m_fObjectiveFunction << std::endl;
+}
+
+  }
+  else if (objective.type == "connection") {
+  //LOG << "Computing fitness for connection mission" << std::endl;
+
+    // Retrieve colors and connection range from the objective struct
+    std::string connStartColor = objective.conn_start;
+    std::string connEndColor = objective.conn_end;
+    Real connectionRange = objective.connection_range;
+
+    Circle* startCircle = nullptr;
+    Circle* endCircle = nullptr;
+
+    // Find the start and end circles based on the colors
+    //LOGERR << "searching colors" << std::endl;
+    //LOGERR << connStartColor << " " << connEndColor << std::endl;
+    for (const auto& circle : lCircles) {
+        if (circle.color == connStartColor) {
+            startCircle = const_cast<Circle*>(&circle);
+        } else if (circle.color == connEndColor) {
+            endCircle = const_cast<Circle*>(&circle);
+        }
+        // Break early if both circles are found
+        if (startCircle && endCircle) {
+            break;
+        }
+    }
+
+    if (!startCircle || !endCircle) {
+        LOGERR << "One or both circles not found. Fitness cannot be computed." << std::endl;
+        m_fObjectiveFunction = 0.0f;
+        return;
+    }
+
+    // Initialize total fitness
+    Real totalFitness = 0.0f;
+
+    // Calculate the direction vector from start to end circle
+    CVector2 direction = endCircle->center - startCircle->center;
+    Real distanceBetweenCircles = direction.Length();
+    direction.Normalize(); // Normalize the direction vector
+
+    // Sample points along the line between the two circles
+    UInt32 numSamples = static_cast<UInt32>(distanceBetweenCircles / connectionRange);
+    
+    CSpace::TMapPerType& tEpuckMap = GetSpace().GetEntitiesByType("epuck");
+    CVector2 cEpuckPosition(0, 0);
+
+    for (UInt32 i = 0; i <= numSamples; ++i) {
+        // Calculate the position of the sampled point
+        CVector2 sampledPoint = startCircle->center + direction * (i * connectionRange);
+
+        // Initialize distance sum for this sampled point
+        Real distanceSum = 0.0f;
+
+        // Count how many robots are near this sampled point
+        for (CSpace::TMapPerType::iterator it = tEpuckMap.begin(); it != tEpuckMap.end(); ++it) {
+            CEPuckEntity* pcEpuck = any_cast<CEPuckEntity*>(it->second);
+
+            // Get the position of the epuck
+            cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
+                               pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
+
+            // Calculate the distance to the sampled point
+            Real distanceToSampledPoint = (sampledPoint - cEpuckPosition).Length();
+            //if (distanceToSampledPoint <= connection_range) {
+              distanceSum = min(-distanceToSampledPoint,distanceSum);
+            //}
+        }
+
+        // Add the distance sum for this sampled point to the total fitness
+        totalFitness += distanceSum;
+    }
+
+    // Store or print the fitness value
+    m_fObjectiveFunction = totalFitness; // just use most recent result
+    std::cout << "Total Fitness (neg sum of distances to closest robots): " << m_fObjectiveFunction << std::endl;
+  }
+  else if (objective.type == "distribution") {
+
+  }
+  else {
+    LOGERR << "objective '"<<objective.type <<"' not implemented" << std::endl;
   }
 }
 
