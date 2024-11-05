@@ -105,8 +105,10 @@ void Template::Init(TConfigurationNode& t_tree) {
                   GetNodeAttribute(objectiveParamsParameters, "connection_range", obj.connection_range);
                 } else if (obj.type == "foraging") {
                   GetNodeAttribute(objectiveParamsParameters, "source", obj.source);
-                  GetNodeAttribute(objectiveParamsParameters, "sink", obj.sink);
-                  
+                  GetNodeAttribute(objectiveParamsParameters, "sink", obj.sink); 
+                } else if (obj.type == "distribution") { // also known as coverage
+                  GetNodeAttribute(objectiveParamsParameters, "area", obj.area);
+                  GetNodeAttribute(objectiveParamsParameters, "connection_range", obj.connection_range); 
                 }
             }
 
@@ -557,7 +559,88 @@ if (whiteCircle) {
     std::cout << "Total Fitness (neg sum of distances to closest robots): " << m_fObjectiveFunction << std::endl;
   }
   else if (objective.type == "distribution") {
+  LOG << "Computing fitness for distribution mission" << std::endl;
 
+    // Retrieve area and connection range from the objective struct
+    std::string areaStr = objective.area;
+    Real connectionRange = objective.connection_range;
+
+    // Parse the area string to get width and height
+    std::istringstream areaStream(areaStr);
+    std::string widthStr, heightStr;
+    std::getline(areaStream, widthStr, ',');
+    std::getline(areaStream, heightStr, ',');
+    Real areaWidth = std::stof(widthStr);
+    Real areaHeight = std::stof(heightStr);
+    Real targetArea = areaWidth * areaHeight;
+
+    // Initialize bounding box coordinates
+    Real minX = std::numeric_limits<Real>::max();
+    Real minY = std::numeric_limits<Real>::max();
+    Real maxX = std::numeric_limits<Real>::lowest();
+    Real maxY = std::numeric_limits<Real>::lowest();
+
+    CSpace::TMapPerType& tEpuckMap = GetSpace().GetEntitiesByType("epuck");
+    CVector2 cEpuckPosition(0, 0);
+
+    // Compute the bounding box of all robots
+    for (CSpace::TMapPerType::iterator it = tEpuckMap.begin(); it != tEpuckMap.end(); ++it) {
+        CEPuckEntity* pcEpuck = any_cast<CEPuckEntity*>(it->second);
+        
+        // Get the position of the e-puck
+        cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
+                           pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
+
+        // Update bounding box coordinates
+        minX = std::min(minX, cEpuckPosition.GetX());
+        minY = std::min(minY, cEpuckPosition.GetY());
+        maxX = std::max(maxX, cEpuckPosition.GetX());
+        maxY = std::max(maxY, cEpuckPosition.GetY());
+    }
+
+    // Calculate the area of the bounding box
+    Real boundingBoxArea = (maxX - minX) * (maxY - minY);
+    Real areaDifference = abs(targetArea - boundingBoxArea);
+
+    // Initialize total distance and sample count
+    Real totalDistance = 0.0f;
+    UInt32 sampleCount = 0;
+
+    // Sample points within the bounding box
+    for (Real x = minX; x <= maxX; x += connectionRange) {
+        for (Real y = minY; y <= maxY; y += connectionRange) {
+            CVector2 sampledPoint(x, y);
+            Real closestDistance = std::numeric_limits<Real>::max();
+
+            // Find the closest robot to the sampled point
+            for (CSpace::TMapPerType::iterator it = tEpuckMap.begin(); it != tEpuckMap.end(); ++it) {
+                CEPuckEntity* pcEpuck = any_cast<CEPuckEntity*>(it->second);
+                cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
+                                   pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
+
+                // Calculate the distance to the sampled point
+                Real distanceToRobot = (sampledPoint - cEpuckPosition).Length();
+                closestDistance = std::min(closestDistance, distanceToRobot);
+            }
+
+            // Accumulate the closest distance
+            totalDistance += closestDistance;
+            sampleCount++;
+        }
+    }
+
+    // Calculate average distance
+    Real averageDistance = (sampleCount > 0) ? totalDistance / sampleCount : 0.0f;
+
+    // Calculate fitness as the negative area difference and average distance
+    m_fObjectiveFunction = - areaDifference - averageDistance;
+
+        // Log the results
+    std::cout << "Bounding Box Area: " << boundingBoxArea << std::endl;
+    std::cout << "Target Area: " << targetArea << std::endl;
+    std::cout << "Area Difference: " << areaDifference << std::endl;
+    std::cout << "Average Distance to Closest Robot: " << averageDistance << std::endl;
+    std::cout << "Current Fitness: " << m_fObjectiveFunction << std::endl;
   }
   else {
     LOGERR << "objective '"<<objective.type <<"' not implemented" << std::endl;
