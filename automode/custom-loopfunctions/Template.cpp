@@ -348,36 +348,82 @@ void Template::Reset() {
 void Template::PostStep() {
 
   if (objective.type == "foraging") {
-    UInt32 score_temp = m_fObjectiveFunction;
+    // Retrieve source and sink colors from the objective struct
+    std::string sourceColor = objective.source;
+    std::string sinkColor = objective.sink;
+
+    Circle* sourceCircle = nullptr;
+    Circle* sinkCircle = nullptr;
+
+    // Find the source and sink circles based on the colors
+    for (const auto& circle : lCircles) {
+        if (circle.color == sourceColor) {
+            sourceCircle = const_cast<Circle*>(&circle);
+        } else if (circle.color == sinkColor) {
+            sinkCircle = const_cast<Circle*>(&circle);
+        }
+        // Break early if both circles are found
+        if (sourceCircle && sinkCircle) {
+            break;
+        }
+    }
+
+    if (!sourceCircle || !sinkCircle) {
+        LOG << "One or both circles not found. Fitness cannot be computed." << std::endl;
+        m_fObjectiveFunction = 0.0f;
+        return;
+    }
+
+    // Initialize counters
+    UInt32 totalRobots = 0;
+    UInt32 itemsPickedUp = 0;
+    UInt32 itemsDropped = 0;
 
     CSpace::TMapPerType& tEpuckMap = GetSpace().GetEntitiesByType("epuck");
-    CVector2 cEpuckPosition(0,0);
+    CVector2 cEpuckPosition(0, 0);
+
     for (CSpace::TMapPerType::iterator it = tEpuckMap.begin(); it != tEpuckMap.end(); ++it) {
-      CEPuckEntity* pcEpuck = any_cast<CEPuckEntity*>(it->second);
+        CEPuckEntity* pcEpuck = any_cast<CEPuckEntity*>(it->second);
+        
+        // Get the position of the e-puck
+        cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
+                           pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
 
-      std::string strRobotId = pcEpuck->GetId();
-      cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
-                        pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
+        // Increment total robots count
+        totalRobots++;
 
+        // Check if the e-puck is inside the source circle
+        Real distanceToSource = (sourceCircle->center - cEpuckPosition).Length();
+        std::string strRobotId = pcEpuck->GetId();
 
-      Real fDistanceSpot1 = (m_cCoordSpot1 - cEpuckPosition).Length();
-      Real fDistanceSpot2 = (m_cCoordSpot2 - cEpuckPosition).Length();
-      if (fDistanceSpot1 <= m_fRadius) {
-        m_mapFoodData[strRobotId] = 1;
-      } else if (fDistanceSpot2 <= m_fRadius){
-        m_mapFoodData[strRobotId] = 1;
-      } else if (cEpuckPosition.GetY() <= m_fNestLimit) {
-        std::map<std::string, UInt32>::iterator itFood = m_mapFoodData.find(strRobotId);
-        if (itFood != m_mapFoodData.end()) {
-          m_fObjectiveFunction += itFood->second;
+        if (distanceToSource <= sourceCircle->radius) {
+            // Pick up an item
+            if (m_mapFoodData[strRobotId] == 0) { // If the robot doesn't already have food
+                m_mapFoodData[strRobotId] = 1; // Mark as having food
+                itemsPickedUp++;
+                LOG << "Item picked up by robot: " << strRobotId << std::endl;
+            }
         }
-        m_mapFoodData[strRobotId] = 0;
-        // LOG << "Obj " << m_fObjectiveFunction << std::endl;
-      }
+
+        // Check if the e-puck is inside the sink circle
+        Real distanceToSink = (sinkCircle->center - cEpuckPosition).Length();
+        if (distanceToSink <= sinkCircle->radius) {
+            // Drop an item (count towards fitness) only if the robot has food
+            if (m_mapFoodData[strRobotId] == 1) {
+                itemsDropped++;
+                m_mapFoodData[strRobotId] = 0; // Mark as not having food anymore
+                LOG << "Item dropped by robot: " << strRobotId << std::endl;
+            }
+        }
     }
-    if (score_temp != m_fObjectiveFunction) {
-      //LOGERR << "Obj " << m_fObjectiveFunction << std::endl;
-    }
+
+    // Update the fitness based on items dropped at the sink circle
+    m_fObjectiveFunction += itemsDropped; // Increment fitness by the number of items dropped
+
+    // Optionally, log the results
+    std::cout << "Total items picked up: " << itemsPickedUp << std::endl;
+    std::cout << "Total items dropped: " << itemsDropped << std::endl;
+    std::cout << "Current Fitness: " << m_fObjectiveFunction << std::endl;
   }
   else if (objective.type == "aggregation") {
     //  -------- compute number of robots in circle by total robots ----------

@@ -8,7 +8,7 @@
     <circle position="-2.16,-0.66" radius="0.47" color="white"/>
     <circle position="1.29,0.84" radius="0.27" color="black"/>
     <objective type="foraging">
-      <objective-params source="white" sink="black"/>
+      <objective-params source="black" sink="white"/>
     </objective>
   </loop_functions>
   <controllers>
