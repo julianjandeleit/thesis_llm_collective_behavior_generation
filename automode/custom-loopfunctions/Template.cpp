@@ -399,6 +399,7 @@ void Template::PostStep() {
         std::string strRobotId = pcEpuck->GetId();
 
         if (distanceToSource <= sourceCircle->radius) {
+          LOG << "distance to source" << distanceToSource << std::endl;
             // Pick up an item
             if (m_mapFoodData[strRobotId] == 0) { // If the robot doesn't already have food
                 m_mapFoodData[strRobotId] = 1; // Mark as having food
@@ -420,7 +421,7 @@ void Template::PostStep() {
     }
 
     // Update the fitness based on items dropped at the sink circle
-    m_fObjectiveFunction += itemsDropped; // Increment fitness by the number of items dropped
+    m_fObjectiveFunction += 10*itemsDropped + itemsPickedUp; // Increment fitness by the number of items dropped
 
     // Optionally, log the results
     std::cout << "Total items picked up: " << itemsPickedUp << std::endl;
@@ -666,7 +667,7 @@ if (objective.type == "distribution") {
 
     // Calculate fitness as the negative area difference and average distance
     // m_fObjectiveFunction = - areaDifference - averageDistance;
-    m_fObjectiveFunction = -countOfRobotsWithMultipleNeighbors -totalClosestDistance -areaDifference;
+    m_fObjectiveFunction = -countOfRobotsWithMultipleNeighbors -totalClosestDistance -areaDifference/100.0f;
 
         // Log the results
     // std::cout << "Bounding Box Area: " << boundingBoxArea << std::endl;

@@ -17,6 +17,6 @@ mtypes
 
 for t, p in mtypes.items():
     print(t)
-    print(df["argos"][p[0]])
+    print(df["argos"][p[10]])
     print("\n\n")
 # %%
