@@ -6,6 +6,9 @@ RUN apt-get update && apt-get install -y \
     r-base-dev \
     bc \
     && R -e "install.packages('irace', repos='http://cran.rstudio.com/')"
+    
+#    \
+#    && R -e "install.packages('iraceplot', repos='http://cran.rstudio.com/')" 
 
 COPY custom-loopfunctions AutoMoDe-loopfunctions/loop-functions/custom-loopfunctions
 # Add custom-loopfunctions to CMakeLists.txt

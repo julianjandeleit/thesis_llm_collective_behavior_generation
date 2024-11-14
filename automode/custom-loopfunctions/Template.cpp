@@ -559,7 +559,20 @@ if (whiteCircle) {
     std::cout << "Total Fitness (neg sum of distances to closest robots): " << m_fObjectiveFunction << std::endl;
   }
   else if (objective.type == "distribution") {
-  LOG << "Computing fitness for distribution mission" << std::endl;
+
+  }
+  else {
+    LOGERR << "objective '"<<objective.type <<"' not implemented" << std::endl;
+  }
+}
+
+/****************************************/
+/****************************************/
+
+void Template::PostExperiment() {
+  // fitness function computation
+if (objective.type == "distribution") {
+    LOG << "Computing fitness for distribution mission" << std::endl;
 
     // Retrieve area and connection range from the objective struct
     std::string areaStr = objective.area;
@@ -602,55 +615,68 @@ if (whiteCircle) {
     Real boundingBoxArea = (maxX - minX) * (maxY - minY);
     Real areaDifference = abs(targetArea - boundingBoxArea);
 
-    // Initialize total distance and sample count
-    Real totalDistance = 0.0f;
-    UInt32 sampleCount = 0;
-
-    // Sample points within the bounding box
+    // Step 1: Generate sample points
+    std::vector<CVector2> samplePoints;
     for (Real x = minX; x <= maxX; x += connectionRange) {
         for (Real y = minY; y <= maxY; y += connectionRange) {
-            CVector2 sampledPoint(x, y);
-            Real closestDistance = std::numeric_limits<Real>::max();
-
-            // Find the closest robot to the sampled point
-            for (CSpace::TMapPerType::iterator it = tEpuckMap.begin(); it != tEpuckMap.end(); ++it) {
-                CEPuckEntity* pcEpuck = any_cast<CEPuckEntity*>(it->second);
-                cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
-                                   pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
-
-                // Calculate the distance to the sampled point
-                Real distanceToRobot = (sampledPoint - cEpuckPosition).Length();
-                closestDistance = std::min(closestDistance, distanceToRobot);
-            }
-
-            // Accumulate the closest distance
-            totalDistance += closestDistance;
-            sampleCount++;
+            samplePoints.emplace_back(x, y);
         }
     }
 
-    // Calculate average distance
-    Real averageDistance = (sampleCount > 0) ? totalDistance / sampleCount : 0.0f;
+    // Step 2: Initialize data structures
+    std::map<size_t, std::vector<CEPuckEntity*>> closestRobotsMap; // Change key type to size_t
+    Real totalClosestDistance = 0.0f;
+
+    // Step 3: Enumerate robots
+    for (CSpace::TMapPerType::iterator it = tEpuckMap.begin(); it != tEpuckMap.end(); ++it) {
+        CEPuckEntity* pcEpuck = any_cast<CEPuckEntity*>(it->second);
+        cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
+                          pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
+
+        CVector2 robotPosition = cEpuckPosition;
+        Real closestDistance = std::numeric_limits<Real>::max();
+        size_t closestSampleIndex = 0; // Store the index of the closest sample point
+
+        // Step 4: Find closest sample point
+        for (size_t i = 0; i < samplePoints.size(); ++i) { // Use index i
+            const CVector2& samplePoint = samplePoints[i];
+            Real distance = (robotPosition - samplePoint).Length();
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestSampleIndex = i; // Update the index of the closest sample point
+            }
+        }
+
+        // Step 5: Store closest robot information using the index
+        closestRobotsMap[closestSampleIndex].push_back(pcEpuck);
+        totalClosestDistance += closestDistance;
+    }
+
+    // Step 6: Count robots with multiple neighbors
+    int countOfRobotsWithMultipleNeighbors = 0;
+    for (const auto& entry : closestRobotsMap) {
+        if (entry.second.size() >= 2) {
+            countOfRobotsWithMultipleNeighbors += entry.second.size();
+        }
+    }
+
+    // Step 7: Output results
+    std::cout << "Total Closest Distance: " << totalClosestDistance << std::endl;
+    std::cout << "Number of Robots with Multiple Neighbors: " << countOfRobotsWithMultipleNeighbors << std::endl;
 
     // Calculate fitness as the negative area difference and average distance
-    m_fObjectiveFunction = - areaDifference - averageDistance;
+    // m_fObjectiveFunction = - areaDifference - averageDistance;
+    m_fObjectiveFunction = -countOfRobotsWithMultipleNeighbors -totalClosestDistance -areaDifference;
 
         // Log the results
-    std::cout << "Bounding Box Area: " << boundingBoxArea << std::endl;
-    std::cout << "Target Area: " << targetArea << std::endl;
-    std::cout << "Area Difference: " << areaDifference << std::endl;
-    std::cout << "Average Distance to Closest Robot: " << averageDistance << std::endl;
+    // std::cout << "Bounding Box Area: " << boundingBoxArea << std::endl;
+    // std::cout << "Target Area: " << targetArea << std::endl;
+    // std::cout << "Area Difference: " << areaDifference << std::endl;
+    // std::cout << "Average Distance to Closest Robot: " << averageDistance << std::endl;
     std::cout << "Current Fitness: " << m_fObjectiveFunction << std::endl;
-  }
-  else {
-    LOGERR << "objective '"<<objective.type <<"' not implemented" << std::endl;
-  }
 }
 
-/****************************************/
-/****************************************/
 
-void Template::PostExperiment() {
   // Create and open a text file 
   ofstream MyFile("pos.mu",ios::trunc);
 

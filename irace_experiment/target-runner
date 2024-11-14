@@ -80,6 +80,8 @@ fi
 echo " score |$SCORE|" >> $FSM_LOG
 
 # Print score!
-echo "-$SCORE"
+# irace minimizes but our fitness is usually maximized so
+SCORE=$(echo "$SCORE * -1" | bc)
+echo "$SCORE"
 
 exit 0

@@ -1,5 +1,7 @@
 # how to docker (podman) to enroot with cluster
 ## on local machine
+make sure the most recent version of automode is built according to readme.
+
 enroot import --output automode.sqsh podman://automode # replace podman with dockerd for docker
 scp automode.sqsh  kn_pop515691@bwunicluster.scc.kit.edu:~/automode.sqsh
 
@@ -31,4 +33,12 @@ sinfo_t_idle
 submit partition:
 
 sbatch --partition dev_single testscript.sh
+
+show running jobs:
+squeue
+show details of job
+scontrol show job ID
+
+output gets written to slurm-JOBID.out
+
 
