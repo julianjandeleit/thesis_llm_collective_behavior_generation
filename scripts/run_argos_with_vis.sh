@@ -23,12 +23,14 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run the podman command with all remaining arguments
-podman run --rm -it \
-    --env="DISPLAY" \
-    --env="QT_X11_NO_MITSHM=1" \
-    -v "$output_file:/root/aac.argos" \
-    --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
-    --privileged automode AutoMoDe/bin/automode_main_bt -c /root/aac.argos --bt-config "$@"
+# podman run --rm -it \
+#     --env="DISPLAY" \
+#     --env="QT_X11_NO_MITSHM=1" \
+#     -v "$output_file:/root/aac.argos" \
+#     --volume="/tmp/.X11-unix:/tmp/.X11-unix:rw" \
+#     --privileged automode AutoMoDe/bin/automode_main_bt -c /root/aac.argos --bt-config "$@"
+
+docker run --rm -it --privileged -e DISPLAY -v "$output_file:/root/aac.argos" --volume="/tmp/.X11-unix:/tmp/.X11-unix:ro" automode AutoMoDe/bin/automode_main_bt -c /root/aac.argos --bt-config "$@"
 
 # Check if the podman command was successful
 if [ $? -ne 0 ]; then

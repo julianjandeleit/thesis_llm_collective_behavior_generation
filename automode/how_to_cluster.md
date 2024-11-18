@@ -5,6 +5,10 @@ make sure the most recent version of automode is built according to readme.
 enroot import --output automode.sqsh podman://automode # replace podman with dockerd for docker
 scp automode.sqsh  kn_pop515691@bwunicluster.scc.kit.edu:~/automode.sqsh
 
+optional:
+compress for transmission:
+zstd -i automode.sqsh -o automode.zstd
+
 ## on cluster
 
 enroot create -n automode automode.sqsh
