@@ -1,3 +1,4 @@
 *.sqsh
 *.zst
 *.zstd
+*generated_irace_datasets

@@ -81,14 +81,14 @@
     <!-- * Visualization * -->
     <!-- ***************** -->
   <visualization>
-        <qt-opengl>
+        <!--<qt-opengl>
             <camera>
                 <placement idx="0"
                            position="0,0,4.5"
                            look_at="0,0,0"
                            lens_focal_length="30" />
             </camera>
-        </qt-opengl>
+        </qt-opengl>-->
   </visualization>
 
 </argos-configuration>

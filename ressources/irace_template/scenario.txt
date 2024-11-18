@@ -1,0 +1,33 @@
+###################################################### -*- mode: r -*- #####
+## Scenario setup for Iterated Race (iRace).
+############################################################################
+## To use the default value of a parameter of iRace, simply do not set
+## the parameter (comment it out in this file, and do not give any
+## value on the command line).
+
+## File that contains the description of the parameters.
+parameterFile = "./test_grammar_bt.txt"
+
+#File that contains the options for parameter dependencies
+#dependencyFile = "./depend_config.txt"
+
+## Directory where the programs will be run.
+execDir = "./execution-folder"
+
+## Directory where tuning instances are located, either absolute path or
+## relative to current directory.
+trainInstancesDir = "./experiments-folder"
+
+#The maximum total budget for the runs of targetRunner
+maxExperiments = 38000
+
+## Indicates the number of decimal places to be considered for the
+## real parameters.
+digits = 4
+
+nbIterations = 50
+
+mu = 25 # default is 5
+
+## END of scenario file
+############################################################################

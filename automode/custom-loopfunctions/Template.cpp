@@ -425,7 +425,7 @@ void Template::PostStep() {
     }
 
     // Update the fitness based on items dropped at the sink circle
-    m_fObjectiveFunction += 10*itemsDropped + itemsPickedUp + robotOnSource/100.0f + robotOnTarget/1000.0f; // Increment fitness by the number of items dropped
+    m_fObjectiveFunction += itemsDropped + itemsPickedUp/100.0f + robotOnSource/10000.0f + robotOnTarget/10000.0f; // Increment fitness by the number of items dropped
 
     // Optionally, log the results
     std::cout << "Total items picked up: " << itemsPickedUp << std::endl;
@@ -482,7 +482,7 @@ if (whiteCircle) {
     Real fitness = (totalRobots > 0) ? static_cast<Real>(robotsInWhiteCircle) / totalRobots : 0.0f;
 
     // Optionally, you can store or print the fitness value
-    m_fObjectiveFunction = fitness; // just use most recent result
+    m_fObjectiveFunction += fitness; // just use most recent result
     std::cout << "Fitness (robots in white circle / total robots): " << m_fObjectiveFunction << std::endl;
 }
 
@@ -491,20 +491,7 @@ if (whiteCircle) {
  
   }
   else if (objective.type == "distribution") {
-
-  }
-  else {
-    LOGERR << "objective '"<<objective.type <<"' not implemented" << std::endl;
-  }
-}
-
-/****************************************/
-/****************************************/
-
-void Template::PostExperiment() {
-  // fitness function computation
-if (objective.type == "distribution") {
-    LOG << "Computing fitness for distribution mission" << std::endl;
+ LOG << "Computing fitness for distribution mission" << std::endl;
 
     // Retrieve area and connection range from the objective struct
     std::string areaStr = objective.area;
@@ -609,7 +596,7 @@ if (objective.type == "distribution") {
 
     // Calculate fitness as the negative area difference and average distance
     // m_fObjectiveFunction = - areaDifference - averageDistance;
-    m_fObjectiveFunction = -countOfRobotsWithMultipleNeighbors -totalClosestDistance;
+    m_fObjectiveFunction += -countOfRobotsWithMultipleNeighbors -totalClosestDistance;
 
         // Log the results
     // std::cout << "Bounding Box Area: " << boundingBoxArea << std::endl;
@@ -617,6 +604,19 @@ if (objective.type == "distribution") {
     // std::cout << "Area Difference: " << areaDifference << std::endl;
     // std::cout << "Average Distance to Closest Robot: " << averageDistance << std::endl;
     std::cout << "Current Fitness: " << m_fObjectiveFunction << std::endl;
+  }
+  else {
+    LOGERR << "objective '"<<objective.type <<"' not implemented" << std::endl;
+  }
+}
+
+/****************************************/
+/****************************************/
+
+void Template::PostExperiment() {
+  // fitness function computation
+if (objective.type == "distribution") {
+   
 } else if (objective.type == "connection") {
   //LOG << "Computing fitness for connection mission" << std::endl;
 
@@ -704,7 +704,7 @@ std::cout << "Total Closest Distance: " << totalClosestDistance << std::endl;
 std::cout << "Number of Robots with Multiple Neighbors: " << countOfRobotsWithMultipleNeighbors << std::endl;
 
     // Store or print the fitness value
-    m_fObjectiveFunction = -totalClosestDistance -countOfRobotsWithMultipleNeighbors; // just use most recent result
+    m_fObjectiveFunction += -totalClosestDistance -countOfRobotsWithMultipleNeighbors/10.0f; // just use most recent result
     std::cout << "Total Fitness (neg sum of distances to closest robots): " << m_fObjectiveFunction << std::endl;
 }
 
