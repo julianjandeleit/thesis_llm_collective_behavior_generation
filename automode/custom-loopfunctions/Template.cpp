@@ -437,11 +437,15 @@ void Template::PostStep() {
     //LOG <<" computing fitness for aggregation" << std::endl;
 
  Circle* whiteCircle = nullptr; // actually target circle
+ Circle* otherCircle = nullptr;
 
         for (const auto& circle : lCircles) {
             if (circle.color == objective.target_color) {
                 whiteCircle = const_cast<Circle*>(&circle); // If you need to modify it later
-                break; // Exit the loop once we find the white circle
+                //break; // Exit the loop once we find the white circle
+            }
+            else {
+              otherCircle = const_cast<Circle*>(&circle); // If you need to modify it later
             }
         }
 
@@ -451,9 +455,17 @@ void Template::PostStep() {
             LOGERR << "No white circle found." << std::endl;
         }
 
+        if (whiteCircle) {
+            LOG << "Found an other circle with radius: " << whiteCircle->radius << std::endl;
+        } else {
+            LOGERR << "No other circle found." << std::endl;
+        }
+
 // Initialize counters
 UInt32 totalRobots = 0;
 UInt32 robotsInWhiteCircle = 0;
+
+UInt32 robotsInOtherCircle = 0;
 
 CSpace::TMapPerType& tEpuckMap = GetSpace().GetEntitiesByType("epuck");
 CVector2 cEpuckPosition(0, 0);
@@ -478,8 +490,31 @@ if (whiteCircle) {
         }
     }
 
+    if (otherCircle) {
+    Real otherCircleRadius = otherCircle->radius; // Assuming radius is of type Real
+    CVector2 otherCircleCenter = otherCircle->center; // Assuming center is of type CVector2
+
+    for (CSpace::TMapPerType::iterator it = tEpuckMap.begin(); it != tEpuckMap.end(); ++it) {
+        CEPuckEntity* pcEpuck = any_cast<CEPuckEntity*>(it->second);
+        
+        // Increment total robots count
+        totalRobots++;
+
+        // Get the position of the epuck
+        cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
+                           pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
+
+        // Check if the epuck is inside the white circle
+        Real distanceToCircle = (otherCircleCenter - cEpuckPosition).Length();
+        if (distanceToCircle <= otherCircleRadius) {
+            robotsInOtherCircle++;
+        }
+    }
+
+    Real robotsoutsidecircles = totalRobots - robotsInWhiteCircle - robotsInOtherCircle;
     // Calculate fitness as the ratio of robots in the white circle to total robots
     Real fitness = (totalRobots > 0) ? static_cast<Real>(robotsInWhiteCircle) / totalRobots : 0.0f;
+    fitness += -robotsInOtherCircle * 10 -robotsoutsidecircles; // we really want to punish stopping at wrong circle as this seems to be ignored at some optimizations
 
     // Optionally, you can store or print the fitness value
     m_fObjectiveFunction += fitness; // just use most recent result

@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --ntasks=1
-#SBATCH --time=30:00
-#SBATCH --mem=500
+#SBATCH --time=[RUNTIME]
+#SBATCH --mem=1000
 #SBATCH --job-name=irace_job
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=16
 
 # Check if the correct number of arguments is provided
 if [ "$#" -ne 2 ]; then
@@ -15,9 +15,11 @@ fi
 TARGET_DIRECTORY="$1"
 OUTFILE="$2"
 
-CMDOUT=$(enroot start -r -m experiment:/experiment automode bash -c "cd /${TARGET_DIRECTORY} && irace")
+exec 5>&1
+CMDOUT=$(enroot start -r -m "${TARGET_DIRECTORY}":/experiment automode bash -c "cd /experiment && irace --parallel 16" | tee >(cat - >&5))
 
 line=$(echo "$CMDOUT" | grep -- '--nroot' | head -n 1)
 result=${line#* }
-echo "$TARGET_DIRECTORY;$result" >> "${OUTFILE}"
+dname=$(basename $TARGET_DIRECTORY)
+echo "$dname;$result" >> "${OUTFILE}"
 
