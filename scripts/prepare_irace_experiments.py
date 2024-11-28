@@ -4,8 +4,7 @@
 import pickle
 import pandas as pd
 
-with open("../ressources/dataset_seed42_n400.pickle", "rb") as file:
-    df = pickle.load(file)
+
 # %%
 
 def append_vis_part(row):
@@ -41,117 +40,121 @@ def append_vis_part(row):
     return row
 
 #%%
-outdir= "generated_irace_datasets"
-template = "../ressources/irace_template"
+if __name__ == "__main__":
+    with open("../ressources/dataset_seed42_n400.pickle", "rb") as file:
+        df = pickle.load(file)
+        
+    outdir= "generated_irace_datasets"
+    template = "../ressources/irace_template"
 
-import os
-import shutil
-import pathlib
-if pathlib.Path(outdir).exists():
-    shutil.rmtree(outdir)
-os.makedirs(outdir, exist_ok=True)
-
-
-# scriptpath = pathlib.Path(outdir) / 'slurmscript.sh'
-# with open(scriptpath, 'w') as file:  # 'w' mode to c
-#  pass 
-# write experiments
-for index, row in df.iterrows():
-    # experiment
-    row = append_vis_part(row)
-    dirname = f"experiment_{index}"
-    df.at[index,"dirname"] = dirname
-    shutil.copytree(template, pathlib.Path(outdir) / dirname)
-    argospath = pathlib.Path(outdir) / dirname / "experiments-folder" / "mission.argos"
-    with open(argospath, 'w') as file:  # 'w' mode to overwrite the file
-        file.write(row["argos"])
-
-    with open(pathlib.Path(outdir) / dirname / "mission_type.txt", "w") as file:
-        file.write(type(row["parameters"].objective_params).__name__)
-
-    # experiments script
-    # Define the file path
+    import os
+    import shutil
+    import pathlib
+    if pathlib.Path(outdir).exists():
+        shutil.rmtree(outdir)
+    os.makedirs(outdir, exist_ok=True)
 
 
-# Open the file in append mode
-    # with open(scriptpath, 'a') as file:  # 'a' mode to append to the file
-    #     line_to_append = f"sbatch --partition single task_irace.sh {dirname} outfile.txt\n"  # Create a line to append
-    #     file.write(line_to_append)  # Write 
+    # scriptpath = pathlib.Path(outdir) / 'slurmscript.sh'
+    # with open(scriptpath, 'w') as file:  # 'w' mode to c
+    #  pass 
+    # write experiments
+    for index, row in df.iterrows():
+        # experiment
+        row = append_vis_part(row)
+        dirname = f"experiment_{index}"
+        df.at[index,"dirname"] = dirname
+        shutil.copytree(template, pathlib.Path(outdir) / dirname)
+        argospath = pathlib.Path(outdir) / dirname / "experiments-folder" / "mission.argos"
+        with open(argospath, 'w') as file:  # 'w' mode to overwrite the file
+            file.write(row["argos"])
 
-# %%
-from datetime import timedelta
-num_experiments = df.shape[0]
-NUM_SLURMTASKS = 20
-TIME_PER_EXPERIMENT = timedelta(minutes=90)
-import math
-experiments_per_task = math.ceil(num_experiments / float(NUM_SLURMTASKS))
+        with open(pathlib.Path(outdir) / dirname / "mission_type.txt", "w") as file:
+            file.write(type(row["parameters"].objective_params).__name__)
 
-total_seconds = int(TIME_PER_EXPERIMENT.total_seconds()*experiments_per_task)
-hours, remainder = divmod(total_seconds, 3600)
-minutes, seconds = divmod(remainder, 60)
-
-# Print in the desired format
-timestr = f"{hours}:{minutes:02}:{seconds:02}"
-
-jobs = []
-job = ""
-slurms = ""
-for index, row in df.iterrows():
-    dirname = row["dirname"]
-    if index % experiments_per_task == 0:
-            if job != "":        
-                jobs.append(job)
-            slurms += f"sbatch --partition single slurmjob_{len(jobs)}.sh\n"
-            job = ""
-
-    job += f"odir=$(pwd)\nmv {dirname} $TMPDIR\nbash $odir/task_irace.sh $TMPDIR/{dirname} outfile.txt\nmv $TMPDIR/{dirname} $odir/{dirname}\n" 
+        # experiments script
+        # Define the file path
 
 
+    # Open the file in append mode
+        # with open(scriptpath, 'a') as file:  # 'a' mode to append to the file
+        #     line_to_append = f"sbatch --partition single task_irace.sh {dirname} outfile.txt\n"  # Create a line to append
+        #     file.write(line_to_append)  # Write 
 
-if job != "":
-    jobs.append(job)  # Append the last job if it exists
+    # %%
+    from datetime import timedelta
+    num_experiments = df.shape[0]
+    NUM_SLURMTASKS = 20
+    TIME_PER_EXPERIMENT = timedelta(minutes=90)
+    import math
+    experiments_per_task = math.ceil(num_experiments / float(NUM_SLURMTASKS))
 
-# slurm parameters
+    total_seconds = int(TIME_PER_EXPERIMENT.total_seconds()*experiments_per_task)
+    hours, remainder = divmod(total_seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
 
-slurmparameters = f"""#!/bin/bash
-#SBATCH --ntasks=1
-#SBATCH --time={timestr}
-#SBATCH --mem=1000
-#SBATCH --job-name=irace_job
-#SBATCH --cpus-per-task=16
-"""
+    # Print in the desired format
+    timestr = f"{hours}:{minutes:02}:{seconds:02}"
 
-# Write each job to a separate file
-for i, job in enumerate(jobs):
-    job_filename = f"slurmjob_{i}.sh"
-    with open(pathlib.Path(outdir) / job_filename, 'w') as job_file:
-        job_file.write(slurmparameters+job)
+    jobs = []
+    job = ""
+    slurms = ""
+    for index, row in df.iterrows():
+        dirname = row["dirname"]
+        if index % experiments_per_task == 0:
+                if job != "":        
+                    jobs.append(job)
+                slurms += f"sbatch --partition single slurmjob_{len(jobs)}.sh\n"
+                job = ""
 
-
-# Write all SLURM commands to a separate file
-with open(pathlib.Path(outdir) / "slurm_commands.sh", 'w') as slurm_file:
-    slurm_file.write(slurms)
+        job += f"odir=$(pwd)\nmv {dirname} $TMPDIR\nbash $odir/task_irace.sh $TMPDIR/{dirname} outfile.txt\nmv $TMPDIR/{dirname} $odir/{dirname}\n" 
 
 
-source_file_path = 'slurm/task_irace_template.sh'  # Replace with your source file path
-destination_file_path =  pathlib.Path(outdir) / 'task_irace.sh'  # Replace with your destination file path
-replacement_string = timestr  # Replace with the string you want to use
 
-# Load the file, replace [RUNTIME], and write to another file
-with open(source_file_path, 'r') as source_file:
-    content = source_file.read()  # Read the entire content of the source file
+    if job != "":
+        jobs.append(job)  # Append the last job if it exists
 
-# Replace [RUNTIME] with the desired string
-modified_content = content.replace('[RUNTIME]', replacement_string)
+    # slurm parameters
 
-# Write the modified content to the destination file
-with open(destination_file_path, 'w') as destination_file:
-    destination_file.write(modified_content)
+    slurmparameters = f"""#!/bin/bash
+    #SBATCH --ntasks=1
+    #SBATCH --time={timestr}
+    #SBATCH --mem=1000
+    #SBATCH --job-name=irace_job
+    #SBATCH --cpus-per-task=16
+    """
 
-#shutil.copy("slurm/task_irace.sh",outdir)
+    # Write each job to a separate file
+    for i, job in enumerate(jobs):
+        job_filename = f"slurmjob_{i}.sh"
+        with open(pathlib.Path(outdir) / job_filename, 'w') as job_file:
+            job_file.write(slurmparameters+job)
 
-    #print(f"Index: {index}, A: {row['argos']}")
-    #brea
-# %%
-print("execute the following to upload to hpc:\nzip -r generated_irace_datasets.zip generated_irace_datasets && scp -r generated_irace_datasets.zip kn_pop515691@bwunicluster.scc.kit.edu:irace_experiments_slurm.zip")
-# %%
+
+    # Write all SLURM commands to a separate file
+    with open(pathlib.Path(outdir) / "slurm_commands.sh", 'w') as slurm_file:
+        slurm_file.write(slurms)
+
+
+    source_file_path = 'slurm/task_irace_template.sh'  # Replace with your source file path
+    destination_file_path =  pathlib.Path(outdir) / 'task_irace.sh'  # Replace with your destination file path
+    replacement_string = timestr  # Replace with the string you want to use
+
+    # Load the file, replace [RUNTIME], and write to another file
+    with open(source_file_path, 'r') as source_file:
+        content = source_file.read()  # Read the entire content of the source file
+
+    # Replace [RUNTIME] with the desired string
+    modified_content = content.replace('[RUNTIME]', replacement_string)
+
+    # Write the modified content to the destination file
+    with open(destination_file_path, 'w') as destination_file:
+        destination_file.write(modified_content)
+
+    #shutil.copy("slurm/task_irace.sh",outdir)
+
+        #print(f"Index: {index}, A: {row['argos']}")
+        #brea
+    # %%
+    print("execute the following to upload to hpc:\nzip -r generated_irace_datasets.zip generated_irace_datasets && scp -r generated_irace_datasets.zip kn_pop515691@bwunicluster.scc.kit.edu:irace_experiments_slurm.zip && rm -r generated_irace_datasets")
+    # %%

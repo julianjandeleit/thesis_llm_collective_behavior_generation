@@ -1,1 +1,2 @@
-scp -r kn_pop515691@bwunicluster.scc.kit.edu:generated_irace_datasets/experiment_160 /tmp
+#scp -r kn_pop515691@bwunicluster.scc.kit.edu:generated_irace_datasets/experiment_3 /tmp
+scp -r kn_pop515691@bwunicluster.scc.kit.edu:completed_experiment_runs/exp_02_s42_n400_24_11_22_new_grammar/experiment_53 /tmp

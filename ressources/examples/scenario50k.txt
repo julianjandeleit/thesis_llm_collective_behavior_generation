@@ -6,28 +6,24 @@
 ## value on the command line).
 
 ## File that contains the description of the parameters.
-parameterFile = "./grammar-bt.txt"
+parameterFile = "../grammars/grammar-fsm.txt"
 
 #File that contains the options for parameter dependencies
-#dependencyFile = "./depend_config.txt"
+dependencyFile = "../grammars/depend-config-fsm.txt"
 
 ## Directory where the programs will be run.
-execDir = "./execution-folder"
+execDir = "../results-folder"
 
 ## Directory where tuning instances are located, either absolute path or
 ## relative to current directory.
-trainInstancesDir = "./experiments-folder"
+trainInstancesDir = "../mission-folder"
 
 #The maximum total budget for the runs of targetRunner
-maxExperiments = 40000
+maxExperiments = 50000
 
 ## Indicates the number of decimal places to be considered for the
 ## real parameters.
-digits = 4
-
-#nbIterations = 50
-
-mu = 25 # default is 5
+digits = 2
 
 ## END of scenario file
 ############################################################################

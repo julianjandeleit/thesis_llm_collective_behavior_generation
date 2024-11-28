@@ -3,3 +3,4 @@
 *.zstd
 *generated_irace_datasets
 **/frames
+**/__pycache__

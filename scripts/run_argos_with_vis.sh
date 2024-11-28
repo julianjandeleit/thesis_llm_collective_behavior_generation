@@ -8,13 +8,27 @@ if [ "$#" -lt 2 ]; then
     exit 1
 fi
 
+# Check for the --no-vis flag
+NOVIS=""
+if [[ "$1" == "--no-vis" ]]; then
+    # Special code to execute if --no-vis is present
+    echo "Running in no-visualization mode."
+    NOVIS="$1"
+    # Add your special code here
+    shift  # Remove the --no-vis flag from the arguments
+fi
+
 # Assign input and output file names from command-line arguments
 input_file="$1"
 output_file="$2"
 shift 2  # Shift the first two arguments, so $@ now contains all remaining arguments
-
-# Call the previous script to remove the comment around the qt-opengl node
-./remove_vis_comment.sh "$input_file" "$output_file"
+echo $input_file $output_file $@
+if [ -z "$NOVIS" ]; then
+    echo "Running in visualization mode."
+    ./remove_vis_comment.sh "$input_file" "$output_file"
+else
+output_file=$input_file
+fi
 
 # Check if the previous script was successful
 if [ $? -ne 0 ]; then

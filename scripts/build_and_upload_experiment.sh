@@ -1,1 +1,1 @@
-python prepare_irace_experiments.py  && zip -r generated_irace_datasets.zip generated_irace_datasets && scp -r generated_irace_datasets.zip kn_pop515691@bwunicluster.scc.kit.edu:irace_experiments_slurm.zip && rm generated_irace_datasets.zip
+python prepare_irace_experiments.py  && zip -r generated_irace_datasets.zip generated_irace_datasets && scp -r generated_irace_datasets.zip kn_pop515691@bwunicluster.scc.kit.edu:irace_experiments_slurm.zip && rm generated_irace_datasets.zip && rm -r generated_irace_datasets

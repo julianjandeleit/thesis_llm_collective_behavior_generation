@@ -473,6 +473,9 @@ if (whiteCircle) {
     Real whiteCircleRadius = whiteCircle->radius; // Assuming radius is of type Real
     CVector2 whiteCircleCenter = whiteCircle->center; // Assuming center is of type CVector2
 
+
+    std::vector<CEpuckPosition> robotPositions;
+
     for (CSpace::TMapPerType::iterator it = tEpuckMap.begin(); it != tEpuckMap.end(); ++it) {
         CEPuckEntity* pcEpuck = any_cast<CEPuckEntity*>(it->second);
         
@@ -483,12 +486,27 @@ if (whiteCircle) {
         cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
                            pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
 
+        robotPositions.push_back(cEpuckPosition);
+
         // Check if the epuck is inside the white circle
         Real distanceToWhiteCircle = (whiteCircleCenter - cEpuckPosition).Length();
         if (distanceToWhiteCircle <= whiteCircleRadius) {
             robotsInWhiteCircle++;
         }
     }
+
+    // Now calculate the area spanned by the robots
+    Real areaSpannedByRobots = 0.0;
+    int n = robotPositions.size();
+
+    // Calculate the area using the shoelace formula
+    for (int i = 0; i < n; ++i) {
+        areaSpannedByRobots += (robotPositions[i].GetX() * robotPositions[(i + 1) % n].GetY()) -
+                              (robotPositions[(i + 1) % n].GetX() * robotPositions[i].GetY());
+    }
+
+    areaSpannedByRobots = std::abs(areaSpannedByRobots) / 2.0;
+
 
     if (otherCircle) {
     Real otherCircleRadius = otherCircle->radius; // Assuming radius is of type Real
@@ -515,7 +533,7 @@ if (whiteCircle) {
     // Calculate fitness as the ratio of robots in the white circle to total robots
     Real fitness = (totalRobots > 0) ? static_cast<Real>(robotsInWhiteCircle) / totalRobots : 0.0f;
     fitness += -robotsInOtherCircle * 10 -robotsoutsidecircles; // we really want to punish stopping at wrong circle as this seems to be ignored at some optimizations
-
+    fitness -= areaSpannedByRobots;
     // Optionally, you can store or print the fitness value
     m_fObjectiveFunction += fitness; // just use most recent result
     std::cout << "Fitness (robots in white circle / total robots): " << m_fObjectiveFunction << std::endl;
