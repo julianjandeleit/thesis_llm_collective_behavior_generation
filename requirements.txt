@@ -1,2 +1,5 @@
 git+https://github.com/julianjandeleit/swarm_descriptions.git@v1.0.0
 argparse
+seaborn
+plotly
+nbformat

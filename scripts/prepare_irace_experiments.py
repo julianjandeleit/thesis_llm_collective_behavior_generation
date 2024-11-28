@@ -85,7 +85,7 @@ if __name__ == "__main__":
     from datetime import timedelta
     num_experiments = df.shape[0]
     NUM_SLURMTASKS = 20
-    TIME_PER_EXPERIMENT = timedelta(minutes=90)
+    TIME_PER_EXPERIMENT = timedelta(minutes=120)
     import math
     experiments_per_task = math.ceil(num_experiments / float(NUM_SLURMTASKS))
 
