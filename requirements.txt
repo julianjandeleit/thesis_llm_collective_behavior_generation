@@ -3,3 +3,5 @@ argparse
 seaborn
 plotly
 nbformat
+python-dotenv
+scikit-learn

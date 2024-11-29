@@ -1,0 +1,7 @@
+torch 
+transformers 
+peft 
+trl 
+bitsandbytes 
+tqdm
+huggingface_hub
