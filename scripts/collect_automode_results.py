@@ -7,6 +7,7 @@ random.seed(42)
 np.random.seed(42)
 # Step 1: Read the data from a semicolon-separated file
 file_path = '../ressources/outfile.txt'  # Replace with your actual file path
+dataset_path = "../ressources/dataset_seed21_n600.pickle"
 
 # Initialize a list to hold parsed data
 parsed_data = []
@@ -26,7 +27,7 @@ df_trees = pd.DataFrame(parsed_data, columns=['experiment_number', 'behavior_tre
 df_trees.set_index('experiment_number', inplace=True)
 
 # Step 3: Read the existing DataFrame from a pickle file
-with open("../ressources/dataset_seed42_n400.pickle", "rb") as file:
+with open(dataset_path, "rb") as file:
 #with open("testdata.pkl", "rb") as file:
     df_existing = pickle.load(file)
 
