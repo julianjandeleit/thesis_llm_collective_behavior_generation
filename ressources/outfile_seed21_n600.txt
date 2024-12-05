@@ -1,0 +1,256 @@
+experiment_450;
+experiment_270;
+experiment_420;
+experiment_570;
+experiment_510;
+experiment_180;
+experiment_0;
+experiment_480;
+experiment_481;
+experiment_181;
+experiment_482;
+experiment_483;
+experiment_300; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.7651 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.322 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.7056 --n21 5 --a21 0 --rwm21 80 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 2 --p30 0.8245 --n31 5 --a31 5 --rep31 3.4792 --p31 0
+experiment_301;
+experiment_302;
+experiment_421; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 5 --w00 3.2328 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.0255 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.2268 --n21 5 --a21 0 --rwm21 34 --p21 0
+experiment_540; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.7479 --n01 5 --a01 0 --rwm01 7 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.8059 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 5 --w20 3.2589 --n21 5 --a21 2 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 2 --p30 0.1436 --n31 5 --a31 3 --p31 0
+experiment_541;
+experiment_542;
+experiment_330; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.9801 --n01 5 --a01 5 --rep01 1.315 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.9477 --n11 5 --a11 2 --p11 0
+experiment_331;
+experiment_360; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 2 --w00 11.4964 --n01 5 --a01 0 --rwm01 40 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.1749 --n11 5 --a11 0 --rwm11 6 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.1461 --n21 5 --a21 1 --p21 0
+experiment_60; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.2051 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.0732 --n11 5 --a11 0 --rwm11 29 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.9667 --n21 5 --a21 1 --p21 0
+experiment_150; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.2752 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.0607 --n11 5 --a11 0 --rwm11 3 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.7798 --n21 5 --a21 1 --p21 0
+experiment_484; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.6135 --n01 5 --a01 5 --rep01 4.1985 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.4068 --n11 5 --a11 1 --p11 0
+experiment_303; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.0326 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.6462 --n11 5 --a11 0 --rwm11 2 --p11 0
+experiment_390; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.7749 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.6769 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.4318 --n21 5 --a21 3 --p21 0
+experiment_451; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.478 --n01 5 --a01 0 --rwm01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.704 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.3022 --n21 5 --a21 2 --p21 0
+experiment_120; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 3 --w00 3.5264 --n01 5 --a01 5 --rep01 4.2493 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 4 --w10 12.2823 --n11 5 --a11 5 --rep11 4.2812 --p11 0
+experiment_210; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 3 --w00 2.6154 --n01 5 --a01 5 --rep01 2.713 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 3 --w10 4.2734 --n11 5 --a11 5 --rep11 3.4839 --p11 0
+experiment_211;
+experiment_151; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.8624 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.7601 --n11 5 --a11 4 --att11 3.0064 --p11 0
+experiment_152;
+experiment_153;
+experiment_182; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.1153 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.3057 --n11 5 --a11 0 --rwm11 2 --p11 0
+experiment_183;
+experiment_422; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 3 --w00 10.6951 --n01 5 --a01 5 --rep01 2.6878 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 5 --w10 3.8461 --n11 5 --a11 2 --p11 0
+experiment_423;
+experiment_332; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 3 --p00 1 --w00 5.1384 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.6145 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.4751 --n21 5 --a21 5 --rep21 4.2172 --p21 0
+experiment_154; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.6702 --n01 5 --a01 0 --rwm01 6 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.7322 --n11 5 --a11 1 --p11 0
+experiment_155;
+experiment_391; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.1744 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.7105 --n11 5 --a11 0 --rwm11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.8616 --n21 5 --a21 3 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 3 --p30 8 --w30 15.5627 --n31 5 --a31 4 --att31 3.6945 --p31 0
+experiment_184; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.0615 --n01 5 --a01 0 --rwm01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.2202 --n11 5 --a11 1 --p11 0
+experiment_452; --nroot 3 --nchildroot 1 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 3 --w00 3.3903 --n01 5 --a01 5 --rep01 2.4298 --p01 0
+experiment_61; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 2 --w00 11.045 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.8341 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.056 --n21 5 --a21 3 --p21 0
+experiment_62;
+experiment_121; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.2678 --n01 5 --a01 5 --rep01 1.835 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.6923 --n11 5 --a11 0 --rwm11 3 --p11 0
+experiment_304; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 6.6246 --n01 5 --a01 5 --rep01 4.0483 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 10 --w10 7.4373 --n11 5 --a11 5 --rep11 2.5966 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.9067 --n21 5 --a21 2 --p21 0
+experiment_305;
+experiment_306;
+experiment_212; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.6678 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.1041 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 3 --w20 17.451 --n21 5 --a21 3 --p21 0
+experiment_213;
+experiment_214;
+experiment_156; --nroot 3 --nchildroot 1 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 7.0265 --n01 5 --a01 5 --rep01 3.9769 --p01 0
+experiment_157;
+experiment_361; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.4711 --n01 5 --a01 0 --rwm01 4 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.594 --n11 5 --a11 2 --p11 0
+experiment_424; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 8 --w00 3.1029 --n01 5 --a01 5 --rep01 2.3792 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.1546 --n11 5 --a11 4 --att11 1.6733 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.6046 --n21 5 --a21 3 --p21 0
+experiment_392; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.2705 --n01 5 --a01 0 --rwm01 9 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 7 --w10 2.5976 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 6 --w20 6.1616 --n21 5 --a21 1 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 2 --p30 0.5623 --n31 5 --a31 0 --rwm31 82 --p31 0
+experiment_393;
+experiment_185; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.4207 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.4859 --n11 5 --a11 0 --rwm11 40 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.0023 --n21 5 --a21 1 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 4 --p30 2 --w30 1.9482 --n31 5 --a31 3 --p31 0
+experiment_186;
+experiment_158; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.662 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.5856 --n11 5 --a11 0 --rwm11 19 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 3 --w20 4.1614 --n21 5 --a21 0 --rwm21 83 --p21 0
+experiment_159;
+experiment_160;
+experiment_333; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 4.0954 --n01 5 --a01 4 --att01 1.0836 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.9717 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 2 --w20 10.5599 --n21 5 --a21 3 --p21 0
+experiment_453; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.527 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.896 --n11 5 --a11 0 --rwm11 3 --p11 0
+experiment_394; --nroot 3 --nchildroot 1 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.7279 --n01 5 --a01 5 --rep01 4.92 --p01 0
+experiment_215; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 2.8365 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.9397 --n11 5 --a11 2 --p11 0
+experiment_307; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.4226 --n01 5 --a01 4 --att01 1.6346 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.9092 --n11 5 --a11 4 --att11 3.5162 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.8993 --n21 5 --a21 0 --rwm21 5 --p21 0
+experiment_122; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.5109 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.7487 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.0512 --n21 5 --a21 0 --rwm21 3 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 3 --p30 7 --w30 10.4122 --n31 5 --a31 1 --p31 0
+experiment_425; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.0612 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 5 --w10 18.9527 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.1623 --n21 5 --a21 4 --att21 1.6136 --p21 0
+experiment_187; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.4226 --n01 5 --a01 5 --rep01 2.4078 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.3759 --n11 5 --a11 5 --rep11 4.4594 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 1 --w20 12.0203 --n21 5 --a21 2 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 5 --p30 0.0434 --n31 5 --a31 5 --rep31 4.2933 --p31 0
+experiment_362; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.9557 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.7386 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.6149 --n21 5 --a21 4 --att21 4.4449 --p21 0
+experiment_363;
+experiment_334; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.32 --n01 5 --a01 4 --att01 3.0266 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.1133 --n11 5 --a11 5 --rep11 1.7924 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.969 --n21 5 --a21 1 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 3 --p30 6 --w30 12.5509 --n31 5 --a31 2 --p31 0
+experiment_308; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.6081 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.7269 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.4206 --n21 5 --a21 4 --att21 3.0304 --p21 0
+experiment_161; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.9561 --n01 5 --a01 0 --rwm01 7 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.2255 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.6838 --n21 5 --a21 4 --att21 3.4851 --p21 0
+experiment_395; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.4998 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.326 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 7 --w20 9.7323 --n21 5 --a21 3 --p21 0
+experiment_396;
+experiment_63; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 3 --p00 2 --w00 8.4516 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.7776 --n11 5 --a11 3 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 3 --w20 10.7489 --n21 5 --a21 3 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 3 --p30 1 --w30 0.3277 --n31 5 --a31 3 --p31 0
+experiment_64;
+experiment_188; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.0431 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.0328 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.3399 --n21 5 --a21 1 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 3 --p30 1 --w30 9.2767 --n31 5 --a31 4 --att31 1.2076 --p31 0
+experiment_426; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 4 --w00 13.4708 --n01 5 --a01 4 --att01 2.5098 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 2 --w10 18.5558 --n11 5 --a11 5 --rep11 3.3084 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.9235 --n21 5 --a21 2 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 1 --p30 0.849 --n31 5 --a31 1 --p31 0
+experiment_427;
+experiment_123; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.4518 --n01 5 --a01 4 --att01 4.8902 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 5 --w10 8.3058 --n11 5 --a11 0 --rwm11 21 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.5181 --n21 5 --a21 1 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 1 --p30 0.6445 --n31 5 --a31 2 --p31 0
+experiment_124;
+experiment_454; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.3377 --n01 5 --a01 0 --rwm01 29 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.2624 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.4376 --n21 5 --a21 2 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 5 --p30 0.3049 --n31 5 --a31 5 --rep31 4.476 --p31 0
+experiment_335; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.8592 --n01 5 --a01 0 --rwm01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 1 --w10 6.3468 --n11 5 --a11 1 --p11 0
+experiment_65; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.0922 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 3 --w10 11.9986 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.0589 --n21 5 --a21 5 --rep21 4.7235 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 5 --p30 0.4679 --n31 5 --a31 5 --rep31 1.5482 --p31 0
+experiment_125;
+experiment_309; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.7117 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 6 --w10 18.3284 --n11 5 --a11 4 --att11 2.3288 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.101 --n21 5 --a21 0 --rwm21 3 --p21 0
+experiment_336; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.9729 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.6411 --n11 5 --a11 0 --rwm11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.7301 --n21 5 --a21 4 --att21 1.6644 --p21 0
+experiment_216; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.7082 --n01 5 --a01 0 --rwm01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 1 --w10 6.2956 --n11 5 --a11 5 --rep11 3.9824 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.2041 --n21 5 --a21 0 --rwm21 51 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 2 --p30 0.1362 --n31 5 --a31 2 --p31 0
+experiment_428; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.0876 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.2969 --n11 5 --a11 0 --rwm11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.7134 --n21 5 --a21 4 --att21 2.6214 --p21 0
+experiment_364; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.3267 --n01 5 --a01 0 --rwm01 4 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.0229 --n11 5 --a11 4 --att11 1.4176 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 8 --w20 7.5148 --n21 5 --a21 1 --p21 0
+experiment_66; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.1734 --n01 5 --a01 0 --rwm01 20 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.2165 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.2988 --n21 5 --a21 0 --rwm21 36 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 2 --p30 0.7325 --n31 5 --a31 2 --p31 0
+experiment_429; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.0331 --n01 5 --a01 0 --rwm01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.8315 --n11 5 --a11 1 --p11 0
+experiment_455; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 4 --w00 1.7525 --n01 5 --a01 5 --rep01 4.7694 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.7959 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.7338 --n21 5 --a21 4 --att21 4.8253 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 3 --p30 6 --w30 8.5046 --n31 5 --a31 2 --p31 0
+experiment_397; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 3 --p00 2 --w00 11.8388 --n01 5 --a01 4 --att01 3.5673 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.7588 --n11 5 --a11 5 --rep11 2.9834 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.3943 --n21 5 --a21 4 --att21 1.7406 --p21 0
+experiment_67; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.1718 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.1324 --n11 5 --a11 0 --rwm11 36 --p11 0
+experiment_310; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.8529 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.8747 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.4897 --n21 5 --a21 3 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 5 --p30 0.2332 --n31 5 --a31 3 --p31 0
+experiment_337; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.7241 --n01 5 --a01 4 --att01 1.5483 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.4022 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 3 --w20 9.9495 --n21 5 --a21 1 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 0 --p30 0.5107 --n31 5 --a31 4 --att31 1.8936 --p31 0
+experiment_430; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.9105 --n01 5 --a01 4 --att01 4.0641 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.806 --n11 5 --a11 5 --rep11 1.2217 --p11 0
+experiment_365; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 17.1168 --n01 5 --a01 5 --rep01 4.5798 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.5183 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 4 --w20 9.6937 --n21 5 --a21 0 --rwm21 86 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 4 --p30 4 --w30 16.4767 --n31 5 --a31 5 --rep31 2.8035 --p31 0
+experiment_311; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 5.3847 --n01 5 --a01 5 --rep01 4.2886 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 1 --w10 9.0063 --n11 5 --a11 5 --rep11 3.0747 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 10 --w20 17.2935 --n21 5 --a21 1 --p21 0
+experiment_312;
+experiment_398; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.5608 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 1 --w10 18.0986 --n11 5 --a11 5 --rep11 4.3562 --p11 0
+experiment_366; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.0894 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.9489 --n11 5 --a11 5 --rep11 1.7004 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 3 --w20 16.6019 --n21 5 --a21 1 --p21 0
+experiment_456; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.9342 --n01 5 --a01 4 --att01 3.8475 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.5035 --n11 5 --a11 4 --att11 1.8078 --p11 0
+experiment_68; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.0635 --n01 5 --a01 4 --att01 2.6954 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.2298 --n11 5 --a11 1 --p11 0
+experiment_338; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.0213 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.6124 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 6 --w20 8.2383 --n21 5 --a21 5 --rep21 4.3861 --p21 0
+experiment_69;
+experiment_339;
+experiment_431; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.0765 --n01 5 --a01 0 --rwm01 4 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.7481 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.7829 --n21 5 --a21 1 --p21 0
+experiment_367; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.1649 --n01 5 --a01 0 --rwm01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.0133 --n11 5 --a11 4 --att11 4.3343 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 10 --w20 15.2884 --n21 5 --a21 1 --p21 0
+experiment_399; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.2667 --n01 5 --a01 5 --rep01 4.9102 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.7738 --n11 5 --a11 2 --p11 0
+experiment_432; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.6262 --n01 5 --a01 0 --rwm01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.6073 --n11 5 --a11 0 --rwm11 94 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 9 --w20 14.1397 --n21 5 --a21 4 --att21 1.2524 --p21 0
+experiment_313; --nroot 3 --nchildroot 1 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 3 --w00 2.2134 --n01 5 --a01 5 --rep01 2.4655 --p01 0
+experiment_340; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.5938 --n01 5 --a01 5 --rep01 4.2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.9473 --n11 5 --a11 2 --p11 0
+experiment_457; --nroot 3 --nchildroot 1 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.823 --n01 5 --a01 4 --att01 3.643 --p01 0
+experiment_70; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 10 --w00 14.8688 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 8 --w10 6.214 --n11 5 --a11 4 --att11 3.9238 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 2 --w20 12.0167 --n21 5 --a21 5 --rep21 1.8538 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 4 --p30 2 --w30 7.3736 --n31 5 --a31 5 --rep31 3.1775 --p31 0
+experiment_368; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 14.469 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.2736 --n11 5 --a11 1 --p11 0
+experiment_314; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.1047 --n01 5 --a01 0 --rwm01 8 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 9 --w10 18.9523 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.4253 --n21 5 --a21 1 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 4 --p30 2 --w30 5.484 --n31 5 --a31 1 --p31 0
+experiment_433; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 9 --w00 3.4345 --n01 5 --a01 5 --rep01 3.5898 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.5197 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.9323 --n21 5 --a21 0 --rwm21 4 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 4 --p30 7 --w30 15.9926 --n31 5 --a31 1 --p31 0
+experiment_434;
+experiment_400; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.8337 --n01 5 --a01 0 --rwm01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 2 --w10 17.6889 --n11 5 --a11 0 --rwm11 51 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.0783 --n21 5 --a21 1 --p21 0
+experiment_458; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 4 --w00 9.5437 --n01 5 --a01 0 --rwm01 87 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 6 --w10 1.0166 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 3 --w20 5.3231 --n21 5 --a21 3 --p21 0
+experiment_459;
+experiment_315; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 9.9967 --n01 5 --a01 5 --rep01 4.8579 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.9298 --n11 5 --a11 2 --p11 0
+experiment_341; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.9612 --n01 5 --a01 0 --rwm01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.7434 --n11 5 --a11 0 --rwm11 61 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 3 --w20 3.2653 --n21 5 --a21 2 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 5 --p30 0.7318 --n31 5 --a31 2 --p31 0
+experiment_342;
+experiment_343;
+experiment_435; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.5066 --n01 5 --a01 0 --rwm01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.3221 --n11 5 --a11 2 --p11 0
+experiment_369; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.4599 --n01 5 --a01 4 --att01 3.5884 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.2276 --n11 5 --a11 1 --p11 0
+experiment_460; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 3 --p00 1 --w00 12.3482 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 5 --w10 10.9918 --n11 5 --a11 4 --att11 3.267 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 6 --w20 1.1041 --n21 5 --a21 1 --p21 0
+experiment_71; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.8004 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.9111 --n11 5 --a11 0 --rwm11 32 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 4 --w20 10.8686 --n21 5 --a21 3 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 2 --p30 0.7486 --n31 5 --a31 2 --p31 0
+experiment_370; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 10.5425 --n01 5 --a01 5 --rep01 2.1861 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 1 --w10 13.5267 --n11 5 --a11 5 --rep11 3.9124 --p11 0
+experiment_401; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.4079 --n01 5 --a01 5 --rep01 4.5464 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 7 --w10 9.3688 --n11 5 --a11 2 --p11 0
+experiment_72; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.3886 --n01 5 --a01 5 --rep01 4.4888 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.8875 --n11 5 --a11 2 --p11 0
+experiment_436; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.0862 --n01 5 --a01 0 --rwm01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 6 --w10 9.7554 --n11 5 --a11 4 --att11 4.85 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 6 --w20 7.3957 --n21 5 --a21 2 --p21 0
+experiment_437;
+experiment_438;
+experiment_344; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.7811 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 9 --w10 7.8388 --n11 5 --a11 0 --rwm11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.3332 --n21 5 --a21 3 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 2 --p30 0.7642 --n31 5 --a31 2 --p31 0
+experiment_461; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.4082 --n01 5 --a01 0 --rwm01 23 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.24 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 1 --w20 16.2813 --n21 5 --a21 1 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 3 --p30 8 --w30 9.0545 --n31 5 --a31 3 --p31 0
+experiment_316; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 2 --w00 17.7352 --n01 5 --a01 5 --rep01 2.633 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.9118 --n11 5 --a11 2 --p11 0
+experiment_317;
+experiment_73; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.1449 --n01 5 --a01 0 --rwm01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.55 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 6 --w20 12.592 --n21 5 --a21 1 --p21 0
+experiment_439; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.3464 --n01 5 --a01 4 --att01 3.9603 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 5 --w10 5.8549 --n11 5 --a11 3 --p11 0
+experiment_462; --nroot 3 --nchildroot 1 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 2 --w00 5.5407 --n01 5 --a01 5 --rep01 2.3999 --p01 0
+experiment_402; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.1504 --n01 5 --a01 0 --rwm01 38 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.5532 --n11 5 --a11 1 --p11 0
+experiment_403;
+experiment_404;
+experiment_371; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.0822 --n01 5 --a01 0 --rwm01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 1 --w10 16.4706 --n11 5 --a11 0 --rwm11 91 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 5 --w20 10.1021 --n21 5 --a21 1 --p21 0
+experiment_463; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.773 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.0811 --n11 5 --a11 0 --rwm11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.6976 --n21 5 --a21 1 --p21 0
+experiment_464;
+experiment_74; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.5449 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.4119 --n11 5 --a11 4 --att11 4.769 --p11 0
+experiment_75;
+experiment_76;
+experiment_372; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 8 --w00 2.4699 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.5786 --n11 5 --a11 0 --rwm11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.8591 --n21 5 --a21 4 --att21 1.4612 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 1 --p30 0.4824 --n31 5 --a31 0 --rwm31 10 --p31 0
+experiment_318; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 10 --w00 8.1689 --n01 5 --a01 4 --att01 4.2083 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 2 --w10 8.6086 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.1683 --n21 5 --a21 5 --rep21 2.4308 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 1 --p30 0.1719 --n31 5 --a31 5 --rep31 2.7856 --p31 0
+experiment_465; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 6 --w00 14.0922 --n01 5 --a01 5 --rep01 4.756 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.2816 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.9184 --n21 5 --a21 3 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 0 --p30 0.3949 --n31 5 --a31 1 --p31 0
+experiment_405; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.1976 --n01 5 --a01 5 --rep01 1.1927 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.4076 --n11 5 --a11 0 --rwm11 6 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.3994 --n21 5 --a21 4 --att21 2.1036 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 0 --p30 0.6913 --n31 5 --a31 0 --rwm31 7 --p31 0
+experiment_345; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 3 --p00 2 --w00 6.9492 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.1527 --n11 5 --a11 5 --rep11 1.5356 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.1501 --n21 5 --a21 5 --rep21 1.9773 --p21 0
+experiment_319; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.716 --n01 5 --a01 0 --rwm01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 3 --w10 15.8887 --n11 5 --a11 1 --p11 0
+experiment_466; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.9543 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.6438 --n11 5 --a11 0 --rwm11 43 --p11 0
+experiment_440; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 3 --p00 2 --w00 11.759 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 4 --w10 8.6679 --n11 5 --a11 0 --rwm11 95 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.8509 --n21 5 --a21 5 --rep21 1.2009 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 1 --p30 0.6247 --n31 5 --a31 1 --p31 0
+experiment_373; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.0479 --n01 5 --a01 5 --rep01 4.1343 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 2 --w10 11.3837 --n11 5 --a11 1 --p11 0
+experiment_467; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.268 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.7654 --n11 5 --a11 2 --p11 0
+experiment_468;
+experiment_346; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.7588 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 1 --w10 1.9438 --n11 5 --a11 1 --p11 0
+experiment_406; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.0538 --n01 5 --a01 0 --rwm01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.4838 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.7428 --n21 5 --a21 1 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 1 --p30 0.7393 --n31 5 --a31 5 --rep31 1.0786 --p31 0
+experiment_441; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 7 --w00 12.2288 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.6863 --n11 5 --a11 5 --rep11 4.1352 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.3978 --n21 5 --a21 1 --p21 0
+experiment_77; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.6303 --n01 5 --a01 0 --rwm01 7 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.5011 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.4219 --n21 5 --a21 3 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 2 --p30 0.8149 --n31 5 --a31 1 --p31 0
+experiment_469; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 3.4246 --n01 5 --a01 5 --rep01 4.022 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 3 --w10 13.5678 --n11 5 --a11 5 --rep11 3.6208 --p11 0
+experiment_470;
+experiment_471;
+experiment_472;
+experiment_473;
+experiment_320; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.9525 --n01 5 --a01 4 --att01 4.2972 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.6595 --n11 5 --a11 3 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 6 --w20 17.6447 --n21 5 --a21 4 --att21 2.5116 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 5 --p30 0.6576 --n31 5 --a31 5 --rep31 2.7818 --p31 0
+experiment_347; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 18.1778 --n01 5 --a01 5 --rep01 3.1297 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.7627 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.9309 --n21 5 --a21 5 --rep21 3.6179 --p21 0
+experiment_348;
+experiment_349;
+experiment_442; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 5 --w00 2.6474 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.5668 --n11 5 --a11 5 --rep11 1.3787 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.2034 --n21 5 --a21 4 --att21 4.0285 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 3 --p30 7 --w30 14.4377 --n31 5 --a31 1 --p31 0
+experiment_374; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.8864 --n01 5 --a01 4 --att01 2.09 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.9305 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.8696 --n21 5 --a21 5 --rep21 1.0402 --p21 0
+experiment_474; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.5134 --n01 5 --a01 5 --rep01 3.1378 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.5651 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.5906 --n21 5 --a21 5 --rep21 2.2343 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 1 --p30 0.7311 --n31 5 --a31 2 --p31 0
+experiment_350; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 2 --w00 2.6603 --n01 5 --a01 5 --rep01 1.1084 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 4 --w10 17.797 --n11 5 --a11 5 --rep11 1.6012 --p11 0
+experiment_321; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.0516 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.5116 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.971 --n21 5 --a21 0 --rwm21 56 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 1 --p30 0.5876 --n31 5 --a31 3 --p31 0
+experiment_78; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 6.2961 --n01 5 --a01 5 --rep01 4.4163 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 8 --w10 17.8834 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.7904 --n21 5 --a21 5 --rep21 3.2922 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 5 --p30 0.7909 --n31 5 --a31 2 --p31 0
+experiment_351; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.8324 --n01 5 --a01 0 --rwm01 4 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.0459 --n11 5 --a11 1 --p11 0
+experiment_407; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 7 --w00 3.5346 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 8 --w10 10.1641 --n11 5 --a11 0 --rwm11 40 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.1397 --n21 5 --a21 5 --rep21 4.6931 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 3 --p30 3 --w30 3.2216 --n31 5 --a31 1 --p31 0
+experiment_322; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 3 --w00 1.8076 --n01 5 --a01 5 --rep01 3.1243 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 3 --w10 12.4242 --n11 5 --a11 5 --rep11 4.1315 --p11 0
+experiment_443; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.8834 --n01 5 --a01 4 --att01 4.4517 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 2 --w10 2.0891 --n11 5 --a11 3 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 6 --w20 9.3775 --n21 5 --a21 2 --p21 0
+experiment_375; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.7282 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.5101 --n11 5 --a11 5 --rep11 4.6749 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.9117 --n21 5 --a21 2 --p21 0
+experiment_475; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.9617 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.8925 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 10 --w20 12.7965 --n21 5 --a21 5 --rep21 2.3202 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 5 --p30 0.5691 --n31 5 --a31 0 --rwm31 46 --p31 0
+experiment_323; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.806 --n01 5 --a01 5 --rep01 4.735 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.8497 --n11 5 --a11 2 --p11 0
+experiment_79; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.191 --n01 5 --a01 0 --rwm01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.2606 --n11 5 --a11 0 --rwm11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.8036 --n21 5 --a21 5 --rep21 1.5352 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 2 --p30 0.2041 --n31 5 --a31 1 --p31 0
+experiment_444; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.7039 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.3041 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.5158 --n21 5 --a21 3 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 5 --p30 0.1149 --n31 5 --a31 0 --rwm31 42 --p31 0
+experiment_352; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.2025 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.2335 --n11 5 --a11 5 --rep11 1.8102 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 3 --w20 16.4672 --n21 5 --a21 4 --att21 3.4317 --p21 0
+experiment_376; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.2301 --n01 5 --a01 0 --rwm01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.4625 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.0636 --n21 5 --a21 5 --rep21 2.7114 --p21 0
+experiment_80; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.041 --n01 5 --a01 0 --rwm01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.6601 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.5138 --n21 5 --a21 2 --p21 0
+experiment_81;
+experiment_408; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.5335 --n01 5 --a01 0 --rwm01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.1421 --n11 5 --a11 5 --rep11 1.2563 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 1 --w20 15.217 --n21 5 --a21 2 --p21 0
+experiment_409;
+experiment_476; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.7703 --n01 5 --a01 4 --att01 4.6093 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.9724 --n11 5 --a11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.707 --n21 5 --a21 1 --p21 0
+experiment_477;
+experiment_324; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 2 --p00 0.9006 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 7 --w10 1.6441 --n11 5 --a11 4 --att11 3.1413 --p11 0
+experiment_325;
+experiment_326; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.6657 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.9947 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 5 --p20 0.7044 --n21 5 --a21 3 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 4 --p30 6 --w30 5.8939 --n31 5 --a31 2 --p31 0
+experiment_445; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 3 --p00 2 --w00 6.9917 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.0526 --n11 5 --a11 5 --rep11 2.4746 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 8 --w20 9.8778 --n21 5 --a21 4 --att21 2.2126 --p21 0
+experiment_353; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 7 --w00 7.2065 --n01 5 --a01 5 --rep01 2.4224 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.3351 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.0575 --n21 5 --a21 3 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 3 --p30 5 --w30 13.8874 --n31 5 --a31 0 --rwm31 2 --p31 0
+experiment_82; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.8161 --n01 5 --a01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.6438 --n11 5 --a11 5 --rep11 4.2006 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.3135 --n21 5 --a21 5 --rep21 2.8824 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 0 --p30 0.6429 --n31 5 --a31 2 --p31 0
+experiment_83;
+experiment_84;
+experiment_446; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.9093 --n01 5 --a01 0 --rwm01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 1 --w10 15.1267 --n11 5 --a11 1 --p11 0
+experiment_478; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 1 --p00 0.7602 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.0508 --n11 5 --a11 5 --rep11 4.5554 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 3 --p20 1 --w20 15.9586 --n21 5 --a21 1 --p21 0
+experiment_410; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 3 --w00 15.8142 --n01 5 --a01 0 --rwm01 90 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.0872 --n11 5 --a11 4 --att11 3.2237 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.415 --n21 5 --a21 4 --att21 4.1621 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 2 --p30 0.7486 --n31 5 --a31 1 --p31 0
+experiment_411;
+experiment_377; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.8154 --n01 5 --a01 4 --att01 4.199 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.8208 --n11 5 --a11 2 --p11 0
+experiment_85; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.4485 --n01 5 --a01 0 --rwm01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 3 --p10 1 --w10 1.4597 --n11 5 --a11 0 --rwm11 10 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.4428 --n21 5 --a21 1 --p21 0
+experiment_354; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.8394 --n01 5 --a01 0 --rwm01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.7245 --n11 5 --a11 3 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.5715 --n21 5 --a21 4 --att21 2.4282 --p21 0
+experiment_447; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 3 --p00 4 --w00 2.5529 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.7669 --n11 5 --a11 3 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 0 --p20 0.5452 --n21 5 --a21 1 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 4 --p30 9 --w30 1.2386 --n31 5 --a31 1 --p31 0
+experiment_479; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.2721 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.133 --n11 5 --a11 5 --rep11 4.191 --p11 0
+experiment_327; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.8267 --n01 5 --a01 0 --rwm01 3 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.4553 --n11 5 --a11 0 --rwm11 39 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 9 --w20 2.2924 --n21 5 --a21 1 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 3 --p30 7 --w30 6.0951 --n31 5 --a31 1 --p31 0
+experiment_355; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 3 --p00 3 --w00 1.4134 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.9419 --n11 5 --a11 1 --p11 0
+experiment_356;
+experiment_357;
+experiment_448; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 7 --w00 11.233 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.975 --n11 5 --a11 0 --rwm11 1 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 8 --w20 13.6611 --n21 5 --a21 2 --p21 0
+experiment_449; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.2021 --n01 5 --a01 0 --rwm01 31 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.2872 --n11 5 --a11 3 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.1535 --n21 5 --a21 1 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 5 --p30 0.5591 --n31 5 --a31 4 --att31 1.0244 --p31 0
+experiment_412; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 3 --p00 1 --w00 16.8382 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.0406 --n11 5 --a11 5 --rep11 4.7834 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 2 --w20 4.7795 --n21 5 --a21 3 --p21 0
+experiment_413;
+experiment_414;
+experiment_358; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.572 --n01 5 --a01 0 --rwm01 20 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.1257 --n11 5 --a11 4 --att11 2.5763 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.6093 --n21 5 --a21 1 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 0 --p30 0.8282 --n31 5 --a31 1 --p31 0
+experiment_328; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 17.4451 --n01 5 --a01 5 --rep01 4.8096 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 1 --w10 9.1191 --n11 5 --a11 5 --rep11 4.4244 --p11 0
+experiment_86; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 3 --w00 2.907 --n01 5 --a01 5 --rep01 2.9488 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 1 --p10 0.8978 --n11 5 --a11 2 --p11 0
+experiment_329; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 3 --p00 1 --w00 13.977 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 3 --w10 10.5565 --n11 5 --a11 0 --rwm11 44 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 1 --p20 0.0509 --n21 5 --a21 5 --rep21 3.5345 --p21 0
+experiment_359; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.0721 --n01 5 --a01 0 --rwm01 6 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.5074 --n11 5 --a11 3 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.8186 --n21 5 --a21 4 --att21 2.1519 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 0 --p30 0.8437 --n31 5 --a31 1 --p31 0
+experiment_378; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 3 --p00 2 --w00 7.9431 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 5 --p10 0.0871 --n11 5 --a11 3 --p11 0
+experiment_379;
+experiment_380; --nroot 3 --nchildroot 4 --n0 0 --nchild0 2 --n00 6 --c00 4 --p00 1 --w00 8.0033 --n01 5 --a01 5 --rep01 4.764 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 1 --w10 14.2246 --n11 5 --a11 5 --rep11 4.1086 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 4 --p20 7 --w20 10.2754 --n21 5 --a21 5 --rep21 2.1883 --p21 0 --n3 0 --nchild3 2 --n30 6 --c30 4 --p30 1 --w30 7.3106 --n31 5 --a31 5 --rep31 2.419 --p31 0
+experiment_381;
+experiment_382;
+experiment_383;
+experiment_384;
+experiment_385;
+experiment_386;
+experiment_387;
+experiment_388;
+experiment_389;
+experiment_415; --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.925 --n01 5 --a01 2 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 4 --p10 3 --w10 11.4437 --n11 5 --a11 5 --rep11 3.5091 --p11 0
+experiment_416;
+experiment_417;
+experiment_418;
+experiment_419;
+experiment_87; --nroot 3 --nchildroot 3 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.2795 --n01 5 --a01 1 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 0 --p10 0.5838 --n11 5 --a11 2 --p11 0 --n2 0 --nchild2 2 --n20 6 --c20 2 --p20 0.4015 --n21 5 --a21 0 --rwm21 3 --p21 0
+experiment_88;
+experiment_89;  --nroot 3 --nchildroot 2 --n0 0 --nchild0 2 --n00 6 --c00 0 --p00 0.8197 --n01 5 --a01 0 --rwm01 36 --p01 0 --n1 0 --nchild1 2 --n10 6 --c10 2 --p10 0.164 --n11 5 --a11 1 --p11 0

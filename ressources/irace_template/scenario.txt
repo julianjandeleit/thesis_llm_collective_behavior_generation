@@ -25,7 +25,7 @@ maxExperiments = 40000
 ## real parameters.
 digits = 4
 
-#nbIterations = 50
+nbIterations = 50
 
 mu = 25 # default is 5
 
