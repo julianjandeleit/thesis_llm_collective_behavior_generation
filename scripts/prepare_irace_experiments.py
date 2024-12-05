@@ -41,7 +41,7 @@ def append_vis_part(row):
 
 #%%
 if __name__ == "__main__":
-    with open("../ressources/dataset_seed21_n600.pickle", "rb") as file:
+    with open("../ressources/dataset_seed42_n40.pickle", "rb") as file:
         df = pickle.load(file)
         
     outdir= "generated_irace_datasets"
@@ -89,7 +89,7 @@ if __name__ == "__main__":
     import math
     experiments_per_task = math.ceil(num_experiments / float(NUM_SLURMTASKS))
 
-    total_seconds = int(TIME_PER_EXPERIMENT.total_seconds()*experiments_per_task)
+    total_seconds = int(TIME_PER_EXPERIMENT.total_seconds()*experiments_per_task)+5*60 # 5 minutes for enroot install 
     hours, remainder = divmod(total_seconds, 3600)
     minutes, seconds = divmod(remainder, 60)
 
@@ -105,7 +105,23 @@ if __name__ == "__main__":
                 if job != "":        
                     jobs.append(job)
                 slurms += f"sbatch --partition single slurmjob_{len(jobs)}.sh\n"
-                job = ""
+                job = """
+odir=$(pwd)
+export ENROOT_DATA_PATH=$TMPDIR/enrootdir
+export ENROOT_CACHE_PATH=$TMPDIR/enrootcache
+export ENROOT_RUNTIME_PATH=$TMPDIR/enrootruntime
+mkdir -p $ENROOT_DATA_PATH
+mkdir -p $ENROOT_CACHE_PATH
+mkdir -p $ENROOT_RUNTIME_PATH
+cd ~
+zstd -d automode.zstd -o $TMPDIR/automode.sqsh
+cd $TMPDIR
+enroot create -n automode automode.sqsh
+ls $ENROOT_DATA_PATH
+ls $ENROOT_CACHE_PATH
+ls $ENROOT_RUNTIME_PATH
+cd $odir                
+"""
 
         job += f"odir=$(pwd)\nmv {dirname} $TMPDIR\nbash $odir/task_irace.sh $TMPDIR/{dirname} outfile.txt\nmv $TMPDIR/{dirname} $odir/{dirname}\n" 
 

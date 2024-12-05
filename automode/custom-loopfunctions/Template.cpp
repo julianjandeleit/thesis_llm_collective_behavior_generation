@@ -477,7 +477,7 @@ void Template::PostStep()
     }
 
     // Update the fitness based on items dropped at the sink circle
-    m_fObjectiveFunction += itemsDropped + itemsPickedUp / 100.0f + robotOnSource / 10000.0f + robotOnTarget / 10000.0f; // Increment fitness by the number of items dropped
+    m_fObjectiveFunction += itemsDropped; //+ itemsPickedUp / 100.0f + robotOnSource / 10000.0f + robotOnTarget / 10000.0f; // Increment fitness by the number of items dropped
 
     // Optionally, log the results
     std::cout << "Total items picked up: " << itemsPickedUp << std::endl;
@@ -599,10 +599,10 @@ void Template::PostStep()
         Real robotsoutsidecircles = totalRobots - robotsInWhiteCircle - robotsInOtherCircle;
         // Calculate fitness as the ratio of robots in the white circle to total robots
         Real fitness = (totalRobots > 0) ? static_cast<Real>(robotsInWhiteCircle) / totalRobots : 0.0f;
-        fitness += -robotsInOtherCircle * 10 - robotsoutsidecircles; // we really want to punish stopping at wrong circle as this seems to be ignored at some optimizations
-        fitness -= areaSpannedByRobots;
+        //fitness += -robotsInOtherCircle * 10 - robotsoutsidecircles; // we really want to punish stopping at wrong circle as this seems to be ignored at some optimizations
+        //fitness -= areaSpannedByRobots;
         // Optionally, you can store or print the fitness value
-        m_fObjectiveFunction += fitness; // just use most recent result
+        m_fObjectiveFunction = fitness; // just use most recent result
         std::cout << "Fitness (robots in white circle / total robots): " << m_fObjectiveFunction << std::endl;
       }
     }
@@ -849,7 +849,7 @@ void Template::PostExperiment()
     std::cout << "Number of Robots with Multiple Neighbors: " << countOfRobotsWithMultipleNeighbors << std::endl;
 
     // Store or print the fitness value
-    m_fObjectiveFunction += -totalClosestDistance - countOfRobotsWithMultipleNeighbors / 10.0f; // just use most recent result
+    m_fObjectiveFunction = -totalClosestDistance - countOfRobotsWithMultipleNeighbors / 10.0f; // just use most recent result
     std::cout << "Total Fitness (neg sum of distances to closest robots): " << m_fObjectiveFunction << std::endl;
   }
 
