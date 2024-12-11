@@ -41,11 +41,12 @@ def append_vis_part(row):
 
 #%%
 if __name__ == "__main__":
-    with open("../ressources/dataset_seed42_n40.pickle", "rb") as file:
+    with open("../ressources/dataset_seed15_n600.pickle", "rb") as file:
         df = pickle.load(file)
         
     outdir= "generated_irace_datasets"
     template = "../ressources/irace_template"
+    #template = "../ressources/irace_template_dev"
 
     import os
     import shutil
