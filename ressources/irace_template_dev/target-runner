@@ -1,0 +1,87 @@
+#!/bin/bash
+###############################################################################
+# This script is to tune the Finite State Machine inside the AutoMoDe software.
+#
+# PARAMETERS:
+# $1 is the ID of the candidate to be evaluated
+# $2 is the instance ID
+# $3 is the seed
+# $4 is the instance name
+# The rest ($* after `shift 4') are parameters for running AutoMoDe (i.e. the
+#					  finite state machine configuration).
+#
+# RETURN VALUE:
+# This script should print a single numerical value (the value to be minimized).
+###############################################################################
+
+# Path to the AutoMoDe software:
+# Note that this script is ran from the execution directory
+
+EXE=/root/AutoMoDe/bin/automode_main_bt
+
+CONFIG_ID="$1"
+INSTANCE_ID="$2"
+SEED="$3"
+INSTANCE="$4"
+
+# All other parameters are the candidate parameters to be passed to program
+shift 4 || error "Not enough parameters to $0"
+CONFIG_PARAMS=$*
+
+# In case of error, we print the current time:
+error() {
+    echo "`TZ=UTC date`: error: $@" >&2
+    exit 1
+}
+
+if [ ! -x "${EXE}" ]; then
+    error "${EXE}: not found or not executable (pwd: $(pwd))"
+fi
+
+
+# Saving the FSM configuration
+FSM_LOG="fsm_log.txt"
+echo ${CONFIG_PARAMS} >> $FSM_LOG
+
+start=`date +%s`
+
+# Now we can call AutoMoDe by building a command line with all parameters for it
+# and we collect its output that contains the score
+#echo "EXE $EXE"
+CMD="$EXE -c $INSTANCE --seed $SEED --bt-config ${CONFIG_PARAMS}"  
+OUTPUT="$($CMD 2> debug.log)"
+echo "beforesed: $OUTPUT" > debug.log
+echo ".." >> debug.log
+LASTLINE=$(echo "$OUTPUT" | awk '/Score/{line=$0} END{print line}')
+OUTPUT="$LASTLINE"
+echo "output: $LASTLINE" >> debug.log
+echo "---" >> debug.log
+#echo "$INSTANCE $SEED" >> debug.log
+#end=`date +%s`
+
+# remove config params from output (that get written there somehow)
+
+
+# Extract the score from the AutoMoDe (i.e. and ARGoS) output
+SCORE=$(echo ${OUTPUT} | grep -o -E 'Score [-+0-9.e]+' | cut -d ' ' -f2)
+if ! [[ "$SCORE" =~ ^[-+0-9.e]+$ ]] ; then
+    error "Output is not a number"
+fi
+
+#TIME=$(echo "$end - $start" | bc -l)
+
+# Multiply by 100 and convert to integer
+#result=$(echo "$SCORE * 100" | bc)
+
+# Convert to integer
+#integer_result=$(printf "%.0f" "$result")
+#SCORE="$integer_result"
+
+echo " score |$SCORE|" >> $FSM_LOG
+
+# Print score!
+# irace minimizes but our fitness is usually maximized so
+SCORE=$(echo "$SCORE * -1" | bc)
+echo "$SCORE"
+
+exit 0

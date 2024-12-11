@@ -1,0 +1,62 @@
+RootNode   "--nroot "   c (3)
+NumChildsRoot   "--nchildroot "   i (1,4)
+N0     "--n0 "  c   (0) | as.numeric(NumChildsRoot)>0
+NumChild0   "--nchild0 "  c (2) | as.numeric(N0)==0
+N00 "--n00 " c (6) | as.numeric(N0)==0
+Cond00 "--c00 "  c (0,1,2,3,4,5) | as.numeric(N0)==0
+P00  "--p00 " r   (0,1) | as.numeric(Cond00) %in% c(0,1,2,5)
+B00  "--p00 " i   (1,10) | as.numeric(Cond00)==3
+W00  "--w00 " r   (0,20) | as.numeric(Cond00)==3
+BI00  "--p00 " i   (1,10) | as.numeric(Cond00)==4
+WI00  "--w00 " r   (0,20) | as.numeric(Cond00)==4
+N01 "--n01 " c (5) | as.numeric(N0)==0
+Action01 "--a01 "  c   (0,1,2,3,4,5) | as.numeric(N0)==0
+RWM01   "--rwm01 "  i (1,100) | as.numeric(Action01)==0
+ATT01   "--att01 "  r (1,5) | as.numeric(Action01)==4
+REP01   "--rep01 "  r (1,5) | as.numeric(Action01)==5
+P01     "--p01 " c (0) | as.numeric(N0)==0
+N1     "--n1 "  c   (0) | as.numeric(NumChildsRoot)>1
+NumChild1   "--nchild1 "  c (2) | as.numeric(N1)==0
+N10 "--n10 " c (6) | as.numeric(N1)==0
+Cond10 "--c10 "  c (0,1,2,3,4,5) | as.numeric(N1)==0
+P10  "--p10 " r   (0,1) | as.numeric(Cond10) %in% c(0,1,2,5)
+B10  "--p10 " i   (1,10) | as.numeric(Cond10)==3
+W10  "--w10 " r   (0,20) | as.numeric(Cond10)==3
+BI10  "--p10 " i   (1,10) | as.numeric(Cond10)==4
+WI10  "--w10 " r   (0,20) | as.numeric(Cond10)==4
+N11 "--n11 " c (5) | as.numeric(N1)==0
+Action11 "--a11 "  c   (0,1,2,3,4,5) | as.numeric(N1)==0
+RWM11   "--rwm11 "  i (1,100) | as.numeric(Action11)==0
+ATT11   "--att11 "  r (1,5) | as.numeric(Action11)==4
+REP11   "--rep11 "  r (1,5) | as.numeric(Action11)==5
+P11     "--p11 " c (0) | as.numeric(N1)==0
+N2     "--n2 "  c   (0) | as.numeric(NumChildsRoot)>2
+NumChild2   "--nchild2 "  c (2) | as.numeric(N2)==0
+N20 "--n20 " c (6) | as.numeric(N2)==0
+Cond20 "--c20 "  c (0,1,2,3,4,5) | as.numeric(N2)==0
+P20  "--p20 " r   (0,1) | as.numeric(Cond20) %in% c(0,1,2,5)
+B20  "--p20 " i   (1,10) | as.numeric(Cond20)==3
+W20  "--w20 " r   (0,20) | as.numeric(Cond20)==3
+BI20  "--p20 " i   (1,10) | as.numeric(Cond20)==4
+WI20  "--w20 " r   (0,20) | as.numeric(Cond20)==4
+N21 "--n21 " c (5) | as.numeric(N2)==0
+Action21 "--a21 "  c   (0,1,2,3,4,5) | as.numeric(N2)==0
+RWM21   "--rwm21 "  i (1,100) | as.numeric(Action21)==0
+ATT21   "--att21 "  r (1,5) | as.numeric(Action21)==4
+REP21   "--rep21 "  r (1,5) | as.numeric(Action21)==5
+P21     "--p21 " c (0) | as.numeric(N2)==0
+N3     "--n3 "  c   (0) | as.numeric(NumChildsRoot)>3
+NumChild3   "--nchild3 "  c (2) | as.numeric(N3)==0
+N30 "--n30 " c (6) | as.numeric(N3)==0
+Cond30 "--c30 "  c (0,1,2,3,4,5) | as.numeric(N3)==0
+P30  "--p30 " r   (0,1) | as.numeric(Cond30) %in% c(0,1,2,5)
+B30  "--p30 " i   (1,10) | as.numeric(Cond30)==3
+W30  "--w30 " r   (0,20) | as.numeric(Cond30)==3
+BI30  "--p30 " i   (1,10) | as.numeric(Cond30)==4
+WI30  "--w30 " r   (0,20) | as.numeric(Cond30)==4
+N31 "--n31 " c (5) | as.numeric(N3)==0
+Action31 "--a31 "  c   (0,1,2,3,4,5) | as.numeric(N3)==0
+RWM31   "--rwm31 "  i (1,100) | as.numeric(Action31)==0
+ATT31   "--att31 "  r (1,5) | as.numeric(Action31)==4
+REP31   "--rep31 "  r (1,5) | as.numeric(Action31)==5
+P31     "--p31 " c (0) | as.numeric(N3)==0
