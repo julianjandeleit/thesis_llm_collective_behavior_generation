@@ -60,7 +60,7 @@ def load_foundation_model_and_tokenizer():
                                                             quantization_config=bnb_config,)
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     tokenizer.pad_token = tokenizer.eos_token
-    #tokenizer.pad_token = tokenizer.unk_token
+    tokenizer.pad_token = tokenizer.unk_token
 
     model = get_peft_model(model, lora_config)
     
@@ -128,43 +128,12 @@ def prepare_dataset_for_training(dataset, tokenizer, generate_prompt):
     generated_train_dataset = to_dataset(generated_train_dataset.head(2500))
     generated_val_dataset = to_dataset(generated_val_dataset.head(500))
     return generated_train_dataset, generated_val_dataset
-
-def prepare_trainer(model, generated_train_dataset, generated_val_dataset, tokenizer, sft_config_params):
-    # Set up the training arguments
-    sft_arguments = SFTConfig(**{
-        "dataset_text_field": "text",
-        "output_dir": "logs"},
-                              **sft_config_params)
-
-    # Initialize the SFTTrainer with the SFTConfig
-    sft_trainer = SFTTrainer(
-        model=model,
-        train_dataset=generated_train_dataset,
-        eval_dataset=generated_val_dataset,
-        tokenizer=tokenizer,
-        args=sft_arguments,
-        packing=False,
-    )
-
-    # Note: If you need to set padding_side, you can do it in the config or directly in the tokenizer.
-    # For example:
-    tokenizer.padding_side = 'right'  # Ensure padding is set to 'right' if needed
-    return sft_trainer
-
-def train(sft_trainer, model, save_path="sft_trained"):
-    sft_trainer.train()
-
-    import shutil
-    try:
-        shutil.rmtree(save_path)
-    except:
-        print("sft_trained dir not present, will be created")
-    model.save_pretrained(save_path, from_pt=True)
     
-def inference_model(bnb_config, lora_config, text, tokenizer, model_path="sft_config"):
+def inference_model(bnb_config, lora_config, text, tokenizer, model_path="sft_config", seq_len=2000):
+    print(f"loading model from {model_path}")
     _meval = AutoModelForCausalLM.from_pretrained(model_path, quantization_config=bnb_config)
-    #_meval = AutoModelForCausalLM.from_pretrained("sft_trained")
-    _meval = get_peft_model(_meval, lora_config)
+   # _meval = AutoModelForCausalLM.from_pretrained(model_path, load_in_4bit=True, device_map="auto")
+    #_meval = get_peft_model(_meval, lora_config)
 
     # %%
 
@@ -185,18 +154,18 @@ def inference_model(bnb_config, lora_config, text, tokenizer, model_path="sft_co
     attention_mask = inputs['attention_mask']
 
     text_tokens = _meval.generate(
-        inputs['input_ids'].to(_meval.device), 
+        input_ids.to(_meval.device), 
         attention_mask=attention_mask.to(_meval.device),
         min_length=1,  # Set to a positive value to ensure some output
-        max_new_tokens=1500,  # Ensure this is directly passed
+        max_new_tokens=seq_len,  # Ensure this is directly passed
         do_sample=False,
         top_p=1.0,
         pad_token_id=tokenizer.eos_token_id,
         eos_token_id=tokenizer.eos_token_id  # Use eos_token_id to stop generation
     )
 
-    #text = tokenizer.decode(text_tokens[0])
-    text = text_tokens[0]
+    text = tokenizer.decode(text_tokens[0])
+    #text = text_tokens[0]
     return text
 
 def generate_prompt(sample, tokenizer):
@@ -240,7 +209,7 @@ class MLPipeline:
         self.lora_config = lora_config
         self.bnb_config = bnb_config
         
-    def prepare_dataset(self, dataset_path="../ressources/automode_descriptions_evaluated.pickle", generate_prompt=generate_prompt):
+    def prepare_dataset(self, dataset_path="../ressources/automode_descriptions_evaluated.pickle", generate_prompt=None):
         df = load_dataset(path_automode_descriptions_evaluated=dataset_path)
         generated_train_dataset, generated_val_dataset = prepare_dataset_for_training(df, self.tokenizer, generate_prompt)
         self.train_dataset = generated_train_dataset
@@ -248,9 +217,84 @@ class MLPipeline:
         
     def train_model(self, sft_config_params, save_path="sft_trained"):
         """ requires all prepare steps """
-        sft_trainer = prepare_trainer(self.model, self.train_dataset, self.val_dataset, self.tokenizer, sft_config_params=sft_config_params)
+            # Set up the training arguments
+        training_args_dict = {
+    "output_dir": save_path,
+    "evaluation_strategy": "epoch",
+    "eval_steps": 1,
+    "save_strategy": "epoch",
+    "load_best_model_at_end": True,
+    "metric_for_best_model": "eval_loss",
+    "greater_is_better": False,
+    "dataset_text_field": "text",
+    "output_dir": "logs"
+}
+        sft_arguments = SFTConfig(**training_args_dict,
+                                **sft_config_params)
+
+        print(f"example sample {self.train_dataset[0]['text']}")
+
+        # Initialize the SFTTrainer with the SFTConfig
+        sft_trainer = SFTTrainer(
+            model=self.model,
+            train_dataset=self.train_dataset,
+            eval_dataset=self.val_dataset,
+            tokenizer=self.tokenizer,
+            args=sft_arguments,
+            packing=False,
+        )
+
+        # Note: If you need to set padding_side, you can do it in the config or directly in the tokenizer.
+        # For example:
+        self.tokenizer.padding_side = 'right'  # Ensure padding is set to 'right' if needed
         self.sft_trainer = sft_trainer
-        train(sft_trainer, self.model, save_path=save_path)
+        self.sft_trainer.train()
+        
+        
+        inputs = self.tokenizer(
+        self.train_dataset[0]['text'].split("[/INST]")[0]+"[/INST]",
+        return_tensors="pt",  # Return PyTorch tensors
+    #    padding=True,          # Pad to the longest sequence
+    #    truncation=True,       # Truncate to the model's max length
+        return_attention_mask=True  # Return the attention mask
+        )
+
+        # Access input_ids and attention_mask
+        input_ids = inputs['input_ids']
+        attention_mask = inputs['attention_mask']
+
+        text_tokens = self.model.generate(
+            inputs['input_ids'].to(self.model.device), 
+            attention_mask=attention_mask.to(self.model.device),
+            min_length=1,  # Set to a positive value to ensure some output
+            max_new_tokens=1500,  # Ensure this is directly passed
+            do_sample=False,
+            top_p=1.0,
+            pad_token_id=self.tokenizer.eos_token_id,
+            eos_token_id=self.tokenizer.eos_token_id  # Use eos_token_id to stop generation
+        )
+
+        text = self.tokenizer.decode(text_tokens[0])
+        print(f"last generated output is {text}")
+
+        import shutil
+        try:
+            shutil.rmtree(save_path)
+        except:
+            print(f"{save_path} dir not present, will be created")
+        print(f"saving to {save_path}")
+        self.sft_trainer.save_model(output_dir=save_path)
+
+        # Assuming self.sft_trainer.state.log_history is your dictionary
+        log_history = self.sft_trainer.state.log_history
+
+        # Specify the filename for the pickle file
+        filename = pathlib.Path(save_path) / 'loss_history.pkl'
+
+        # Write the dictionary to a pickle file
+        with open(filename, 'wb') as file:
+            pickle.dump(log_history, file)
+        #self.model.save_pretrained(save_path, from_pt=True)
         with open(pathlib.Path(save_path) / 'sft_params.yaml', 'w') as yaml_file:
             yaml.dump(sft_config_params, yaml_file, default_flow_style=False)  # 
         
@@ -258,9 +302,9 @@ class MLPipeline:
     def train_pipeline(self, dataset_path, generate_prompt, save_path, sft_config_params):
         self.prepare_model()
         self.prepare_dataset(dataset_path, generate_prompt)
-        self.train_model(sft_config_params,save_path)
+        self.train_model(sft_config_params, save_path)
         
-    def inference(self, text: str, model_path="sft_trained"):
+    def inference(self, text: str, model_path="sft_trained", seq_len=2000):
         """ requires prepare_model """
-        res = inference_model(self.bnb_config, self.lora_config, text, self.tokenizer, model_path)
+        res = inference_model(self.bnb_config, self.lora_config, text, self.tokenizer, model_path, seq_len)
         return res
