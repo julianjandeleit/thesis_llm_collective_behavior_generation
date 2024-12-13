@@ -3,7 +3,7 @@ from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
 MODEL_PATH = "../llm_training/demo_train_2024-12-12_16_automode_evaluated_concat_s14n600_s15n600_notbtstartend"
 DF_PATH = "../ressources/automode_evaluated_concat_s14n600_s15n600.pickle"
-NUM_SCORES_PER_RUN=3
+NUM_SCORES_PER_RUN=10
 
 #%% 
 import pandas as pd
@@ -55,7 +55,7 @@ def evaluate_configuration(argos,behavior_tree,script_path="./run_argos_with_vis
             # Use regex to extract the number from the score line
             score = re.search(r'-?\d+(\.\d+)?', score_line)
             if score:
-                res = score
+                res = float(score.group())
             else:
                 print("No score number found in the score line.")
         else:
@@ -64,9 +64,9 @@ def evaluate_configuration(argos,behavior_tree,script_path="./run_argos_with_vis
     except subprocess.CalledProcessError as e:
         print(f"An error occurred while executing the command: {e}")
     finally:
-        os.remove(temp_file_path)
+        pass#os.remove(temp_file_path)
         
-    return float(res.group())
+    return res
         
         
 mlp = MLPipeline()
@@ -84,13 +84,15 @@ def txt_prompt(llmin, llmout, tokenizer):
         return text
     
 def perform_inference(txt):
-    txt = txt_prompt(txt, mlp.tokenizer)[:-5]
+    txt = txt_prompt(txt, "", mlp.tokenizer)[:-5]
     out = mlp.inference(txt, MODEL_PATH, seq_len=1000)
     res = None
     try:
-        res = out.split("[\INST]")[1]
+        res = out.split("[/INST]")[1]
+        res = res.split("</s>")[0]
     except:
         res = None
+    #print(res)
     return res
     
     
@@ -114,11 +116,11 @@ for index, row in df.iterrows():
         if score is not None:
             scores.append(score)
     
-    # Optionally, remove the temporary file after execution
+    
     df.at[index,"llm_behavior_tree"] = behavior_tree
     df.at[index,"llm_scores"] = scores
-    df.at[index, "llm_avg_score"] = np.mean(scores).item()
-    progress_bar.write(f"evaluated {index}:"+str(df.at[index, "llm_avg_score"]))
+    df.at[index, "llm_avg_score"] = np.mean(scores).item()  if len(scores) > 0 else None
+    progress_bar.write(f"evaluated {index}, score: "+str(df.at[index, "llm_avg_score"]))
     progress_bar.update(1)
 # %%
 

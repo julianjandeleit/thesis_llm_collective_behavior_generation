@@ -60,8 +60,8 @@ pipeline.prepare_model()
 
 # %%
 import pandas as pd
-#df = pd.read_pickle(f"../ressources/{DFNAME}.pickle")
-df = pd.read_pickle(f"../ressources/automode_evaluated_seed21_n600.pickle")
+df = pd.read_pickle(f"../ressources/{DFNAME}.pickle")
+#df = pd.read_pickle(f"../ressources/automode_evaluated_seed21_n600.pickle")
 index = 55
 #txt = "[INST]"+df.iloc[index].description+"\n Generate the behavior tree that achieves the objective of this mission.[\INST]"
 txt = txt_prompt(df.iloc[index]["description"], "", pipeline.tokenizer)[:-5]

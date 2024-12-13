@@ -37,7 +37,7 @@ if [ $? -ne 0 ]; then
 fi
 
 # Run the podman command with all remaining arguments
-podman run --rm -it \
+docker run --rm -it \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
     -v "$output_file:/root/aac.argos" \
