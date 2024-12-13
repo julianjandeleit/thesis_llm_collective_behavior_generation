@@ -5,3 +5,4 @@
 **/frames
 **/__pycache__
 .env
+**/*.egg-info

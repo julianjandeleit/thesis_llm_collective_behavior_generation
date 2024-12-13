@@ -179,6 +179,7 @@ def generate_prompt(sample, tokenizer):
 
 
 class MLPipeline:
+    """will load HF_TOKEN from .env if present"""
     
     def __init__(self) -> None:
         # these do not produce anything useful and are mainly for testing
