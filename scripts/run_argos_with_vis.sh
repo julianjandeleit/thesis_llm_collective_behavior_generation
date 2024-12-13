@@ -36,8 +36,20 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+run_container() {
+    local command="$@"
+    if command -v docker &> /dev/null; then
+        docker $command
+    elif command -v podman &> /dev/null; then
+        podman $command
+    else
+        echo "Neither Docker nor Podman is installed."
+        exit 1
+    fi
+}
+
 # Run the podman command with all remaining arguments
-docker run --rm -it \
+run_container run --rm -it \
     --env="DISPLAY" \
     --env="QT_X11_NO_MITSHM=1" \
     -v "$output_file:/root/aac.argos" \
