@@ -41,7 +41,7 @@ def append_vis_part(row):
 
 #%%
 if __name__ == "__main__":
-    with open("../ressources/dataset_seed15_n600.pickle", "rb") as file:
+    with open("../ressources/dataset_seed14_n300_24-12-15.pickle", "rb") as file:
         df = pickle.load(file)
         
     outdir= "generated_irace_datasets"
@@ -86,7 +86,7 @@ if __name__ == "__main__":
     from datetime import timedelta
     num_experiments = df.shape[0]
     NUM_SLURMTASKS = 20
-    TIME_PER_EXPERIMENT = timedelta(minutes=120)
+    TIME_PER_EXPERIMENT = timedelta(minutes=150)
     import math
     experiments_per_task = math.ceil(num_experiments / float(NUM_SLURMTASKS))
 
@@ -136,9 +136,9 @@ cd $odir
     slurmparameters = f"""#!/bin/bash
 #SBATCH --ntasks=1
 #SBATCH --time={timestr}
-#SBATCH --mem=1000
+#SBATCH --mem=2500
 #SBATCH --job-name=irace_job
-#SBATCH --cpus-per-task=16
+#SBATCH --cpus-per-task=8
 """
 
     # Write each job to a separate file

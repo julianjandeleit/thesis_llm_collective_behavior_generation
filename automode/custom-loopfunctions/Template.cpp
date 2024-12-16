@@ -752,14 +752,15 @@ void Template::PostExperiment()
     //  -------- compute number of robots in circle by total robots ----------
     // LOG <<" computing fitness for aggregation" << std::endl;
 
-    Circle *whiteCircle = nullptr; // actually target circle
+    Circle *targetCircle = nullptr; // actually target circle
     Circle *otherCircle = nullptr;
+    LOG << "Target Color" << objective.target_color << std::endl;
 
     for (const auto &circle : lCircles)
     {
       if (circle.color == objective.target_color)
       {
-        whiteCircle = const_cast<Circle *>(&circle); // If you need to modify it later
+        targetCircle = const_cast<Circle *>(&circle); // If you need to modify it later
                                                      // break; // Exit the loop once we find the white circle
       }
       else
@@ -768,18 +769,18 @@ void Template::PostExperiment()
       }
     }
 
-    if (whiteCircle)
+    if (targetCircle)
     {
-      LOG << "Found a white circle with radius: " << whiteCircle->radius << std::endl;
+      LOG << "Found a target circle with radius: " << targetCircle->radius << std::endl;
     }
     else
     {
-      LOGERR << "No white circle found." << std::endl;
+      LOGERR << "No target found." << std::endl;
     }
 
-    if (whiteCircle)
+    if (otherCircle)
     {
-      LOG << "Found an other circle with radius: " << whiteCircle->radius << std::endl;
+      LOG << "Found an other circle with radius: " << otherCircle->radius << std::endl;
     }
     else
     {
@@ -788,16 +789,16 @@ void Template::PostExperiment()
 
     // Initialize counters
     UInt32 totalRobots = 0;
-    UInt32 robotsInWhiteCircle = 0;
+    UInt32 robotsInTarget = 0;
 
     UInt32 robotsInOtherCircle = 0;
 
     CSpace::TMapPerType &tEpuckMap = GetSpace().GetEntitiesByType("epuck");
     CVector2 cEpuckPosition(0, 0);
-    if (whiteCircle)
+    if (targetCircle)
     {
-      Real whiteCircleRadius = whiteCircle->radius;     // Assuming radius is of type Real
-      CVector2 whiteCircleCenter = whiteCircle->center; // Assuming center is of type CVector2
+      Real targetCircleRadius = targetCircle->radius;     // Assuming radius is of type Real
+      CVector2 targetCenter = targetCircle->center; // Assuming center is of type CVector2
 
       std::vector<CVector2> robotPositions;
 
@@ -811,30 +812,29 @@ void Template::PostExperiment()
         // Get the position of the epuck
         cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
                            pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetY());
-
         robotPositions.push_back(cEpuckPosition);
 
         // Check if the epuck is inside the white circle
-        Real distanceToWhiteCircle = (whiteCircleCenter - cEpuckPosition).Length();
-        if (distanceToWhiteCircle <= whiteCircleRadius)
+        Real distanceToTarget = (targetCenter - cEpuckPosition).Length();
+        if (distanceToTarget <= targetCircleRadius)
         {
-          robotsInWhiteCircle++;
+          robotsInTarget++;
         }
       }
 
-      // Now calculate the area spanned by the robots
-      Real areaSpannedByRobots = 0.0;
-      int n = robotPositions.size();
+      // // Now calculate the area spanned by the robots
+      // Real areaSpannedByRobots = 0.0;
+      // int n = robotPositions.size();
 
-      // Calculate the area using the shoelace formula
-      for (int i = 0; i < n; ++i)
-      {
-        areaSpannedByRobots += (robotPositions[i].GetX() * robotPositions[(i + 1) % n].GetY()) -
-                               (robotPositions[(i + 1) % n].GetX() * robotPositions[i].GetY());
-      }
+      // // Calculate the area using the shoelace formula
+      // for (int i = 0; i < n; ++i)
+      // {
+      //   areaSpannedByRobots += (robotPositions[i].GetX() * robotPositions[(i + 1) % n].GetY()) -
+      //                          (robotPositions[(i + 1) % n].GetX() * robotPositions[i].GetY());
+      // }
 
-      areaSpannedByRobots = std::abs(areaSpannedByRobots) / 2.0;
-
+      // areaSpannedByRobots = std::abs(areaSpannedByRobots) / 2.0;
+    }
       if (otherCircle)
       {
         Real otherCircleRadius = otherCircle->radius;     // Assuming radius is of type Real
@@ -845,7 +845,7 @@ void Template::PostExperiment()
           CEPuckEntity *pcEpuck = any_cast<CEPuckEntity *>(it->second);
 
           // Increment total robots count
-          totalRobots++;
+          //totalRobots++;
 
           // Get the position of the epuck
           cEpuckPosition.Set(pcEpuck->GetEmbodiedEntity().GetOriginAnchor().Position.GetX(),
@@ -859,17 +859,17 @@ void Template::PostExperiment()
           }
         }
 
-        Real robotsoutsidecircles = totalRobots - robotsInWhiteCircle - robotsInOtherCircle;
+        Real robotsoutsidecircles = totalRobots - robotsInTarget - robotsInOtherCircle;
+      }
         // Calculate fitness as the ratio of robots in the white circle to total robots
-        Real fitness = (totalRobots > 0) ? static_cast<Real>(robotsInWhiteCircle) / totalRobots : 0.0f;
+        Real fitness = (totalRobots > 0) ? static_cast<Real>(robotsInTarget) / totalRobots : 0.0f;
         // fitness += -robotsInOtherCircle * 10 - robotsoutsidecircles; // we really want to punish stopping at wrong circle as this seems to be ignored at some optimizations
         // fitness -= areaSpannedByRobots;
         //  Optionally, you can store or print the fitness value
         m_fObjectiveFunction = fitness; // just use most recent result
-        std::cout << "Fitness (robots in white circle / total robots): " << m_fObjectiveFunction << std::endl;
-      }
+        std::cout << "Fitness (robots in target circle / total robots): " << m_fObjectiveFunction << " color: " << objective.target_color  <<std::endl;
+      
     }
-  }
 
   // Create and open a text file
   ofstream MyFile("pos.mu", ios::trunc);

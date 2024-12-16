@@ -21,6 +21,8 @@ def sample_dataset(n_rows = 10000, generators = get_generators()) -> pd.DataFram
         conf = truncate_floats(conf)
         desc = random.sample(mission.describe(),1)[0]  
         desc = truncate_floats(desc)
+        if _n == 583:
+            print(mission)
         rows.append({"description": desc, "configuration": conf, "parameters": mission})
     dataset = pd.DataFrame(rows)
     

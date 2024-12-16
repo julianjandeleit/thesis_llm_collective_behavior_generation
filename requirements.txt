@@ -1,4 +1,4 @@
-git+https://github.com/julianjandeleit/swarm_descriptions.git@v1.0.0
+git+https://github.com/julianjandeleit/swarm_descriptions.git
 argparse
 seaborn
 plotly

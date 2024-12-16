@@ -38,6 +38,7 @@ def main():
     print(f"avg_score: {df.iloc[args.index].avg_score}")
     print(f"description: {df.iloc[args.index].description}")
     print(f"behavior_tree: {df.iloc[args.index].behavior_tree}")
+    print(f"llm_behavior_tree: {df.iloc[args.index].llm_behavior_tree if 'llm_behavior_tree' in df.keys() else None}" )
 
 if __name__ == '__main__':
     main()
