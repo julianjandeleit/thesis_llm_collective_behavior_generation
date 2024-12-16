@@ -41,7 +41,7 @@ def append_vis_part(row):
 
 #%%
 if __name__ == "__main__":
-    with open("../ressources/dataset_seed14_n300_24-12-15.pickle", "rb") as file:
+    with open("../ressources/dataset_seed15_n300_24-12-16.pickle", "rb") as file:
         df = pickle.load(file)
         
     outdir= "generated_irace_datasets"
