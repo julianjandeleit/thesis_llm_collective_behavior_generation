@@ -1,0 +1,17 @@
+bf16: false
+eval_strategy: epoch
+gradient_accumulation_steps: 2
+group_by_length: true
+learning_rate: 2.0e-05
+logging_steps: 25
+lr_scheduler_type: cosine
+max_grad_norm: 0.15
+max_seq_length: 1000
+max_steps: -1
+num_train_epochs: 16
+optim: paged_adamw_32bit
+per_device_train_batch_size: 1
+report_to: none
+save_steps: 0
+warmup_ratio: 0.1
+weight_decay: 0.123

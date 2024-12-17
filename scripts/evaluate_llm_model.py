@@ -1,8 +1,8 @@
 #%%
 from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
-MODEL_PATH = "../llm_training/demo_train_2024-12-12_16_automode_evaluated_concat_s14n600_s15n600_notbtstartend"
-DF_PATH = "../ressources/automode_evaluated_concat_s14n600_s15n600.pickle"
+MODEL_PATH = "../llm_training/demo_train_2024-12-16_16_automode_evaluated_seed14_n300_24-12-15_bugfixes"
+DF_PATH = "../ressources/automode_evaluated_seed14_n300_24-12-15.pickle"
 NUM_SCORES_PER_RUN=10
 
 #%% 
@@ -70,7 +70,8 @@ def evaluate_configuration(argos,behavior_tree,script_path="./run_argos_with_vis
         
         
 mlp = MLPipeline()
-mlp.prepare_model()
+mlp.prepare_model() # need both currently
+mlp.prepare_model_from_path(path=MODEL_PATH)
 def txt_prompt(llmin, llmout, tokenizer):
         #f"\nNUMNODES={int(len(llmout.split(' '))/2.0)}\n"+
         # f"\nsyntax example: {stx}\n"
@@ -85,7 +86,7 @@ def txt_prompt(llmin, llmout, tokenizer):
     
 def perform_inference(txt):
     txt = txt_prompt(txt, "", mlp.tokenizer)[:-5]
-    out = mlp.inference(txt, MODEL_PATH, seq_len=1000)
+    out = mlp.inference(txt, seq_len=1000)
     res = None
     try:
         res = out.split("[/INST]")[1]

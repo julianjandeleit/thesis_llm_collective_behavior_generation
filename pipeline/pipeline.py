@@ -129,9 +129,7 @@ def prepare_dataset_for_training(dataset, tokenizer, generate_prompt):
     generated_val_dataset = to_dataset(generated_val_dataset.head(500))
     return generated_train_dataset, generated_val_dataset
     
-def inference_model(bnb_config, lora_config, text, tokenizer, model_path="sft_config", seq_len=2000):
-    print(f"loading model from {model_path}")
-    _meval = AutoModelForCausalLM.from_pretrained(model_path, quantization_config=bnb_config)
+def inference_model(_meval, bnb_config, lora_config, text, tokenizer, seq_len=2000):
    # _meval = AutoModelForCausalLM.from_pretrained(model_path, load_in_4bit=True, device_map="auto")
     #_meval = get_peft_model(_meval, lora_config)
 
@@ -209,6 +207,16 @@ class MLPipeline:
         self.tokenizer = tokenizer
         self.lora_config = lora_config
         self.bnb_config = bnb_config
+        
+    def prepare_model_from_path(self, path="sft_trained"):
+        
+        _meval = AutoModelForCausalLM.from_pretrained(path, quantization_config=self.bnb_config)
+        tokenizer = AutoTokenizer.from_pretrained(path)
+        tokenizer.pad_token = tokenizer.eos_token
+        tokenizer.pad_token = tokenizer.unk_token
+        
+        self.model = _meval
+        self.tokenizer = tokenizer
         
     def prepare_dataset(self, dataset_path="../ressources/automode_descriptions_evaluated.pickle", generate_prompt=None):
         df = load_dataset(path_automode_descriptions_evaluated=dataset_path)
@@ -305,7 +313,7 @@ class MLPipeline:
         self.prepare_dataset(dataset_path, generate_prompt)
         self.train_model(sft_config_params, save_path)
         
-    def inference(self, text: str, model_path="sft_trained", seq_len=2000):
+    def inference(self, text: str, seq_len=2000):
         """ requires prepare_model """
-        res = inference_model(self.bnb_config, self.lora_config, text, self.tokenizer, model_path, seq_len)
+        res = inference_model(self.model, self.bnb_config, self.lora_config, text, self.tokenizer, seq_len)
         return res
