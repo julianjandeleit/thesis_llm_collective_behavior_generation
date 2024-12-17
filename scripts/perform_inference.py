@@ -1,6 +1,5 @@
 #%%
 from pipeline.pipeline import MLPipeline
-MODEL_PATH = "../llm_training/demo_train_2024-12-12_16_automode_evaluated_concat_s14n600_s15n600_notbtstartend"
         
 def txt_prompt(llmin, llmout, tokenizer):
         #f"\nNUMNODES={int(len(llmout.split(' '))/2.0)}\n"+
@@ -26,7 +25,7 @@ def main():
     # Add arguments
     parser.add_argument('--text', type=str, required=True, help='The text to process.')
     parser.add_argument('--model', type=str, required=True, help='Path to the model directory.')
-    parser.add_argument('--wrap', action='store_true', help='Specify if the text should be wrapped (default: True).')
+    parser.add_argument('--wrap', action='store_true', help='Specify if the text should be wrapped.')
 
     # Parse the arguments
     args = parser.parse_args()
@@ -38,11 +37,12 @@ def main():
 
     mlp = MLPipeline()
     mlp.prepare_model()
+    mlp.prepare_model_from_path(path=args.model)
 
     def perform_inference(txt, wrap=True):
         if wrap:
             txt = txt_prompt(txt, "", mlp.tokenizer)[:-5]
-        out = mlp.inference(txt, args.model, seq_len=1000)
+        out = mlp.inference(txt, seq_len=1000)
         res = None
         try:
             res = out.split("[/INST]")[1]
