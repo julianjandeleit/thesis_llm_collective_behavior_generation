@@ -41,7 +41,7 @@ def append_vis_part(row):
 
 #%%
 if __name__ == "__main__":
-    with open("../ressources/dataset_seed15_n300_24-12-16.pickle", "rb") as file:
+    with open("../ressources/dataset_seed17_n600_24-12-18_target_lights_big.pickle", "rb") as file:
         df = pickle.load(file)
         
     outdir= "generated_irace_datasets"
@@ -85,7 +85,7 @@ if __name__ == "__main__":
     # %%
     from datetime import timedelta
     num_experiments = df.shape[0]
-    NUM_SLURMTASKS = 20
+    NUM_SLURMTASKS = 50
     TIME_PER_EXPERIMENT = timedelta(minutes=150)
     import math
     experiments_per_task = math.ceil(num_experiments / float(NUM_SLURMTASKS))

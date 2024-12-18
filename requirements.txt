@@ -1,4 +1,4 @@
-git+https://github.com/julianjandeleit/swarm_descriptions.git
+git+https://github.com/julianjandeleit/swarm_descriptions.git@extendend_missions
 argparse
 seaborn
 plotly
