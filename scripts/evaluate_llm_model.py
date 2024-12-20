@@ -1,14 +1,15 @@
 #%%
 from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
-MODEL_PATH = "../llm_training/demo_train_2024-12-16_16_automode_evaluated_seed14_n300_24-12-15_bugfixes"
-DF_PATH = "../ressources/automode_evaluated_seed14_n300_24-12-15.pickle"
+MODEL_PATH = "../llm_training/demo_train_2024-12-19_16_automode_evaluated_concat_s14s15s16_n300_24-12-18_wtargetlights"
+DF_PATH = "../ressources/automode_evaluated_concat_s14s15s16_n300_24-12-18.pickle"
 NUM_SCORES_PER_RUN=10
 
 #%% 
 import pandas as pd
-df = pd.read_pickle(DF_PATH)
-df['llm_scores'] = [None] * len(df) 
+df = pd.read_pickle(DF_PATH).reset_index()
+df['llm_scores'] = [[] for _ in range(len(df))]
+df["llm_scores"] = df["llm_scores"].astype(object)
 # %%
 
 script_name = ""
@@ -119,6 +120,7 @@ for index, row in df.iterrows():
     
     
     df.at[index,"llm_behavior_tree"] = behavior_tree
+    #print(scores,df.at[index,"llm_scores"])
     df.at[index,"llm_scores"] = scores
     df.at[index, "llm_avg_score"] = np.mean(scores).item()  if len(scores) > 0 else None
     progress_bar.write(f"evaluated {index}, score: "+str(df.at[index, "llm_avg_score"]))
