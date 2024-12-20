@@ -70,7 +70,8 @@ else
 fi
 
 # Extract the behavior tree from the output
-BEHAVIOR_TREE=$(echo "$OUTPUT" | grep -oP "${PREFIX}\K.*")
+#BEHAVIOR_TREE=$(echo "$OUTPUT" | grep -oP "${PREFIX}\K.*")
+BEHAVIOR_TREE=$(echo "$OUTPUT" | grep -oP "${PREFIX}\K.*" | head -n 1 | tr -d '\n')
 
 # Check if the behavior tree was found
 if [ -z "$BEHAVIOR_TREE" ]; then
