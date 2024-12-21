@@ -4,7 +4,7 @@ from pipeline import MLPipeline#, generate_prompt
 pipeline = MLPipeline()
 
 sft_config_params = pipeline.sft_default_config
-sft_config_params["num_train_epochs"] = 16
+sft_config_params["num_train_epochs"] = 12
 sft_config_params["learning_rate"] = 2e-5
 sft_config_params["warmup_ratio"] = 0.10
 sft_config_params["weight_decay"] = 0.123
@@ -12,7 +12,7 @@ sft_config_params["max_grad_norm"] = 0.15
 sft_config_params["gradient_accumulation_steps"] = 2
 sft_config_params["max_seq_length"] = 1000
 
-DFNAME = "automode_evaluated_concat_s14s15s16_n300_24-12-18"
+DFNAME = "automode_evaluated_seed17_n600_24-12-20"
 
 stx = """
 root node (--nroot), composite nodes (--n0), condition nodes (--c00), action nodes (--a01), decorator nodes (--p00), repeater nodes (--rep01), random selector nodes (--p00), weighted random nodes (--b00), wait nodes (--w00), repeater with max nodes (--rwm01), action with time nodes (--att01).
@@ -39,7 +39,7 @@ current_date_str = current_date.strftime("%Y-%m-%d")
 EXP_NAME = f"demo_train_{current_date_str}_{nepochs}_{DFNAME}_wtargetlights"
 #EXP_NAME = "demo_train_420_overfit_on_training"
 #EXP_NAME = "logs/checkpoint-116000"
-#pipeline.train_pipeline(f"../ressources/{DFNAME}.pickle", generate_prompt, EXP_NAME, sft_config_params)
+pipeline.train_pipeline(f"../ressources/{DFNAME}.pickle", generate_prompt, EXP_NAME, sft_config_params)
 
 #%%
 pipeline.prepare_model()
