@@ -7,3 +7,5 @@
 .env
 **/*.egg-info
 **/*peft_adapter
+**/DPO
+**/dpo_trained_model

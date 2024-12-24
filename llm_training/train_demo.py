@@ -12,7 +12,7 @@ sft_config_params["max_grad_norm"] = 0.15
 sft_config_params["gradient_accumulation_steps"] = 2
 sft_config_params["max_seq_length"] = 1000
 
-DFNAME = "automode_evaluated_seed17_n600_24-12-20"
+DFNAME = "automode_evaluated_concat_s14-s18_24-12-23"
 
 stx = """
 root node (--nroot), composite nodes (--n0), condition nodes (--c00), action nodes (--a01), decorator nodes (--p00), repeater nodes (--rep01), random selector nodes (--p00), weighted random nodes (--b00), wait nodes (--w00), repeater with max nodes (--rwm01), action with time nodes (--att01).

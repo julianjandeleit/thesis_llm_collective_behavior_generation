@@ -29,7 +29,8 @@ import pathlib
 import yaml
 from sklearn.model_selection import train_test_split
 from datasets import Dataset
-from trl import SFTTrainer, SFTConfig
+from trl import SFTTrainer, SFTConfig, DPOTrainer, DPOConfig
+from peft import PeftModel
 from transformers import TrainingArguments
 
 random.seed(42)
@@ -125,11 +126,11 @@ def prepare_dataset_for_training(dataset, tokenizer, generate_prompt):
         hg_dataset = Dataset(pa.Table.from_pandas(df))
         return hg_dataset
 
-    generated_train_dataset = to_dataset(generated_train_dataset.head(2500))
-    generated_val_dataset = to_dataset(generated_val_dataset.head(500))
+    generated_train_dataset = to_dataset(generated_train_dataset)
+    generated_val_dataset = to_dataset(generated_val_dataset)
     return generated_train_dataset, generated_val_dataset
     
-def inference_model(_meval, bnb_config, lora_config, text, tokenizer, seq_len=2000):
+def inference_model(_meval, bnb_config, lora_config, text, tokenizer, seq_len=2000, temperature=None):
    # _meval = AutoModelForCausalLM.from_pretrained(model_path, load_in_4bit=True, device_map="auto")
     #_meval = get_peft_model(_meval, lora_config)
 
@@ -150,16 +151,17 @@ def inference_model(_meval, bnb_config, lora_config, text, tokenizer, seq_len=20
     # Access input_ids and attention_mask
     input_ids = inputs['input_ids']
     attention_mask = inputs['attention_mask']
-
+    do_sample = True if temperature is not None else False
+    add_dct = {"temperature": temperature, "do_sample": do_sample}
     text_tokens = _meval.generate(
         input_ids.to(_meval.device), 
         attention_mask=attention_mask.to(_meval.device),
         min_length=1,  # Set to a positive value to ensure some output
         max_new_tokens=seq_len,  # Ensure this is directly passed
-        do_sample=False,
         top_p=1.0,
         pad_token_id=tokenizer.eos_token_id,
-        eos_token_id=tokenizer.eos_token_id  # Use eos_token_id to stop generation
+        eos_token_id=tokenizer.eos_token_id,  # Use eos_token_id to stop generation
+        **add_dct
     )
 
     text = tokenizer.decode(text_tokens[0])
@@ -223,6 +225,37 @@ class MLPipeline:
         generated_train_dataset, generated_val_dataset = prepare_dataset_for_training(df, self.tokenizer, generate_prompt)
         self.train_dataset = generated_train_dataset
         self.val_dataset = generated_val_dataset
+        
+    def prepare_dpo_model(self, model_path, adapter_savepath=".peft_adapter"):
+        # Load the base model again
+        model = AutoModelForCausalLM.from_pretrained(
+            model_path,
+            quantization_config=self.bnb_config,
+        )
+
+        # Load the adapter twice with different names
+        model = PeftModel.from_pretrained(model, model_path, adapter_name="train_adapt")
+        model.load_adapter(model_path, adapter_name="reference_adapt")
+        self.model = model
+        
+    def train_dpo(self, dpo_dataframe, save_path):
+        def to_dataset(df):
+            #dataset = ds.dataset(pa.Table.from_pandas(df).to_batches())
+
+            hg_dataset = Dataset(pa.Table.from_pandas(df))
+            return hg_dataset
+        #generated_train_dataset, generated_val_dataset = train_test_split(dpo_dataframe[["chosen", "rejected", "score_chosen", "score_rejected"]], test_size=0.)
+        self.train_dataset = to_dataset(dpo_dataframe[["chosen", "rejected", "score_chosen", "score_rejected"]])
+        self.val_dataset = None
+
+        # max prompt and completion length are indispensible for not crashing. gradient_checkpointing does reduce memory significantly but not really improving loss consistently (also conflicts with potential requirement cache=False in model loading)
+        training_args = DPOConfig(output_dir="DPO", report_to="none", model_adapter_name="train_adapt", ref_adapter_name="reference_adapt", per_device_train_batch_size=1, per_device_eval_batch_size=1, logging_dir="logs",logging_steps=10,gradient_accumulation_steps=1,eval_accumulation_steps=1, max_prompt_length=200,max_completion_length=750) 
+        trainer = DPOTrainer(model=self.model, args=training_args, processing_class=self.tokenizer, train_dataset=self.train_dataset)
+        trainer.train()
+        
+        self.dpo_trainer = trainer
+        
+        self.dpo_trainer.save_model(output_dir=save_path)
         
     def train_model(self, sft_config_params, save_path="sft_trained"):
         """ requires all prepare steps """
@@ -313,7 +346,7 @@ class MLPipeline:
         self.prepare_dataset(dataset_path, generate_prompt)
         self.train_model(sft_config_params, save_path)
         
-    def inference(self, text: str, seq_len=2000):
+    def inference(self, text: str, seq_len=2000, temperature=None):
         """ requires prepare_model """
-        res = inference_model(self.model, self.bnb_config, self.lora_config, text, self.tokenizer, seq_len)
+        res = inference_model(self.model, self.bnb_config, self.lora_config, text, self.tokenizer, seq_len, temperature)
         return res
