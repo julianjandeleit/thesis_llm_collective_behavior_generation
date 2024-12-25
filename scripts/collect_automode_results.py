@@ -6,8 +6,8 @@ import random
 random.seed(42)
 np.random.seed(42)
 # Step 1: Read the data from a semicolon-separated file
-file_path = '../ressources/outfile_seed18_n600_24-12-22.txt'  # Replace with your actual file path
-dataset_path = "../ressources/dataset_seed18_n600_24-12-20_target_lights_big.pickle"
+file_path = '../ressources/outfile_seed19_n600_24-12-24.txt'  # Replace with your actual file path
+dataset_path = "../ressources/dataset_seed19_n600_24-12-24.pickle"
 
 # Initialize a list to hold parsed data
 parsed_data = []
