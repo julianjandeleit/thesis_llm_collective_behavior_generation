@@ -1,7 +1,7 @@
 #%%
 from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
-MODEL_PATH = "../ressources/dpo_rl_01_24-12-24_s17_n600_e10_r100"
+MODEL_PATH = "../ressources/dpo_ft_model_24-12-26"
 DF_PATH = "../ressources/llm_evaluated_s17_n600_24-12-20.pickle"
 NUM_SCORES_PER_RUN=10
 
@@ -72,7 +72,7 @@ def evaluate_configuration(argos,behavior_tree,script_path="./run_argos_with_vis
         
 mlp = MLPipeline()
 mlp.prepare_model() # need both currently
-mlp.prepare_model_from_path(path=MODEL_PATH)
+mlp.load_dpo_trained_model(MODEL_PATH)
 def txt_prompt(llmin, llmout, tokenizer):
         #f"\nNUMNODES={int(len(llmout.split(' '))/2.0)}\n"+
         # f"\nsyntax example: {stx}\n"

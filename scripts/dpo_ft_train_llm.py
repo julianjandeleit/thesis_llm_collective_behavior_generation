@@ -3,7 +3,7 @@ from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
 MODEL_PATH = "../llm_training/demo_train_2024-12-20_16_automode_evaluated_seed17_n600_24-12-20_wtargetlights"
 DF_LLM_EVALUATED_PATH = "../ressources/llm_evaluated_s17_n600_24-12-20.pickle"
-OUTPUT_PATH="dpo_trained_model"
+OUTPUT_PATH="dpo_ft_model"
 NUM_SCORES_PER_RUN=10
 #%% 
 import random

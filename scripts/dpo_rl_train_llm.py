@@ -1,11 +1,11 @@
 #%%
 from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
-MODEL_PATH = "../llm_training/demo_train_2024-12-20_16_automode_evaluated_seed17_n600_24-12-20_wtargetlights"
-OUTPUT_PATH="dpo_trained_model"
+MODEL_PATH = "../llm_training/demo_train_2024-12-23_12_automode_evaluated_concat_s14-s18_24-12-23_wtargetlights"
+OUTPUT_PATH="dpo_rl_model"
 NUM_SCORES_PER_RUN=10
-NUM_ROWS_PER_EPOCH=100
-NUM_EPOCHS=10
+NUM_ROWS_PER_EPOCH=250
+NUM_EPOCHS=25
 SKELETON_TEMPLATE="../ressources/skeleton.argos"
 #%% 
 import random

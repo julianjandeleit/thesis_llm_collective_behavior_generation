@@ -238,6 +238,20 @@ class MLPipeline:
         model.load_adapter(model_path, adapter_name="reference_adapt")
         self.model = model
         
+    def load_dpo_trained_model(self, model_path, adapter="train_adapt"):
+        # https://discuss.huggingface.co/t/correct-way-to-save-load-adapters-and-checkpoints-in-peft/77836/8
+        # Load the base model again
+        model = AutoModelForCausalLM.from_pretrained(
+            model_path,
+            quantization_config=self.bnb_config,
+        )
+
+        # Load the adapter twice with different names
+        model = PeftModel.from_pretrained(model, model_path)
+        model.load_adapter(model_path+f"/{adapter}", adapter_name="train_adapt")
+        model.set_adapter(adapter)
+        self.model = model
+        
     def train_dpo(self, dpo_dataframe, save_path):
         def to_dataset(df):
             #dataset = ds.dataset(pa.Table.from_pandas(df).to_batches())
@@ -249,13 +263,38 @@ class MLPipeline:
         self.val_dataset = None
 
         # max prompt and completion length are indispensible for not crashing. gradient_checkpointing does reduce memory significantly but not really improving loss consistently (also conflicts with potential requirement cache=False in model loading)
-        training_args = DPOConfig(output_dir="DPO", report_to="none", model_adapter_name="train_adapt", ref_adapter_name="reference_adapt", per_device_train_batch_size=1, per_device_eval_batch_size=1, logging_dir="logs",logging_steps=10,gradient_accumulation_steps=1,eval_accumulation_steps=1, max_prompt_length=200,max_completion_length=750) 
+        training_args = DPOConfig(output_dir="DPO", report_to="none", model_adapter_name="train_adapt", ref_adapter_name="reference_adapt", per_device_train_batch_size=1, per_device_eval_batch_size=1, logging_dir="logs",logging_steps=10,gradient_accumulation_steps=1,eval_accumulation_steps=1, max_prompt_length=300,max_completion_length=300) 
         trainer = DPOTrainer(model=self.model, args=training_args, processing_class=self.tokenizer, train_dataset=self.train_dataset)
         trainer.train()
         
         self.dpo_trainer = trainer
         
         self.dpo_trainer.save_model(output_dir=save_path)
+        #model = self.dpo_trainer.model
+        # Step 3: Set the active adapter (if needed)
+        #model.set_adapter("train_adapt")  # or "reference_adapt" depending on your use case
+
+        # Step 4: Merge the adapters into the model and unload the adapter weights
+        #self.model = model.merge_and_unload(adapter_names=["train_adapt"])
+        #self.model._hf_peft_config_loaded = False
+        #self.model = AutoModelForCausalLM.from_pretrained(
+        #    model,
+        #    quantization_config=self.bnb_config,
+        #)
+
+        # Step 5: Save the merged model
+        #self.model.save_pretrained(save_path)
+        #self.tokenizer.save_pretrained(save_path)
+        
+                # Assuming self.sft_trainer.state.log_history is your dictionary
+        log_history = self.dpo_trainer.state.log_history
+
+        # Specify the filename for the pickle file
+        filename = pathlib.Path(save_path) / 'loss_history.pkl'
+
+        # Write the dictionary to a pickle file
+        with open(filename, 'wb') as file:
+            pickle.dump(log_history, file)
         
     def train_model(self, sft_config_params, save_path="sft_trained"):
         """ requires all prepare steps """
