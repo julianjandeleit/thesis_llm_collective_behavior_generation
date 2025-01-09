@@ -4,8 +4,8 @@ SCRIPT_PATH="./run_argos_with_vis.sh"
 MODEL_PATH = "../llm_training/demo_train_2024-12-23_12_automode_evaluated_concat_s14-s18_24-12-23_wtargetlights"
 OUTPUT_PATH="dpo_rl_model"
 NUM_SCORES_PER_RUN=10
-NUM_ROWS_PER_EPOCH=250
-NUM_EPOCHS=25
+NUM_ROWS_PER_EPOCH=200
+NUM_EPOCHS=20
 SKELETON_TEMPLATE="../ressources/skeleton.argos"
 #%% 
 import random
@@ -108,7 +108,7 @@ def txt_prompt(llmin, llmout, tokenizer):
     
 def perform_inference(txt):
     txt = txt_prompt(txt, "", mlp.tokenizer)[:-5]
-    out = mlp.inference(txt, seq_len=1000, temperature=0.41)
+    out = mlp.inference(txt, seq_len=1000, temperature=0.21)
     res = None
     try:
         res = out.split("[/INST]")[1]
@@ -232,20 +232,23 @@ for epoch in range(NUM_EPOCHS):
     result = df.apply(choose_and_reject, axis=1)
     df = pd.concat([df, result], axis=1)
 
-    print(df[["chosen", "rejected", "score_chosen","score_rejected"]].head())
+    try:
+        print(df[["chosen", "rejected", "score_chosen","score_rejected"]].head())
+    except:
+        print("could not show scores")
 
     #%%
      # as this is done everytime the final version should be the one in the directory after exececution, I assume that training the same model twice works 
     mlp.train_dpo(df, save_path=OUTPUT_PATH)
 
     dataframes.append(df)
+    # %%
+    import pickle
+    for i, df in enumerate(dataframes):
+        df['dataset_position'] = i  # Add a new column with the position
+        
+    combined_df = pd.concat(dataframes, ignore_index=True)
+
+    combined_df.to_pickle(OUTPUT_PATH+"/dataset.pickle")
 
 
-# %%
-import pickle
-for i, df in enumerate(dataframes):
-    df['dataset_position'] = i  # Add a new column with the position
-    
-combined_df = pd.concat(dataframes, ignore_index=True)
-
-combined_df.to_pickle(OUTPUT_PATH+"/dataset.pickle")

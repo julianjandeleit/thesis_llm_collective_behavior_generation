@@ -2,7 +2,7 @@
 from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
 MODEL_PATH = "../llm_training/demo_train_2024-12-23_12_automode_evaluated_concat_s14-s18_24-12-23_wtargetlights"
-DF_PATH = "../ressources/automode_evaluated_concat_s14-s18_24-12-23.pickle"
+DF_PATH = "../ressources/automode_evaluated_concat_s14s15s16_n300_24-12-18.pickle"
 NUM_SCORES_PER_RUN=10
 
 #%% 
