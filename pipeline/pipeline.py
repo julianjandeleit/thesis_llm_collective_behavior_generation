@@ -220,8 +220,11 @@ class MLPipeline:
         self.model = _meval
         self.tokenizer = tokenizer
         
-    def prepare_dataset(self, dataset_path="../ressources/automode_descriptions_evaluated.pickle", generate_prompt=None):
-        df = load_dataset(path_automode_descriptions_evaluated=dataset_path)
+    def prepare_dataset(self, dataset="../ressources/automode_descriptions_evaluated.pickle", generate_prompt=None):
+        if type(dataset) == str:
+         df = load_dataset(path_automode_descriptions_evaluated=dataset)
+        else:
+            df = dataset
         generated_train_dataset, generated_val_dataset = prepare_dataset_for_training(df, self.tokenizer, generate_prompt)
         self.train_dataset = generated_train_dataset
         self.val_dataset = generated_val_dataset

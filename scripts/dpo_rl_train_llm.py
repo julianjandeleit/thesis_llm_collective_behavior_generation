@@ -118,6 +118,9 @@ def perform_inference(txt):
     #print(res)
     return res
 
+def generate_prompt(sample, tokenizer):
+        return txt_prompt(sample["llm_input"],sample["llm_output"], tokenizer)
+
 def evaluate_tree(behavior_tree, mission):
     # Check if behavior_tree is not None
     if type(behavior_tree) != str or len(behavior_tree) == 0:
@@ -239,6 +242,7 @@ for epoch in range(NUM_EPOCHS):
 
     #%%
      # as this is done everytime the final version should be the one in the directory after exececution, I assume that training the same model twice works 
+    #mlp.train_model()
     mlp.train_dpo(df, save_path=OUTPUT_PATH)
 
     dataframes.append(df)
