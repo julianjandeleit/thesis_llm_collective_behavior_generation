@@ -89,9 +89,9 @@ def evaluate_configuration(argos,behavior_tree,script_path="./run_argos_with_vis
         
         
 mlp = MLPipeline()
-mlp.prepare_model() # need both currently
+#mlp.prepare_model() # need both currently
 #mlp.prepare_model_from_path(path=MODEL_PATH)
-mlp.prepare_dpo_model(model_path=MODEL_PATH)
+#mlp.prepare_dpo_model(model_path=MODEL_PATH)
 def txt_prompt(llmin, llmout, tokenizer):
         #f"\nNUMNODES={int(len(llmout.split(' '))/2.0)}\n"+
         # f"\nsyntax example: {stx}\n"
@@ -154,27 +154,13 @@ df["scores_llm_scaled"] = df.apply(lambda row: rescale_score(row["avg_score"], d
 df["scores_automode_scaled"] = df.apply(lambda row: rescale_score(row["llm_avg_score"], df, row["type"]), axis=1)
 df = df.dropna(subset=["scores_llm_scaled", "scores_automode_scaled"])
 print(f"scores computed and rescaled")
-def choose_and_reject(row):
-    if row['scores_llm_scaled'] > row['scores_automode_scaled']:
-        return pd.Series({
-            'chosen': txt_prompt(row["description"], row['llm_behavior_tree'], mlp.tokenizer),
-            'rejected': txt_prompt(row["description"], row['behavior_tree'], mlp.tokenizer),
-            'score_chosen': row['scores_llm_scaled'],
-            'score_rejected': row['scores_automode_scaled']
-        })
-    else:
-        return pd.Series({
-            'chosen':txt_prompt(row["description"], row['behavior_tree'], mlp.tokenizer),
-            'rejected': txt_prompt(row["description"], row['llm_behavior_tree'], mlp.tokenizer),
-            'score_chosen': row['scores_automode_scaled'],
-            'score_rejected': row['scores_llm_scaled']
-        })
 
-result = df.apply(choose_and_reject, axis=1)
-df = pd.concat([df, result], axis=1)
 
-print(df[["chosen", "rejected", "score_chosen","score_rejected"]].head())
-
+#result = df.apply(choose_and_reject, axis=1)
+#df = pd.concat([df, result], axis=1)
+print(df.keys())
+print(df[["scores_llm_scaled", "scores_automode_scaled", "llm_behavior_tree", "behavior_tree", "description"]].head(10).to_dict())
+#df.rename(columns={"scores_llm_scaled": "scores_B","scores_automode_scaled":"scores_A", "llm_behavior_tree":"llmout_B","behavior_tree":"llmout_A", "description":"llmin"})
 #%%
     # as this is done everytime the final version should be the one in the directory after exececution, I assume that training the same model twice works 
 mlp.train_dpo(df, save_path=OUTPUT_PATH)

@@ -9,3 +9,4 @@
 **/*peft_adapter
 **/DPO
 **/dpo_trained_model
+**/logs
