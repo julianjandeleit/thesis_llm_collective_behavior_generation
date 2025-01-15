@@ -1,7 +1,7 @@
 #%%
 from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
-MODEL_PATH = "../llm_training/demo_train_2025-01-14_1_automode_evaluated_concat_s14-s18_24-12-23_test"
+MODEL_PATH = "../llm_training/demo_train_2025-01-15_12_automode_evaluated_concat_s14-s18_24-12-23"
 DF_PATH = "../ressources/automode_evaluated_concat_s14-s18_24-12-23.pickle"
 NUM_SCORES_PER_RUN=10
 

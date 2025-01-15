@@ -23,7 +23,7 @@ import datetime
 current_date = datetime.date.today()
 current_date_str = current_date.strftime("%Y-%m-%d")
 
-EXP_NAME = f"demo_train_{current_date_str}_{nepochs}_{DFNAME}_test"
+EXP_NAME = f"demo_train_{current_date_str}_{nepochs}_{DFNAME}"
 
 _trained_model, hf_trainer, dataset = pipeline.train_sft(f"../ressources/{DFNAME}.pickle", DEFAULT_GENERATE_PROMPT, EXP_NAME, sft_config_params)
 
