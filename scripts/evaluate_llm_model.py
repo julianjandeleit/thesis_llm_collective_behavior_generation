@@ -1,8 +1,8 @@
 #%%
 from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
-MODEL_PATH = "../llm_training/demo_train_2024-12-23_12_automode_evaluated_concat_s14-s18_24-12-23_wtargetlights"
-DF_PATH = "../ressources/automode_evaluated_concat_s14s15s16_n300_24-12-18.pickle"
+MODEL_PATH = "../llm_training/demo_train_2025-01-14_1_automode_evaluated_concat_s14-s18_24-12-23_test"
+DF_PATH = "../ressources/automode_evaluated_concat_s14-s18_24-12-23.pickle"
 NUM_SCORES_PER_RUN=10
 
 #%% 
@@ -10,6 +10,7 @@ import pandas as pd
 df = pd.read_pickle(DF_PATH).reset_index()
 df['llm_scores'] = [[] for _ in range(len(df))]
 df["llm_scores"] = df["llm_scores"].astype(object)
+#df = df.head(10)
 # %%
 
 script_name = ""
@@ -71,23 +72,10 @@ def evaluate_configuration(argos,behavior_tree,script_path="./run_argos_with_vis
         
         
 mlp = MLPipeline()
-mlp.prepare_model() # need both currently
-mlp.prepare_model_from_path(path=MODEL_PATH)
-def txt_prompt(llmin, llmout, tokenizer):
-        #f"\nNUMNODES={int(len(llmout.split(' '))/2.0)}\n"+
-        # f"\nsyntax example: {stx}\n"
-        # Specify the tree inside |BTSTART|<TREE>|BTEND| by starting the tree with --nroot.
-        messages = [
-            {"role": "user", "content": llmin+"\nGenerate the behavior tree that achieves the objective of this mission."},
-            {"role": "assistant", "content": llmout},
-        ]
-
-        text = tokenizer.apply_chat_template(messages, tokenize=False, truncation=True, return_dict=False) # wraps text with special tokens depending on role (assitant or user)
-        return text
+model, tokenizer = mlp.load_model_from_path(path=MODEL_PATH)
     
 def perform_inference(txt):
-    txt = txt_prompt(txt, "", mlp.tokenizer)[:-5]
-    out = mlp.inference(txt, seq_len=1000)
+    out = mlp.inference(model,tokenizer, txt, seq_len=1000)
     res = None
     try:
         res = out.split("[/INST]")[1]

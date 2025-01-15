@@ -1,19 +1,6 @@
 #%%
 from pipeline.pipeline import MLPipeline
-        
-def txt_prompt(llmin, llmout, tokenizer):
-        #f"\nNUMNODES={int(len(llmout.split(' '))/2.0)}\n"+
-        # f"\nsyntax example: {stx}\n"
-        # Specify the tree inside |BTSTART|<TREE>|BTEND| by starting the tree with --nroot.
-        messages = [
-            {"role": "user", "content": llmin+"\nGenerate the behavior tree that achieves the objective of this mission."},
-            {"role": "assistant", "content": llmout},
-        ]
-
-        text = tokenizer.apply_chat_template(messages, tokenize=False, truncation=True, return_dict=False) # wraps text with special tokens depending on role (assitant or user)
-        return text
-
-    
+from pipeline.utils import DEFAULT_GENERATE_PROMPT
 
 import argparse
 import os
@@ -25,7 +12,7 @@ def main():
     # Add arguments
     parser.add_argument('--text', type=str, required=True, help='The text to process.')
     parser.add_argument('--model', type=str, required=True, help='Path to the model directory.')
-    parser.add_argument('--wrap', action='store_true', help='Specify if the text should be wrapped.')
+    parser.add_argument('--wrap', action='store_true', help='DEPRECATED NO EFFECT NOW Specify if the text should be wrapped.')
 
     # Parse the arguments
     args = parser.parse_args()
@@ -36,13 +23,14 @@ def main():
         return
 
     mlp = MLPipeline()
-    mlp.prepare_model()
-    mlp.prepare_model_from_path(path=args.model)
+    #model, tokenizer = mlp.load_dpo_trained_model(args.model)
+    model, tokenizer = mlp.load_model_from_path(args.model)
+    #print(f"loaded model with adapters: {model.active_adapters}")
 
     def perform_inference(txt, wrap=True):
-        if wrap:
-            txt = txt_prompt(txt, "", mlp.tokenizer)[:-5]
-        out = mlp.inference(txt, seq_len=1000)
+        #if wrap:
+        #    txt = txt_prompt(txt, "", mlp.tokenizer)[:-5]
+        out = mlp.inference(model, tokenizer, txt, seq_len=1000)
         res = None
         try:
             res = out.split("[/INST]")[1]
@@ -52,8 +40,8 @@ def main():
         return res, txt
 
     res, text = perform_inference(args.text, args.wrap)
-    print(text)
-    print(res)
+    print("Input:\n"+text)
+    print("Output:\n"+res)
 
 if __name__ == '__main__':
     main()

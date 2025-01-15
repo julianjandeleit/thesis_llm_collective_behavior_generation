@@ -20,15 +20,17 @@ class CustomInference:
     def __post_init__(self):
         # load mathstral 7B by default
         if self.model is None or self.tokenizer is None:
+            print("model or tokenizer not set, loading default model")
             model, tokenizer, lora, bnb = load_default_model()
             self.model = model
             self.tokenizer = tokenizer
 
         if self.text is None:
+            print("text not set, using dummy text")
             self.text = 'The environment features a rectangle with dimensions 5.57 x 2.19 x 1.75.There are the following lights in the arena: ((-0.25, 0.57)). 16 robots are evenly spaced around the central point, spanning a radius of 0.96 m. In the surroundings, there exists a circle at [-0.71, 0.76] with a radius of 0.25 meters, exhibiting a white color, and another at [0.78, -1.25] with a radius of 0.27 meters in black. The objective for the robots is to transfer items from the white initial location to the black circle. '
 
 
-    def inference(self):
+    def inference(self) ->str:
         """ assumes generate_prompt has a 5 chars long closing token for llm input and removes it without checking"""
         random.seed(42)
         np.random.seed(42)

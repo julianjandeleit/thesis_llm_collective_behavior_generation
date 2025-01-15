@@ -1,11 +1,11 @@
 #%%
 from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
-MODEL_PATH = "../llm_training/demo_train_2024-12-23_12_automode_evaluated_concat_s14-s18_24-12-23_wtargetlights"
+MODEL_PATH = "../llm_training/demo_train_2025-01-14_1_automode_evaluated_concat_s14-s18_24-12-23_test"
 OUTPUT_PATH="dpo_rl_model"
 NUM_SCORES_PER_RUN=10
-NUM_ROWS_PER_EPOCH=200
-NUM_EPOCHS=20
+NUM_ROWS_PER_EPOCH=3
+NUM_EPOCHS=3
 SKELETON_TEMPLATE="../ressources/skeleton.argos"
 #%% 
 import random
@@ -91,24 +91,11 @@ def evaluate_configuration(argos,behavior_tree,script_path="./run_argos_with_vis
         
         
 mlp = MLPipeline()
-mlp.prepare_model() # need both currently
-#mlp.prepare_model_from_path(path=MODEL_PATH)
-mlp.prepare_dpo_model(model_path=MODEL_PATH)
-def txt_prompt(llmin, llmout, tokenizer):
-        #f"\nNUMNODES={int(len(llmout.split(' '))/2.0)}\n"+
-        # f"\nsyntax example: {stx}\n"
-        # Specify the tree inside |BTSTART|<TREE>|BTEND| by starting the tree with --nroot.
-        messages = [
-            {"role": "user", "content": llmin+"\nGenerate the behavior tree that achieves the objective of this mission."},
-            {"role": "assistant", "content": llmout},
-        ]
-
-        text = tokenizer.apply_chat_template(messages, tokenize=False, truncation=True, return_dict=False) # wraps text with special tokens depending on role (assitant or user)
-        return text
+model, tokenizer = mlp.load_model_for_dpo_training(MODEL_PATH)
     
 def perform_inference(txt):
-    txt = txt_prompt(txt, "", mlp.tokenizer)[:-5]
-    out = mlp.inference(txt, seq_len=1000, temperature=0.21)
+
+    out = mlp.inference(model, tokenizer, txt, seq_len=1000, temperature=0.21)
     res = None
     try:
         res = out.split("[/INST]")[1]
@@ -117,9 +104,6 @@ def perform_inference(txt):
         res = None
     #print(res)
     return res
-
-def generate_prompt(sample, tokenizer):
-        return txt_prompt(sample["llm_input"],sample["llm_output"], tokenizer)
 
 def evaluate_tree(behavior_tree, mission):
     # Check if behavior_tree is not None
@@ -168,7 +152,7 @@ def rescale_score(score, df, category):
     return score_scaled
 dataframes = []
 for epoch in range(NUM_EPOCHS):    
-    print(f"{epoch}/{NUM_EPOCHS}")
+    print(f"-------- COMPUTING EPOCH {epoch}/{NUM_EPOCHS} -------- \n")
     df = sample_dataset(NUM_ROWS_PER_EPOCH)
     skeleton = ET.parse(SKELETON_TEMPLATE)
     df = add_config_to_dataset(df, skeleton)
@@ -215,25 +199,8 @@ for epoch in range(NUM_EPOCHS):
     df["scores_bt1_scaled"] = df.apply(lambda row: rescale_score(row["scores_bt1"], df, row["type"]), axis=1)
     df["scores_bt2_scaled"] = df.apply(lambda row: rescale_score(row["scores_bt2"], df, row["type"]), axis=1)
     df = df.dropna(subset=["scores_bt1_scaled", "scores_bt2_scaled"])
-    print(f"scores computed and rescaled")
-    def choose_and_reject(row):
-        if row['scores_bt1_scaled'] > row['scores_bt2_scaled']:
-            return pd.Series({
-                'chosen': txt_prompt(row["description"], row['bt1'], mlp.tokenizer),
-                'rejected': txt_prompt(row["description"], row['bt2'], mlp.tokenizer),
-                'score_chosen': row['scores_bt1_scaled'],
-                'score_rejected': row['scores_bt2_scaled']
-            })
-        else:
-            return pd.Series({
-                'chosen':txt_prompt(row["description"], row['bt2'], mlp.tokenizer),
-                'rejected': txt_prompt(row["description"], row['bt1'], mlp.tokenizer),
-                'score_chosen': row['scores_bt2_scaled'],
-                'score_rejected': row['scores_bt1_scaled']
-            })
-
-    result = df.apply(choose_and_reject, axis=1)
-    df = pd.concat([df, result], axis=1)
+    
+    df = df.rename(columns={"scores_bt2_scaled": "scores_B","scores_bt1_scaled":"scores_A", "bt2":"llmout_B","bt1":"llmout_A", "description":"llmin"})
 
     try:
         print(df[["chosen", "rejected", "score_chosen","score_rejected"]].head())
@@ -243,7 +210,9 @@ for epoch in range(NUM_EPOCHS):
     #%%
      # as this is done everytime the final version should be the one in the directory after exececution, I assume that training the same model twice works 
     #mlp.train_model()
-    mlp.train_dpo(df, save_path=OUTPUT_PATH)
+    if len(df) < 0:
+        continue
+    mlp.train_dpo(model, tokenizer, mlp.lora_config, df, save_path=OUTPUT_PATH)
 
     dataframes.append(df)
     # %%

@@ -1,8 +1,8 @@
 #%%
 from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
-MODEL_PATH = "../llm_training/demo_train_2024-12-20_16_automode_evaluated_seed17_n600_24-12-20_wtargetlights"
-DF_LLM_EVALUATED_PATH = "../ressources/llm_evaluated_s17_n600_24-12-20.pickle"
+MODEL_PATH = "../llm_training/demo_train_2025-01-14_1_automode_evaluated_concat_s14-s18_24-12-23_test"
+DF_LLM_EVALUATED_PATH = "../ressources/llm_evaluated_2025-01-14_test.pickle"
 OUTPUT_PATH="dpo_ft_model"
 NUM_SCORES_PER_RUN=10
 #%% 
@@ -89,32 +89,6 @@ def evaluate_configuration(argos,behavior_tree,script_path="./run_argos_with_vis
         
         
 mlp = MLPipeline()
-#mlp.prepare_model() # need both currently
-#mlp.prepare_model_from_path(path=MODEL_PATH)
-#mlp.prepare_dpo_model(model_path=MODEL_PATH)
-def txt_prompt(llmin, llmout, tokenizer):
-        #f"\nNUMNODES={int(len(llmout.split(' '))/2.0)}\n"+
-        # f"\nsyntax example: {stx}\n"
-        # Specify the tree inside |BTSTART|<TREE>|BTEND| by starting the tree with --nroot.
-        messages = [
-            {"role": "user", "content": llmin+"\nGenerate the behavior tree that achieves the objective of this mission."},
-            {"role": "assistant", "content": llmout},
-        ]
-
-        text = tokenizer.apply_chat_template(messages, tokenize=False, truncation=True, return_dict=False) # wraps text with special tokens depending on role (assitant or user)
-        return text
-    
-def perform_inference(txt):
-    txt = txt_prompt(txt, "", mlp.tokenizer)[:-5]
-    out = mlp.inference(txt, seq_len=1000, temperature=0.41)
-    res = None
-    try:
-        res = out.split("[/INST]")[1]
-        res = res.split("</s>")[0]
-    except:
-        res = None
-    #print(res)
-    return res
 
 def add_config_to_dataset(df: pd.DataFrame, skeleton: ET.ElementTree):
     result = []
@@ -158,12 +132,14 @@ print(f"scores computed and rescaled")
 
 #result = df.apply(choose_and_reject, axis=1)
 #df = pd.concat([df, result], axis=1)
-print(df.keys())
-print(df[["scores_llm_scaled", "scores_automode_scaled", "llm_behavior_tree", "behavior_tree", "description"]].head(10).to_dict())
-#df.rename(columns={"scores_llm_scaled": "scores_B","scores_automode_scaled":"scores_A", "llm_behavior_tree":"llmout_B","behavior_tree":"llmout_A", "description":"llmin"})
+#print(df.keys())
+#print(df[["scores_llm_scaled", "scores_automode_scaled", "llm_behavior_tree", "behavior_tree", "description"]].head(10).to_dict())
+df = df.rename(columns={"scores_llm_scaled": "scores_B","scores_automode_scaled":"scores_A", "llm_behavior_tree":"llmout_B","behavior_tree":"llmout_A", "description":"llmin"})
 #%%
-    # as this is done everytime the final version should be the one in the directory after exececution, I assume that training the same model twice works 
-mlp.train_dpo(df, save_path=OUTPUT_PATH)
+# as this is done everytime the final version should be the one in the directory after exececution, I assume that training the same model twice works 
+model, tokenizer = mlp.load_model_for_dpo_training(MODEL_PATH)
+#odel = PeftModel.from_pretrained(model.base_model, model_id=MODEL_PATH)
+trained_model, hf_trainer, train_ds = mlp.train_dpo(model, tokenizer, mlp.lora_config, df, save_path=OUTPUT_PATH)
 
 
 # %%

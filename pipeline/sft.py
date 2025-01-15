@@ -61,11 +61,13 @@ class CustomSFTTrainer:
     def __post_init__(self):
         # load mathstral 7B by default
         if self.model is None or self.tokenizer is None:
+            print("model or tokenizer not set, loading default model")
             model, tokenizer, lora, bnb = load_default_model()
             self.model = model
             self.tokenizer = tokenizer
 
         if self.dataset is None:
+            print("dataset not set, loading dummy dataset")
             self.dataset = pd.DataFrame.from_dict({'llmin': {0: "In this setting, a circular arena with a radius of 2.16 meters is established. The arena is illuminated by 2 lights evenly distributed across the space. Placed within a 1.01-meter radius around the center are 13 robots. In the floor space, you'll discover two distinct areas: a circle at [-1.03, 0.46] in black, and another circle at [-0.50, -1.28] in white. The primary objective for the robots is to aggregate at the WHITE circle. ",
                     1: "The area is a rectangle with dimensions 4.76 x 5.14 x 1.73.There are 0 lights distributed evenly in the arena. 20 robots are evenly spaced around the central point, spanning a radius of 2.08 m. In the environment, you'll find a circle at [-0.08, -1.04] with a radius of 0.34 meters, characterized by its white hue. There's also another circle at [-1.95, 2.38] with a radius of 0.35 meters in black. The robots are assigned the goal of moving items from the black starting zone to the white circle. ",
                     2: 'The environment features a circle composed of 16 walls. Evenly distributed throughout the environment are 3 lights. Their positions are ((2.51, -1.76), (-1.01, -0.21), (1.73, -1.29)). Evenly positioned around the origin are 24 robots within a radius of 1.92 meters. Present in the space are two circles—one situated at [1.08, 0.38] with a radius of 0.26 meters, adorned in black, and another at [1.09, 2.35] with a radius of 0.42 meters in white. The robots are tasked with transporting items from the white origing to the black circle. ',
