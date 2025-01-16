@@ -22,7 +22,7 @@ import math
 import numpy as np
 from tqdm.auto import tqdm
 
-def evaluate_configuration(argos,behavior_tree,script_path="./run_argos_with_vis.sh",tmpfile="/tmp/vis.argos"):
+def evaluate_configuration(argos, behavior_tree, script_path="./run_argos_with_vis.sh", tmpfile="/tmp/vis.argos"):
     """expects argos to include commented out visualization"""
     
     res = None
