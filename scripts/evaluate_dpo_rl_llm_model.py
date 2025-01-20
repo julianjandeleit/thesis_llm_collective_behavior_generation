@@ -2,7 +2,7 @@
 from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
 MODEL_PATH = "dpo_rl_model"
-DF_PATH = "../ressources/llm_evaluated_concat_s14-s18_2025-01-16.pickle"
+DF_PATH = "../ressources/llm_evaluated_s14_n300_24-12-17.pickle"
 NUM_SCORES_PER_RUN=10
 
 #%% 
@@ -71,8 +71,8 @@ def evaluate_configuration(argos,behavior_tree,script_path="./run_argos_with_vis
         
         
 mlp = MLPipeline()
-mlp.prepare_model() # need both currently
-mlp.load_dpo_trained_model(MODEL_PATH)
+#mlp.prepare_model() # need both currently
+model, tokenizer = mlp.load_dpo_trained_model(MODEL_PATH)
 def txt_prompt(llmin, llmout, tokenizer):
         #f"\nNUMNODES={int(len(llmout.split(' '))/2.0)}\n"+
         # f"\nsyntax example: {stx}\n"
@@ -86,8 +86,8 @@ def txt_prompt(llmin, llmout, tokenizer):
         return text
     
 def perform_inference(txt):
-    txt = txt_prompt(txt, "", mlp.tokenizer)[:-5]
-    out = mlp.inference(txt, seq_len=1000)
+    #txt = txt_prompt(txt, "", mlp.tokenizer)[:-5]
+    out = mlp.inference(model, tokenizer, txt, seq_len=1000)
     res = None
     try:
         res = out.split("[/INST]")[1]

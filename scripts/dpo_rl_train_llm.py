@@ -4,8 +4,8 @@ SCRIPT_PATH="./run_argos_with_vis.sh"
 MODEL_PATH = "../llm_training/demo_train_2025-01-15_12_automode_evaluated_concat_s14-s18_24-12-23"
 OUTPUT_PATH="dpo_rl_model"
 NUM_SCORES_PER_RUN=10
-NUM_ROWS_PER_EPOCH=200
-NUM_EPOCHS=20
+NUM_ROWS_PER_EPOCH=100
+NUM_EPOCHS=15
 SKELETON_TEMPLATE="../ressources/skeleton.argos"
 #%% 
 import random
@@ -212,8 +212,9 @@ for epoch in range(NUM_EPOCHS):
     #mlp.train_model()
     if len(df) < 0:
         continue
-    mlp.train_dpo(model, tokenizer, mlp.lora_config, df, save_path=OUTPUT_PATH)
-
+    
+    trained_model, hf_trainer_dpo, dpo_train_dataset = mlp.train_dpo(model, tokenizer, mlp.lora_config, df, save_path=OUTPUT_PATH)
+    model = trained_model
     dataframes.append(df)
     # %%
     import pickle
