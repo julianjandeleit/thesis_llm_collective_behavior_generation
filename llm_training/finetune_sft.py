@@ -14,7 +14,7 @@ sft_config_params["max_grad_norm"] = 0.15
 sft_config_params["gradient_accumulation_steps"] = 2
 sft_config_params["max_seq_length"] = 1000
 
-DFNAME = "automode_evaluated_concat_s14-s18_24-12-23"
+DFNAME = "final_experiments/automode_datasets/df_increasing_size_3000"
 
 from pipeline.utils import DEFAULT_GENERATE_PROMPT
 
@@ -23,7 +23,8 @@ import datetime
 current_date = datetime.date.today()
 current_date_str = current_date.strftime("%Y-%m-%d")
 
-EXP_NAME = f"demo_train_{current_date_str}_{nepochs}_{DFNAME}"
+#EXP_NAME = f"demo_train_{current_date_str}_{nepochs}_{DFNAME}"
+EXP_NAME = f"trained_sft"
 
 _trained_model, hf_trainer, dataset = pipeline.train_sft(f"../ressources/{DFNAME}.pickle", DEFAULT_GENERATE_PROMPT, EXP_NAME, sft_config_params)
 
