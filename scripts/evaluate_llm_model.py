@@ -2,12 +2,12 @@
 from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
 MODEL_PATH = "../llm_training/trained_sft"
-DF_PATH = "../ressources/final_experiments/automode_datasets/df_increasing_size_validate.pickle"
+DF_PATH = "../ressources/final_experiments/automode_datasets/df_guided_control_mixed_samesize.pickle"
 NUM_SCORES_PER_RUN=10
 
 #%% 
 import pandas as pd
-df = pd.read_pickle(DF_PATH).reset_index()
+df = pd.read_pickle(DF_PATH).reset_index(drop=True)
 df['llm_scores'] = [[] for _ in range(len(df))]
 df["llm_scores"] = df["llm_scores"].astype(object)
 #df = df.head(10)

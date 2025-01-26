@@ -15,7 +15,7 @@ sft_config_params["gradient_accumulation_steps"] = 2
 sft_config_params["max_seq_length"] = 1000
 #sft_config_params["lr_scheduler_type"] = "reduce_lr_on_plateau"
 
-DFNAME = "final_experiments/automode_datasets/df_increasing_size_225"
+DFNAME = "final_experiments/automode_datasets/df_guided_control_mixed_samesize"
 
 from pipeline.utils import DEFAULT_GENERATE_PROMPT
 
@@ -31,8 +31,7 @@ _trained_model, hf_trainer, dataset = pipeline.train_sft(f"../ressources/{DFNAME
 
 
 # %%
-inf_text = """The environment is a circle made out of 15 walls. The space is lit with 2 lights evenly distributed. Positions are ((-1.13, -1.42), (-1.85, 1.74)). Within a 1.80-meter radius from the center, 10 robots are uniformly distributed. The goal is for the robots to aggregate at the white circle. There are two areas on the floor: a circle at [-2.36, -0.88] with a radius of 1.26 meters in white, and another circle at [-0.30, -0.23] with a radius of 1.36 meters in black. 
-Generate the behavior tree that achieves the objective of this mission. """
+inf_text = """The environment is a circle made out of 15 walls. The space is lit with 2 lights evenly distributed. Positions are ((-1.13, -1.42), (-1.85, 1.74)). Within a 1.80-meter radius from the center, 10 robots are uniformly distributed. The goal is for the robots to aggregate at the white circle. There are two areas on the floor: a circle at [-2.36, -0.88] with a radius of 1.26 meters in white, and another circle at [-0.30, -0.23] with a radius of 1.36 meters in black. """
 output_txt = pipeline.inference(_trained_model, hf_trainer.tokenizer, inf_text, seq_len=2000)
 print("------- fixed res --------")
 print(output_txt)
