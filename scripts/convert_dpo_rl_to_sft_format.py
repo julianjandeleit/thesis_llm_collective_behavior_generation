@@ -18,6 +18,7 @@ def convert_to_sft_format(row):
     
     # Assign the description
     row["description"] = row["llmin"]
+    row["scores"] = [row["scores_bt1"], row["scores_bt2"]]
     
     return row
 
