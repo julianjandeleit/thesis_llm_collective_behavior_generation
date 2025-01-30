@@ -15,7 +15,7 @@ sft_config_params["gradient_accumulation_steps"] = 2
 sft_config_params["max_seq_length"] = 1000
 #sft_config_params["lr_scheduler_type"] = "reduce_lr_on_plateau"
 
-DFNAME = "final_experiments/automode_datasets/df_leaveoneout_agg"
+DFNAME = "final_experiments/automode_datasets/df_leaveoneout_noagg"
 
 from pipeline.utils import DEFAULT_GENERATE_PROMPT
 
