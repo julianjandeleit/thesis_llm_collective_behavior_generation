@@ -1,11 +1,11 @@
 #%%
 from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
-MODEL_PATH = "../llm_training/trained_sft"
+MODEL_PATH = "../llm_training/trained_sft_1575"
 OUTPUT_PATH="dpo_rl_model"
-NUM_SCORES_PER_RUN=5
-NUM_ROWS_PER_EPOCH=100
-NUM_EPOCHS=50
+NUM_SCORES_PER_RUN=15
+NUM_ROWS_PER_EPOCH=200
+NUM_EPOCHS=25
 SKELETON_TEMPLATE="../ressources/skeleton.argos"
 #%% 
 import random
@@ -144,6 +144,9 @@ def rescale_score(score, df, category):
     min_score = min(df_cat.scores_bt1.min(), df_cat.scores_bt2.min())
     max_score = max(df_cat.scores_bt1.max(), df_cat.scores_bt2.max())
     #print(score,min_score, max_score,float(score-min_score),float(max_score - min_score))
+    if score is None and min_score is not None:
+        score = min_score   #set nan to minimum to tell model it was bad
+
     if score is None or min_score is None or max_score is None or min_score == max_score:
         return None
     score_scaled = float(score-min_score)/float(max_score - min_score)
@@ -205,24 +208,30 @@ for epoch in range(NUM_EPOCHS):
     try:
         print(df[["chosen", "rejected", "score_chosen","score_rejected"]].head())
     except:
-        print("could not show scores")
-
-    #%%
-     # as this is done everytime the final version should be the one in the directory after exececution, I assume that training the same model twice works 
-    #mlp.train_model()
-    if len(df) < 0:
-        continue
-    
-    trained_model, hf_trainer_dpo, dpo_train_dataset = mlp.train_dpo(model, tokenizer, mlp.lora_config, df, save_path=OUTPUT_PATH)
-    model = trained_model
-    dataframes.append(df)
-    # %%
-    import pickle
-    for i, df in enumerate(dataframes):
-        df['dataset_position'] = i  # Add a new column with the position
+        print("could not find scores in df")
         
-    combined_df = pd.concat(dataframes, ignore_index=True)
+    try:
 
-    combined_df.to_pickle(OUTPUT_PATH+"/dataset.pickle")
+
+        #%%
+        # as this is done everytime the final version should be the one in the directory after exececution, I assume that training the same model twice works 
+        #mlp.train_model()
+        if len(df) < 0:
+            continue
+        
+        trained_model, hf_trainer_dpo, dpo_train_dataset = mlp.train_dpo(model, tokenizer, mlp.lora_config, df, save_path=OUTPUT_PATH, filter_nan_scores_bt=True)
+        model = trained_model
+        dataframes.append(df)
+        # %%
+        import pickle
+        for i, df in enumerate(dataframes):
+            df['dataset_position'] = i  # Add a new column with the position
+            
+        combined_df = pd.concat(dataframes, ignore_index=True)
+
+        combined_df.to_pickle(OUTPUT_PATH+"/dataset.pickle")
+    except Exception as e:
+        print("could not train dpo")
+        print(e.with_traceback())
 
 

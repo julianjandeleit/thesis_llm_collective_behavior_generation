@@ -2,7 +2,7 @@
 from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
 MODEL_PATH = "dpo_rl_model"
-DF_PATH = "../ressources/final_experiments/automode_datasets/df_increasing_size_validate.pickle"
+DF_PATH = "../ressources/final_experiments/result_increasing_size_exp/llm_evaluated_1575.pickle"
 NUM_SCORES_PER_RUN=10
 
 #%% 

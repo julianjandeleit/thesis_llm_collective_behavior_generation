@@ -101,11 +101,16 @@ class MLPipeline:
         
         return model, tokenizer
         
-    def train_dpo(self, model,tokenizer, lora_conf, dpo_dataframe, save_path):
+    def train_dpo(self, model,tokenizer, lora_conf, dpo_dataframe, save_path, filter_nan_scores_bt=False):
 
         # sft on both possible outcomes in dataset for stability.
-        sft_trained_A, _,_ = CustomSFTTrainer(dataset= dpo_dataframe, model=model, tokenizer=tokenizer, test_size=None, llmin_col="llmin", llmout_col="llmout_A").train()
-        sft_trained_B, _,_ = CustomSFTTrainer(dataset= dpo_dataframe, model=sft_trained_A, tokenizer=tokenizer, test_size=None, llmin_col="llmin", llmout_col="llmout_B").train()
+        if filter_nan_scores_bt:
+            # if original columns were nan (no working bt generated) don't sft on it, only use the bt score at dpo rl to tell whats wrong
+            df_sft_train = dpo_dataframe.dropna(subset=["scores_bt1", "scores_bt1"]) # dont use
+        else:
+            df_sft_train = dpo_dataframe
+        sft_trained_A, _,_ = CustomSFTTrainer(dataset= df_sft_train, model=model, tokenizer=tokenizer, test_size=None, llmin_col="llmin", llmout_col="llmout_A").train()
+        sft_trained_B, _,_ = CustomSFTTrainer(dataset= df_sft_train, model=sft_trained_A, tokenizer=tokenizer, test_size=None, llmin_col="llmin", llmout_col="llmout_B").train()
 
         trainer = CustomDPOTrainer(dataset = dpo_dataframe, model = sft_trained_B, lora = lora_conf, bnb=self.bnb_config, tokenizer=tokenizer)
         trained_model, hf_trainer, dataset_train = trainer.train()
