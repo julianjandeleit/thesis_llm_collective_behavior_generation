@@ -3,8 +3,8 @@ from pipeline.pipeline import MLPipeline
 SCRIPT_PATH="./run_argos_with_vis.sh"
 MODEL_PATH = "../llm_training/trained_sft_1575"
 OUTPUT_PATH="dpo_rl_model"
-NUM_SCORES_PER_RUN=15
-NUM_ROWS_PER_EPOCH=200
+NUM_SCORES_PER_RUN=5
+NUM_ROWS_PER_EPOCH=150
 NUM_EPOCHS=25
 SKELETON_TEMPLATE="../ressources/skeleton.argos"
 #%% 
@@ -95,7 +95,7 @@ model, tokenizer = mlp.load_model_for_dpo_training(MODEL_PATH)
     
 def perform_inference(txt):
 
-    out = mlp.inference(model, tokenizer, txt, seq_len=1000, temperature=0.21)
+    out = mlp.inference(model, tokenizer, txt, seq_len=1000, temperature=0.14)
     res = None
     try:
         res = out.split("[/INST]")[1]
@@ -145,7 +145,8 @@ def rescale_score(score, df, category):
     max_score = max(df_cat.scores_bt1.max(), df_cat.scores_bt2.max())
     #print(score,min_score, max_score,float(score-min_score),float(max_score - min_score))
     if score is None and min_score is not None:
-        score = min_score   #set nan to minimum to tell model it was bad
+        #score = min_score   #set nan to minimum to tell model it was bad
+        return None
 
     if score is None or min_score is None or max_score is None or min_score == max_score:
         return None

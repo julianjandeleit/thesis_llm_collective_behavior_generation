@@ -35,7 +35,7 @@ from sklearn.model_selection import train_test_split
 from datasets import Dataset
 from peft import PeftModel
 from transformers import TrainingArguments
-from .sft import CustomSFTTrainer
+from .sft import CustomSFTTrainer, DEFAULT_SFT_CONFIG
 
 random.seed(42)
 np.random.seed(42)
@@ -109,8 +109,11 @@ class MLPipeline:
             df_sft_train = dpo_dataframe.dropna(subset=["scores_bt1", "scores_bt1"]) # dont use
         else:
             df_sft_train = dpo_dataframe
-        sft_trained_A, _,_ = CustomSFTTrainer(dataset= df_sft_train, model=model, tokenizer=tokenizer, test_size=None, llmin_col="llmin", llmout_col="llmout_A").train()
-        sft_trained_B, _,_ = CustomSFTTrainer(dataset= df_sft_train, model=sft_trained_A, tokenizer=tokenizer, test_size=None, llmin_col="llmin", llmout_col="llmout_B").train()
+        
+        sft_conf = DEFAULT_SFT_CONFIG.copy()
+        sft_conf["num_train_epochs"] = 1
+        sft_trained_A, _,_ = CustomSFTTrainer(dataset= df_sft_train, model=model, sft_config=sft_conf, tokenizer=tokenizer, test_size=None, llmin_col="llmin", llmout_col="llmout_A").train()
+        sft_trained_B, _,_ = CustomSFTTrainer(dataset= df_sft_train, model=sft_trained_A, sft_config=sft_conf, tokenizer=tokenizer, test_size=None, llmin_col="llmin", llmout_col="llmout_B").train()
 
         trainer = CustomDPOTrainer(dataset = dpo_dataframe, model = sft_trained_B, lora = lora_conf, bnb=self.bnb_config, tokenizer=tokenizer)
         trained_model, hf_trainer, dataset_train = trainer.train()
