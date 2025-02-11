@@ -5,7 +5,7 @@ MODEL_PATH = "../llm_training/trained_sft_1575"
 OUTPUT_PATH="dpo_rl_model"
 NUM_SCORES_PER_RUN=5
 NUM_ROWS_PER_EPOCH=150
-NUM_EPOCHS=25
+NUM_EPOCHS=15
 SKELETON_TEMPLATE="../ressources/skeleton.argos"
 #%% 
 import random
@@ -233,6 +233,6 @@ for epoch in range(NUM_EPOCHS):
         combined_df.to_pickle(OUTPUT_PATH+"/dataset.pickle")
     except Exception as e:
         print("could not train dpo")
-        print(e.with_traceback())
+        print(e)
 
 
