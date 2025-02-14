@@ -1,1 +1,1 @@
-(rm frames -rf || echo "no prev frames, skipping") && podman cp nice_curie:/root frames && convert -delay 10 -loop 0 -layers Optimize $(ls frames/*.png | awk 'NR % 10 == 0') output.gif
+(rm frames -rf || echo "no prev frames, skipping") && docker cp angry_ellis:/root frames && convert -delay 10 -loop 0 -layers Optimize $(ls frames/*.png | awk 'NR % 10 == 0') output.gif
