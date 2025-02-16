@@ -111,11 +111,11 @@ class MLPipeline:
             df_sft_train = dpo_dataframe
         
         sft_conf = DEFAULT_SFT_CONFIG.copy()
-        sft_conf["num_train_epochs"] = 1
+        sft_conf["num_train_epochs"] = 0.1 # seems to round up though
         sft_trained_A, _,_ = CustomSFTTrainer(dataset= df_sft_train, model=model, sft_config=sft_conf, tokenizer=tokenizer, test_size=None, llmin_col="llmin", llmout_col="llmout_A").train()
         sft_trained_B, _,_ = CustomSFTTrainer(dataset= df_sft_train, model=sft_trained_A, sft_config=sft_conf, tokenizer=tokenizer, test_size=None, llmin_col="llmin", llmout_col="llmout_B").train()
 
-        trainer = CustomDPOTrainer(learning_rate=5.0e-7,dataset = dpo_dataframe, model = sft_trained_B, lora = lora_conf, bnb=self.bnb_config, tokenizer=tokenizer)
+        trainer = CustomDPOTrainer(learning_rate=5.0e-9,dataset = dpo_dataframe, model = sft_trained_B, lora = lora_conf, bnb=self.bnb_config, tokenizer=tokenizer)
         trained_model, hf_trainer, dataset_train = trainer.train()
         
         dpo_trainer = hf_trainer

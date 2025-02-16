@@ -1,11 +1,12 @@
 #%%
 from pipeline.pipeline import MLPipeline
+import shutil
 SCRIPT_PATH="./run_argos_with_vis.sh"
 MODEL_PATH = "../llm_training/trained_sft_1575"
 OUTPUT_PATH="dpo_rl_model"
 NUM_SCORES_PER_RUN=5
-NUM_ROWS_PER_EPOCH=150
-NUM_EPOCHS=15
+NUM_ROWS_PER_EPOCH=300
+NUM_EPOCHS=30
 SKELETON_TEMPLATE="../ressources/skeleton.argos"
 #%% 
 import random
@@ -234,5 +235,19 @@ for epoch in range(NUM_EPOCHS):
     except Exception as e:
         print("could not train dpo")
         print(e)
+        
+    # Define your OUTPUT_PATH and the integer i
+    #OUTPUT_PATH = 'path/to/your/output_directory'  # Replace with your actual path
+    #i = 1  # Replace with your desired integer value
+
+    # Create the new output path
+    new_output_path = OUTPUT_PATH + str(epoch)
+
+    # Copy the contents from OUTPUT_PATH to new_output_path
+    try:
+        shutil.copytree(OUTPUT_PATH, new_output_path)
+        print(f"Copied contents from {OUTPUT_PATH} to {new_output_path}")
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 
