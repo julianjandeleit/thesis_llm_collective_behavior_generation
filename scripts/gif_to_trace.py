@@ -32,11 +32,12 @@ def process_gif(input_gif, output_image, decay_rate=5.0):
         # Threshold the difference to create a binary mask
         _, mask = cv2.threshold(gray_diff, 30, 255, cv2.THRESH_BINARY)
         
-        # Calculate opacity using exponential decay
-        opacity = np.exp(-decay_rate * (i / num_frames))  # Exponential decay
+        # Calculate opacity with reversed exponential decay:
+        # Strongest (opacity 1) for last frames, lower for earlier ones.
+        opacity = np.exp(-decay_rate * ((num_frames - i) / num_frames))
         
         # Update the trace image with the moving pixels, applying the opacity
-        trace_image[mask == 255] += np.array([255, 255, 255]) * opacity  # Blend with white
+        trace_image[mask == 255] += np.array([255, 255, 255]) * opacity
 
     # Normalize the trace image to the range [0, 255]
     trace_image = np.clip(trace_image, 0, 255).astype(np.uint8)
