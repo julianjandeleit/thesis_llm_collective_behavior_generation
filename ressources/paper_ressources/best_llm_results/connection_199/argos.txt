@@ -1,0 +1,88 @@
+<?xml version="1.00" ?>
+<argos-configuration>
+  <framework>
+    <experiment length="120" ticks_per_second="10" random_seed="0"/>
+  </framework>
+  <loop_functions library="/root/AutoMoDe-loopfunctions/build/loop-functions/custom-loopfunctions/libcustom_loopfunc.so" label="template">
+    <spawnCircle position="0,0,0" radius="0.76"/>
+    <circle position="0.45,0.30" radius="0.36" color="black"/>
+    <circle position="-0.59,-0.08" radius="0.31" color="white"/>
+    <objective type="connection">
+      <objective-params conn_start="white" conn_end="black" connection_range="0.31"/>
+    </objective>
+  </loop_functions>
+  <controllers>
+    <automode_controller_bt id="automode_bt" library="/root/AutoMoDe/build/src/libautomode_bt.so">
+      <actuators>
+        <epuck_wheels implementation="default" noise_std_dev="0.05"/>
+        <epuck_rgb_leds implementation="default" medium="leds"/>
+        <epuck_range_and_bearing implementation="medium" medium="rab" data_size="4" range="0.70"/>
+      </actuators>
+      <sensors>
+        <epuck_proximity implementation="default" show_rays="false" noise_level="0.05" calibrated="true"/>
+        <epuck_range_and_bearing implementation="medium" medium="rab" data_size="4" nois_std_deviation="1.50" loss_probability="0.85" calibrated="true"/>
+        <epuck_light implementation="default" show_rays="false" noise_level="0.05" calibrated="true"/>
+        <epuck_ground implementation="rot_z_only" noise_level="0.05" calibrated="true"/>
+        <epuck_omnidirectional_camera implementation="rot_z_only" medium="leds" show_rays="false"/>
+      </sensors>
+      <params bt-config="--nroot 3 --nchildroot 1 --n0 0 --nchild0 2 --n00 6 --c00 5 --p00 0.26 --n01 5 --a01 1 --p01 0"/>
+    </automode_controller_bt>
+  </controllers>
+  <arena size="4.40,4.40,1.08" center="0,0,0">
+    <floor id="floor" source="loop_functions" pixels_per_meter="300"/>
+    <light id="light" position="0.00,0.00,0.00" orientation="0,0,0" color="red" intensity="5.00" medium="leds"/>
+    <distribute>
+      <position method="uniform" min="-1.00,-1.00,0" max="1.00,1.00,0"/>
+      <orientation method="gaussian" mean="0,0,0" std_dev="360,0,0"/>
+      <entity quantity="5" max_trials="100">
+        <e-puck id="epuck">
+          <controller config="automode_bt"/>
+        </e-puck>
+      </entity>
+    </distribute>
+    <light id="light_0" position="-0.59,-0.08,0.00" orientation="360,0,0" color="yellow" intensity="9.50" medium="leds"/>
+    <light id="light_1" position="0.45,0.30,0.00" orientation="360,0,0" color="yellow" intensity="8.09" medium="leds"/>
+    <box id="wall_0" size="0.01,0.92,0.10" movable="false">
+      <body position="1.02,0.42,0" orientation="22.50,0,0"/>
+    </box>
+    <box id="wall_1" size="0.01,0.92,0.10" movable="false">
+      <body position="0.42,1.02,0" orientation="67.50,0,0"/>
+    </box>
+    <box id="wall_2" size="0.01,0.92,0.10" movable="false">
+      <body position="-0.42,1.02,0" orientation="112.50,0,0"/>
+    </box>
+    <box id="wall_3" size="0.01,0.92,0.10" movable="false">
+      <body position="-1.02,0.42,0" orientation="157.50,0,0"/>
+    </box>
+    <box id="wall_4" size="0.01,0.92,0.10" movable="false">
+      <body position="-1.02,-0.42,0" orientation="-157.50,0,0"/>
+    </box>
+    <box id="wall_5" size="0.01,0.92,0.10" movable="false">
+      <body position="-0.42,-1.02,0" orientation="-112.50,0,0"/>
+    </box>
+    <box id="wall_6" size="0.01,0.92,0.10" movable="false">
+      <body position="0.42,-1.02,0" orientation="-67.50,0,0"/>
+    </box>
+    <box id="wall_7" size="0.01,0.92,0.10" movable="false">
+      <body position="1.02,-0.42,0" orientation="-22.50,0,0"/>
+    </box>
+  </arena>
+  <physics_engines>
+    <dynamics2d id="dyn2d"/>
+  </physics_engines>
+  <media>
+    <led id="leds" grid_size="1,1,1"/>
+    <range_and_bearing id="ircom"/>
+    <range_and_bearing id="rab"/>
+  </media>
+  <visualization>
+  <!--<qt-opengl>
+            <camera>
+                <placement idx="0"
+                           position="0,0,4.5"
+                           look_at="0,0,0"
+                           lens_focal_length="30" />
+            </camera>
+        </qt-opengl>-->
+        </visualization>
+</argos-configuration>
