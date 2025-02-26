@@ -183,10 +183,10 @@ class MLPipeline:
         return _trained_model, hf_trainer, dataset
 
         
-    def inference(self, model, tokenizer, text: str, seq_len=2000, temperature=None):
+    def inference(self, model, tokenizer, text: str, seq_len=2000, temperature=None, generate_prompt=None):
         """ requires prepare_model """
         
-        inferencer = CustomInference(text, model, tokenizer, temperature=temperature, seq_len=seq_len)
+        inferencer = CustomInference(text, model, tokenizer, temperature=temperature, seq_len=seq_len, generate_prompt=generate_prompt)
         res = inferencer.inference()
 
         return res

@@ -5,6 +5,15 @@ from pipeline.utils import DEFAULT_GENERATE_PROMPT
 import argparse
 import os
 
+def nowrap_prompt(llmin, llmout, baseclass):
+        messages = [
+            {"role": "user", "content": llmin},
+            {"role": "assistant", "content": llmout},
+        ]
+
+        text = baseclass.tokenizer.apply_chat_template(messages, tokenize=False, truncation=True, return_dict=False,add_special_tokens=False) # wraps text with special tokens depending on role (assitant or user)
+        return text
+
 def main():
     # Create the parser
     parser = argparse.ArgumentParser(description='Process some text and a model directory.')
@@ -12,7 +21,7 @@ def main():
     # Add arguments
     parser.add_argument('--text', type=str, required=True, help='The text to process.')
     parser.add_argument('--model', type=str, required=True, help='Path to the model directory.')
-    parser.add_argument('--wrap', action='store_true', help='DEPRECATED NO EFFECT NOW Specify if the text should be wrapped.')
+    parser.add_argument('--nowrap', action='store_true', help='DEPRECATED NO EFFECT NOW Specify if the text should be wrapped.')
 
     # Parse the arguments
     args = parser.parse_args()
@@ -27,10 +36,13 @@ def main():
     model, tokenizer = mlp.load_model_from_path(args.model)
     #print(f"loaded model with adapters: {model.active_adapters}")
 
-    def perform_inference(txt, wrap=True):
-        #if wrap:
+    def perform_inference(txt, nowrap=True):
+        if nowrap:
+             gp = nowrap_prompt
+        else:
+             gp = None
         #    txt = txt_prompt(txt, "", mlp.tokenizer)[:-5]
-        out = mlp.inference(model, tokenizer, txt, seq_len=1000)
+        out = mlp.inference(model, tokenizer, txt, seq_len=1000, generate_prompt=gp)
         res = None
         try:
             res = out.split("[/INST]")[1]
@@ -39,7 +51,7 @@ def main():
             res = out
         return res, txt
 
-    res, text = perform_inference(args.text, args.wrap)
+    res, text = perform_inference(args.text, args.nowrap)
     print("Input:\n"+text)
     print("Output:\n"+res)
 

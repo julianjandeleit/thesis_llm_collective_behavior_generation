@@ -43,3 +43,13 @@ def DEFAULT_GENERATE_PROMPT(llmin, llmout, baseclass):
 
         text = baseclass.tokenizer.apply_chat_template(messages, tokenize=False, truncation=True, return_dict=False,add_special_tokens=False) # wraps text with special tokens depending on role (assitant or user)
         return text
+
+
+def DESCRIPTIVE_GENERATE_PROMPT(llmin, llmout, baseclass):
+        messages = [
+            {"role": "user", "content": llmin+"\n\nGenerate the behavior tree that achieves the objective of this mission.\nThis is how the desired behavior tree syntax is structured:The first element is always the node identifier (like --nroot or --n0), followed by the type of node. 1 and 1 define selector nodes, 2 and 3 sequence nodes, 4 is a decorator node, 5 an action and 6 a condition. Different versions of the same node type are specified by --c[nodeID] parameter for conditions and --a[nodeID] parameter for actions. Conditions range from 0-6 with the order black floor, gray floor, white floor, neighbors count, inverted neighbors count, fixed probability and light. Depending on the condition, they have additional attributes like probability (p) or neighbors and epsilon (p, w). Actions range from 0-5 in the order exploration, stop, phototaxis, anti-phototaxis, attraction and repulsion. They all have a success probability parameter p. Additional parameters for some actions are steps range (rwm), attraction (att) and repulsion rep.\nNow generate the robot controller."},
+            {"role": "assistant", "content": llmout},
+        ]
+
+        text = baseclass.tokenizer.apply_chat_template(messages, tokenize=False, truncation=True, return_dict=False,add_special_tokens=False) # wraps text with special tokens depending on role (assitant or user)
+        return text

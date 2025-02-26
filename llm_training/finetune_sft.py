@@ -15,9 +15,10 @@ sft_config_params["gradient_accumulation_steps"] = 2
 sft_config_params["max_seq_length"] = 1000
 #sft_config_params["lr_scheduler_type"] = "reduce_lr_on_plateau"
 
-DFNAME = "final_experiments/automode_datasets/df_leaveoneout_noagg"
+DFNAME = "final_experiments/automode_datasets/df_increasing_size_1575"
 
-from pipeline.utils import DEFAULT_GENERATE_PROMPT
+from pipeline.utils import DEFAULT_GENERATE_PROMPT, DESCRIPTIVE_GENERATE_PROMPT
+PROMPT = DESCRIPTIVE_GENERATE_PROMPT
 
 nepochs=sft_config_params["num_train_epochs"]
 import datetime
@@ -27,12 +28,12 @@ current_date_str = current_date.strftime("%Y-%m-%d")
 #EXP_NAME = f"demo_train_{current_date_str}_{nepochs}_{DFNAME}"
 EXP_NAME = f"trained_sft"
 
-_trained_model, hf_trainer, dataset = pipeline.train_sft(f"../ressources/{DFNAME}.pickle", DEFAULT_GENERATE_PROMPT, EXP_NAME, sft_config_params)
+_trained_model, hf_trainer, dataset = pipeline.train_sft(f"../ressources/{DFNAME}.pickle", PROMPT, EXP_NAME, sft_config_params)
 
 
 # %%
 inf_text = """The environment is a circle made out of 15 walls. The space is lit with 2 lights evenly distributed. Positions are ((-1.13, -1.42), (-1.85, 1.74)). Within a 1.80-meter radius from the center, 10 robots are uniformly distributed. The goal is for the robots to aggregate at the white circle. There are two areas on the floor: a circle at [-2.36, -0.88] with a radius of 1.26 meters in white, and another circle at [-0.30, -0.23] with a radius of 1.36 meters in black. """
-output_txt = pipeline.inference(_trained_model, hf_trainer.tokenizer, inf_text, seq_len=2000)
+output_txt = pipeline.inference(_trained_model, hf_trainer.tokenizer, inf_text, seq_len=2000, generate_prompt=PROMPT)
 print("------- fixed res --------")
 print(output_txt)
 
@@ -44,7 +45,7 @@ index = 0
 df = pd.read_pickle(f"../ressources/{DFNAME}.pickle")
 txt = df.iloc[index]["description"]
 #%%
-output_txt = pipeline.inference(_trained_model, hf_trainer.tokenizer,txt, seq_len=2000)
+output_txt = pipeline.inference(_trained_model, hf_trainer.tokenizer,txt, seq_len=2000, generate_prompt=PROMPT)
 print("-------- res var --------")
 print(output_txt)
 # %%

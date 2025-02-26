@@ -1,8 +1,10 @@
 #%%
 from pipeline.pipeline import MLPipeline
+from pipeline.utils import DEFAULT_GENERATE_PROMPT, DESCRIPTIVE_GENERATE_PROMPT
+PROMPT = DESCRIPTIVE_GENERATE_PROMPT
 SCRIPT_PATH="./run_argos_with_vis.sh"
 MODEL_PATH = "../llm_training/trained_sft"
-DF_PATH = "../ressources/final_experiments/automode_datasets/df_leaveoneout_agg.pickle"
+DF_PATH = "../ressources/final_experiments/automode_datasets/df_increasing_size_validate.pickle"
 NUM_SCORES_PER_RUN=10
 
 #%% 
@@ -75,7 +77,7 @@ mlp = MLPipeline()
 model, tokenizer = mlp.load_model_from_path(path=MODEL_PATH)
     
 def perform_inference(txt):
-    out = mlp.inference(model,tokenizer, txt, seq_len=1000)
+    out = mlp.inference(model,tokenizer, txt, seq_len=1000, generate_prompt=PROMPT)
     res = None
     try:
         res = out.split("[/INST]")[1]
