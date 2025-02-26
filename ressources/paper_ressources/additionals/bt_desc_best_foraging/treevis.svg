@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="38.333335876464844 48.333335876464844 961.3073120117188 417.42449951171875"><style>
+    svg {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+	    font-size: 0.9rem;
+    }
+    .nodeFrame {
+        fill: white;
+        stroke-width: 1px;
+        stroke: black;
+        z-index: 10;
+    }
+    .nodeFrame.selected, .line.selected{
+        stroke: #0070ff !important;
+    }
+    .double {
+        stroke-width: 3px;
+    }
+    .warning {
+        stroke: red !important;
+    }
+    .line {
+        stroke: black;
+        z-index: 1;
+    }
+    line.arrow {
+        stroke-width: 1px;
+        stroke: black;
+        z-index: 1;
+    }
+    .arrowthick {
+        stroke-width: 2px;
+        stroke: black;
+    }
+</style><defs><marker id="arrowhead" refX="10" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 Z"></path></marker></defs><g transform="translate(500,83.33333333333333)"><rect class="nodeFrame   " width="50" height="50" x="-25" y="-25"></rect><text class="no-select" text-anchor="middle" dominant-baseline="middle" x="0" y="0">⟶*</text></g><g transform="translate(166.66666666666666,250)"><rect class="nodeFrame   " width="50" height="50" x="-25" y="-25"></rect><text class="no-select" text-anchor="middle" dominant-baseline="middle" x="0" y="0">?</text></g><g transform="translate(83.33333333333333,416.66666666666663)"><polygon class="nodeFrame selected  " points="35,0,0,35,-35,0,0,-35"></polygon><text class="no-select" text-anchor="middle" dominant-baseline="middle" x="0" y="0">Wflr</text></g><g transform="translate(250,416.66666666666663)"><circle class="nodeFrame   " r="30" cx="0" cy="0"></circle><text class="no-select" text-anchor="middle" dominant-baseline="middle" x="0" y="0">Pha</text></g><g transform="translate(500,250)"><rect class="nodeFrame   " width="50" height="50" x="-25" y="-25"></rect><text class="no-select" text-anchor="middle" dominant-baseline="middle" x="0" y="0">?</text></g><g transform="translate(416.66666666666663,416.66666666666663)"><polygon class="nodeFrame   " points="35,0,0,35,-35,0,0,-35"></polygon><text class="no-select" text-anchor="middle" dominant-baseline="middle" x="0" y="0">Gflr</text></g><g transform="translate(569.6406080233869,404.7578004372775)"><circle class="nodeFrame   " r="30" cx="0" cy="0"></circle><text class="no-select" text-anchor="middle" dominant-baseline="middle" x="0" y="0">Attr</text></g><g transform="translate(833.3333333333333,250)"><rect class="nodeFrame   " width="50" height="50" x="-25" y="-25"></rect><text class="no-select" text-anchor="middle" dominant-baseline="middle" x="0" y="0">?</text></g><g transform="translate(750,416.66666666666663)"><polygon class="nodeFrame   " points="35,0,0,35,-35,0,0,-35"></polygon><text class="no-select" text-anchor="middle" dominant-baseline="middle" x="0" y="0">Bflr</text></g><g transform="translate(959.6405964004815,425.7577998114288)"><circle class="nodeFrame   " r="30" cx="0" cy="0"></circle><text class="no-select" text-anchor="middle" dominant-baseline="middle" x="0" y="0">Attr</text></g><line class="line " marker-end="url(#arrowhead)" x1="166" y1="275" x2="83" y2="381"></line><line class="line " marker-end="url(#arrowhead)" x1="166" y1="275" x2="250" y2="386"></line><line class="line " marker-end="url(#arrowhead)" x1="500" y1="108" x2="166" y2="225"></line><line class="line " marker-end="url(#arrowhead)" x1="500" y1="275" x2="416" y2="381"></line><line class="line " marker-end="url(#arrowhead)" x1="500" y1="275" x2="569" y2="374"></line><line class="line " marker-end="url(#arrowhead)" x1="500" y1="108" x2="500" y2="225"></line><line class="line " marker-end="url(#arrowhead)" x1="833" y1="275" x2="750" y2="381"></line><line class="line " marker-end="url(#arrowhead)" x1="833" y1="275" x2="959" y2="395"></line><line class="line " marker-end="url(#arrowhead)" x1="500" y1="108" x2="833" y2="225"></line></svg>
