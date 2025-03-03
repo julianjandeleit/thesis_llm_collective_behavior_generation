@@ -8,7 +8,7 @@ The repository contains the creation of datasets for LLM training of swarm contr
 
 Here is an example result. For this example, the LLM was trained on 3 kinds of missions (Foraging, Connection, Distribution) and then asked to perform a task it was not trained on (Aggregation).
 
-This is the prompt
+This is the prompt:
 ```
 The circular arena, constructed with 19 walls, has a radius of 3.17 m. The following lights are present in the arena at coordinates: ((-0.36, 0.14)).Evenly positioned around the origin are 14 robots within a radius of 1.20 meters. The goal is for the robots to aggregate at the black circle. There are two areas on the floor: a circle at [-1.47, 1.91] with a radius of 0.53 meters in white, and another circle at [-0.36, 0.14] with a radius of 1.03 meters in black.
 Generate the behavior tree that achieves the objective of this mission.
