@@ -20,6 +20,7 @@ This is the output of the LLM:
 ```
 
 A visualization of the collective behavior resulting from above tree:
+
 ![video](ressources/paper_ressources/llm_generalization/scenario_191/video.gif)
 
 The example is taken from the generalization experiment (scenario 191) found in the `ressources` directory.
