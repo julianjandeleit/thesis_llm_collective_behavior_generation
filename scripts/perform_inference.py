@@ -21,7 +21,7 @@ def main():
     # Add arguments
     parser.add_argument('--text', type=str, required=True, help='The text to process.')
     parser.add_argument('--model', type=str, required=True, help='Path to the model directory.')
-    parser.add_argument('--nowrap', action='store_true', help='DEPRECATED NO EFFECT NOW Specify if the text should be wrapped.')
+    parser.add_argument('--nowrap', action='store_true', help='Specify if the text should be wrapped with prompt template.')
 
     # Parse the arguments
     args = parser.parse_args()

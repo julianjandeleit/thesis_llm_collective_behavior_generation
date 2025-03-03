@@ -6,6 +6,8 @@ import tempfile
 import os
 import re
 
+# this script is used to evaluate certain behavior trees in diverse scenarios.
+
 # Initialize random seed for reproducibility
 np.random.seed(42)
 

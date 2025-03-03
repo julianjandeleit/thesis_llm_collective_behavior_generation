@@ -1,5 +1,8 @@
-# thesis_llm_collective_behavior_generation
+# AutoMoDe Customization
 
+custom-loopfunctions/ contains the newly implemented fitness functions.
+
+# Build and Usage Guide
 
 first build base (automode with argos beta 48 and behavior trees controllers):
 ```

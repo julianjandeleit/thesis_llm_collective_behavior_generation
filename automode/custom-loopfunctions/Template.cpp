@@ -6,6 +6,8 @@
  * @license MIT License
  */
 
+/* adapted by Julian Jandeleit for custom fitness functions. Formal explanations of those can be found in the thesis. */
+
 #include "Template.h"
 #include <iostream>
 #include <fstream>

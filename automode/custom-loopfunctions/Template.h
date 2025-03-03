@@ -8,6 +8,8 @@
   * @license MIT License
   */
 
+ /* adapted by Julian Jandeleit for custom fitness functions */
+
 #ifndef TEMPLATE
 #define TEMPLATE
 

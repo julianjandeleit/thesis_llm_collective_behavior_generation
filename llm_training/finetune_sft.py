@@ -5,6 +5,7 @@ from pipeline.sft import DEFAULT_SFT_CONFIG
 
 pipeline = MLPipeline()
 
+# training parameters
 sft_config_params = DEFAULT_SFT_CONFIG
 sft_config_params["num_train_epochs"] = 12
 sft_config_params["learning_rate"] = 2e-5
@@ -15,10 +16,10 @@ sft_config_params["gradient_accumulation_steps"] = 2
 sft_config_params["max_seq_length"] = 1000
 #sft_config_params["lr_scheduler_type"] = "reduce_lr_on_plateau"
 
-DFNAME = "final_experiments/automode_datasets/df_increasing_size_1575"
+DFNAME = "final_experiments/automode_datasets/df_increasing_size_1575" # training dataset
 
 from pipeline.utils import DEFAULT_GENERATE_PROMPT, DESCRIPTIVE_GENERATE_PROMPT
-PROMPT = DESCRIPTIVE_GENERATE_PROMPT
+PROMPT = DESCRIPTIVE_GENERATE_PROMPT # prompt template
 
 nepochs=sft_config_params["num_train_epochs"]
 import datetime
@@ -26,7 +27,7 @@ current_date = datetime.date.today()
 current_date_str = current_date.strftime("%Y-%m-%d")
 
 #EXP_NAME = f"demo_train_{current_date_str}_{nepochs}_{DFNAME}"
-EXP_NAME = f"trained_sft"
+EXP_NAME = f"trained_sft" # output directory
 
 _trained_model, hf_trainer, dataset = pipeline.train_sft(f"../ressources/{DFNAME}.pickle", PROMPT, EXP_NAME, sft_config_params)
 
@@ -39,7 +40,7 @@ print(output_txt)
 
 
 
-# # %%
+# # %% HERE a quick test iference of the fine-tuned model is done and a training loss metric is plotted and saved to the output directory
 import pandas as pd
 index = 0
 df = pd.read_pickle(f"../ressources/{DFNAME}.pickle")

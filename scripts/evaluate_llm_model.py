@@ -2,9 +2,9 @@
 from pipeline.pipeline import MLPipeline
 from pipeline.utils import DEFAULT_GENERATE_PROMPT, DESCRIPTIVE_GENERATE_PROMPT
 PROMPT = DESCRIPTIVE_GENERATE_PROMPT
-SCRIPT_PATH="./run_argos_with_vis.sh"
-MODEL_PATH = "../llm_training/trained_sft"
-DF_PATH = "../ressources/final_experiments/automode_datasets/df_increasing_size_validate.pickle"
+SCRIPT_PATH="./run_argos_with_vis.sh" # used for evaluation in simulation
+MODEL_PATH = "../llm_training/trained_sft" # where fine-tuned model is saved
+DF_PATH = "../ressources/final_experiments/automode_datasets/df_increasing_size_validate.pickle" # scenarios with automode baseline to validate on (same format as for training)
 NUM_SCORES_PER_RUN=10
 
 #%% 

@@ -6,8 +6,8 @@ import random
 random.seed(42)
 np.random.seed(42)
 # Step 1: Read the data from a semicolon-separated file
-file_path = '../ressources/outfile_seed20_n600_25-12-14.txt'  # Replace with your actual file path
-dataset_path = "../ressources/dataset_seed20_n600_24-12-24.pickle"
+file_path = '../ressources/outfile_seed20_n600_25-12-14.txt'  # automode bt file path
+dataset_path = "../ressources/dataset_seed20_n600_24-12-24.pickle" # sampled dataset with scenarios
 
 # Initialize a list to hold parsed data
 parsed_data = []
@@ -38,7 +38,7 @@ merged_df = df_existing.merge(df_trees, left_index=True, right_index=True, how='
 print(merged_df)
 #%% evaluate controller
 
-script_name = "./run_argos_with_vis.sh"
+script_name = "./run_argos_with_vis.sh" # this script is executed to actually run simulaation
 import tempfile
 import subprocess
 import os

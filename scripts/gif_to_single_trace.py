@@ -4,6 +4,8 @@ import argparse
 import imageio
 from pathlib import Path
 
+# in contras to gif_to_trace this only tracks one robot
+
 def get_contours(frame, prev_contour=None, max_dist=50):
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     blurred = cv2.GaussianBlur(gray, (5, 5), 0)
